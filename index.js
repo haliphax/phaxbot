@@ -20,7 +20,7 @@ const Chatter = class {
 const store = new Vuex.Store({
 	state: {
 		AVATAR_LIMIT: 20,
-		CORS_PROXY: 'https://cors-anywhere.herokuapp.com/',
+		CORS_PROXY: 'http://localhost:8080/',
 		TWITCH_USER: 'haliphax',
 		avatars: {},
 		chatters: {},
