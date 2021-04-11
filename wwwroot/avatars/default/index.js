@@ -63,6 +63,9 @@ Vue.component('avatar-default', {
 		</div>
 	`,
 	mounted() {
+		if (Math.random() < 0.5)
+			this.$el.classList.add('right');
+
 		this.$el.style.left = this.getRandomX() + 'px';
 		this.act();
 	},
