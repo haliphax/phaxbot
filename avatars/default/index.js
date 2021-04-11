@@ -9,18 +9,13 @@ const WAIT_MIN = 5;
 
 /** default avatar component */
 Vue.component('avatar-default', {
-	data() {
-		return {
-			destination: null,
-		};
-	},
 	props: ['avatar'],
 	methods: {
 		act() {
 			if (Math.random() < PROBABILITY_WALK) {
-				this.destination = this.getRandomX();
+				const destination = this.getRandomX();
 
-				if (this.destination < this.$el.offsetLeft)
+				if (destination < this.$el.offsetLeft)
 				{
 					this.$el.classList.remove('right');
 					this.$el.classList.add('left');
@@ -30,11 +25,11 @@ Vue.component('avatar-default', {
 					this.$el.classList.add('right');
 				}
 
-				const direction = this.$el.offsetLeft < this.destination
+				const direction = this.$el.offsetLeft < destination
 					? 1 : -1;
 
 				this.$el.classList.add('walking');
-				this.walk(direction);
+				this.walk(destination, direction);
 
 				return;
 			}
@@ -47,18 +42,17 @@ Vue.component('avatar-default', {
 			return Math.round(Math.random()
 				* (window.innerWidth - this.$el.clientWidth));
 		},
-		walk(direction) {
+		walk(destination, direction) {
 			this.$el.style.left = (this.$el.offsetLeft + direction) + 'px';
 
 			if (this.$el.offsetLeft == this.destination) {
-				this.destination = null;
 				this.$el.classList.remove('walking');
 				this.act();
 
 				return;
 			}
 
-			setTimeout(() => this.walk(direction), 100);
+			setTimeout(() => this.walk(destination, direction), 100);
 		}
 	},
 	template: `
