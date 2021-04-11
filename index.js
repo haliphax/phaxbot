@@ -61,8 +61,11 @@ const store = new Vuex.Store({
 		},
 		config(state, val) {
 			for (const p in val)
-				if (typeof state[p] != 'undefined')
+				if (typeof state[p] != 'undefined'
+					&& typeof val[p] != 'undefined')
+				{
 					state[p] = val[p];
+				}
 		},
 	},
 	actions: {
