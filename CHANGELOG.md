@@ -1,3 +1,10 @@
+## 0.1.1 (2021-04-11)
+
+
+- fix: can't rely on cors-anywhere demo
+- fix: don't overwrite config with undefined
+- style: center names
+
 ## 0.1.0 (2021-04-11)
 
 
