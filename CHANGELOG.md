@@ -1,3 +1,10 @@
+## 0.3.0 (2021-04-11)
+
+
+- style: fix label centering
+- feature: mario avatar
+- style: inline labels
+
 ## 0.2.0 (2021-04-11)
 
 
