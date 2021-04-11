@@ -19,7 +19,7 @@
 	animation-name: avatar-walking-left;
 }
 .avatar.default.right {
-	background-position: -1088px 0;
+	background-position: -576px 0;
 	animation-name: avatar-walking-right;
 }
 
@@ -55,30 +55,30 @@
 
 @keyframes avatar-walking-right {
 	11.1111% {
-		background-position: -576px 0;
-	}
-	22.2222% {
 		background-position: -640px 0;
 	}
-	33.3333% {
+	22.2222% {
 		background-position: -704px 0;
 	}
-	44.4444% {
+	33.3333% {
 		background-position: -768px 0;
 	}
-	55.5555% {
+	44.4444% {
 		background-position: -832px 0;
 	}
-	66.6667% {
+	55.5555% {
 		background-position: -896px 0;
 	}
-	77.7778% {
+	66.6667% {
 		background-position: -960px 0;
 	}
-	88.8889% {
+	77.7778% {
 		background-position: -1024px 0;
 	}
-	100% {
+	88.8889% {
 		background-position: -1088px 0;
+	}
+	100% {
+		background-position: -576px 0;
 	}
 }
