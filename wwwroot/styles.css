@@ -13,12 +13,7 @@ html, body {
 	top: -1em;
 	color: #fff;
 	text-shadow: #000 0 0 6px;
-}
-.avatar .avatar-label::before {
-	content: '';
-	margin-left: -100%;
-}
-.avatar .avatar-label::after {
-	content: '';
-	margin-right: -100%;
+	margin-left: -100vw;
+	margin-right: -100vw;
+	text-align: center;
 }
