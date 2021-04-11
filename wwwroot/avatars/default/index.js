@@ -5,9 +5,9 @@ import { store } from '../../avatars.js';
 /** chance of avatar choosing to walk (between 0 and 1) */
 const PROBABILITY_WALK = 0.25;
 /** window for random wait time between avatar decisions (in seconds) */
-const WAIT_WINDOW = 20;
+const WAIT_WINDOW = 23;
 /** minimum number of seconds to wait between avatar decisions */
-const WAIT_MIN = 5;
+const WAIT_MIN = 7;
 
 /** default avatar component */
 Vue.component('avatar-default', {
