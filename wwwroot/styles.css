@@ -8,6 +8,7 @@ html, body {
 }
 
 .avatar .avatar-label {
+	display: inline;
 	position: relative;
 	top: -1em;
 	color: #fff;
