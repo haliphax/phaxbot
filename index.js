@@ -4,15 +4,80 @@
 const CORS_PROXY = document.getElementById('data-cors-proxy')
 	.getAttribute('value');
 /** Twitch user to load chatters from */
-const TWITCH_USER = document.getElementById('#data-twitch-user')
+const TWITCH_USER = document.getElementById('data-twitch-user')
 	.getAttribute('value');
+/** maximum number of avatars allowed on screen */
+const AVATAR_LIMIT = 20;
+/** chance of avatar choosing to walk (between 0 and 1) */
+const PROBABILITY_WALK = 0.25;
+/** window for random wait time between avatar decisions (in seconds) */
+const WAIT_WINDOW = 20;
+/** minimum number of seconds to wait between avatar decisions */
+const WAIT_MIN = 5;
 
 /** base avatar component */
 Vue.component('stream-avatar', {
-	props: ['user'],
+	data() {
+		return {
+			destination: null,
+		};
+	},
+	props: ['avatar'],
+	methods: {
+		act() {
+			if (Math.random() < PROBABILITY_WALK) {
+				this.destination = this.getRandomX();
+
+				if (this.destination < this.$el.offsetLeft)
+				{
+					this.$el.classList.remove('right');
+					this.$el.classList.add('left');
+				}
+				else {
+					this.$el.classList.remove('left');
+					this.$el.classList.add('right');
+				}
+
+				const direction = this.$el.offsetLeft < this.destination
+					? 1 : -1;
+
+				this.$el.classList.add('walking');
+				this.walk(direction);
+
+				return;
+			}
+
+			setTimeout(this.act,
+				(WAIT_MIN + Math.round(Math.random()
+					* (WAIT_WINDOW - WAIT_MIN))) * 1000);
+		},
+		getRandomX() {
+			return Math.round(Math.random()
+				* (window.innerWidth - this.$el.clientWidth));
+		},
+		walk(direction) {
+			this.$el.style.left = (this.$el.offsetLeft + direction) + 'px';
+
+			if (this.$el.offsetLeft == this.destination) {
+				this.destination = null;
+				this.$el.classList.remove('walking');
+				this.act();
+
+				return;
+			}
+
+			setTimeout(() => this.walk(direction), 100);
+		}
+	},
 	template: `
-		<div><strong>{{ user }}</strong></div>
+		<div class="avatar">
+			<span class="avatar-label">{{ avatar.user.user }}</span>
+		</div>
 	`,
+	mounted() {
+		this.$el.style.left = this.getRandomX() + 'px';
+		this.act();
+	},
 });
 
 /** simple avatar object */
@@ -20,7 +85,6 @@ const Avatar = class {
 	constructor(user) {
 		this.user = user;
 		this.component = 'stream-avatar';
-		this.tags = new Set();
 	}
 };
 
@@ -37,7 +101,11 @@ const store = new Vuex.Store({
 	state: {
 		avatars: {},
 		chatters: {},
-		twitchUser: TWITCH_USER,
+	},
+	getters: {
+		avatarsArray(state) {
+			return Object.keys(state.avatars).map(v => state.avatars[v]);
+		},
 	},
 	mutations: {
 		avatars(state, val) {
@@ -48,9 +116,10 @@ const store = new Vuex.Store({
 		},
 		chatters(state, val) {
 			const keys = Object.keys(val),
-				result = {};
+				result = {},
+				limit = Math.min(AVATAR_LIMIT, keys.length);
 
-			for (let i = 0; i < keys.length; i++) {
+			for (let i = 0; i < limit; i++) {
 				const key = keys[i],
 					chatters = val[key];
 
@@ -74,9 +143,8 @@ const store = new Vuex.Store({
 	actions: {
 		addAvatar(ctx, payload) {
 			const copy = {},
-				avatar = new Avatar(payload.user);
+				avatar = new Avatar(payload);
 
-			avatar.tags = payload.tags;
 			Object.assign(copy, ctx.state.avatars);
 			copy[payload.user] = avatar;
 			ctx.commit('avatars', copy);
@@ -85,7 +153,7 @@ const store = new Vuex.Store({
 			const copy = {};
 
 			Object.assign(copy, ctx.state.avatars);
-			delete copy[payload];
+			delete copy[payload.user];
 			ctx.commit('avatars', copy);
 		},
 		updateAvatars(ctx) {
@@ -96,7 +164,7 @@ const store = new Vuex.Store({
 				flatObj = {};
 
 			for (let i = 0; i < flat.length; i++)
-				flatObj[flat[i]] = 1;
+				flatObj[flat[i].user] = 1;
 
 			for (let i = 0; i < keys.length; i++) {
 				const key = keys[i];
@@ -108,7 +176,7 @@ const store = new Vuex.Store({
 			for (let i = 0; i < flat.length; i++) {
 				const chatter = flat[i];
 
-				if (typeof ctx.state.avatars[chatter] == 'undefined') {
+				if (typeof ctx.state.avatars[chatter.user] == 'undefined') {
 					ctx.dispatch('addAvatar', chatter);
 				}
 			}
@@ -122,7 +190,7 @@ const store = new Vuex.Store({
 /** pull list of chatters and adjust avatars */
 const updateAvatars = async () => {
 	// requires cors-container - https://github.com/Rob--W/cors-anywhere
-	await fetch(`${CORS_PROXY}https://tmi.twitch.tv/group/user/${store.twitchUser}/chatters`)
+	await fetch(`${CORS_PROXY}https://tmi.twitch.tv/group/user/${TWITCH_USER}/chatters`)
 		.then(r => r.json()).then(d => {
 			store.dispatch('updateChatters', d.chatters);
 			store.dispatch('updateAvatars');
@@ -132,4 +200,10 @@ const updateAvatars = async () => {
 updateAvatars();
 setInterval(updateAvatars, 10000);
 
-// TODO animate avatars
+new Vue({
+	computed: {
+		...Vuex.mapGetters(['avatarsArray']),
+	},
+	el: '#main',
+	store: store,
+});

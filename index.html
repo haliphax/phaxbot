@@ -10,5 +10,9 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.js"></script>
         <script type="module" src="index.js"></script>
+		<div id="main">
+			<component v-for="avatar in $store.getters.avatarsArray"
+				:is="avatar.component" :key="avatar.user.user" :avatar="avatar" />
+		</div>
     </body>
 </html>
