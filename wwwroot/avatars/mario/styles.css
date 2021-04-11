@@ -1,0 +1,60 @@
+.avatar.mario {
+	display: inline-block;
+	width: 18px;
+	height: 32px;
+	background-color: transparent;
+	background-image: url(avatar.gif);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: -54px 0;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	margin-bottom: 2px;
+}
+.avatar.mario.walking {
+	animation-duration: 1s;
+	animation-timing-function: steps(1, end);
+	animation-iteration-count: infinite;
+}
+.avatar.mario.left {
+	animation-name: mario-walking-left;
+}
+.avatar.mario.walking.left {
+	background-position: 0 0;
+}
+.avatar.mario.right {
+	background-position: -72px 0;
+	animation-name: mario-walking-right;
+}
+.avatar.mario.walking.right {
+	background-position: -126px 0;
+}
+
+.avatar.mario .avatar-label {
+	top: -2em;
+}
+
+@keyframes mario-walking-left {
+	33.3333% {
+		background-position: -36px 0;
+	}
+	66.6667% {
+		background-position: -18px 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+@keyframes mario-walking-right {
+	33.3333% {
+		background-position: -90px 0;
+	}
+	66.6667% {
+		background-position: -108px 0;
+	}
+	100% {
+		background-position: -126px 0;
+	}
+}
