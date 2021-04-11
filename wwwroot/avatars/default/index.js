@@ -27,11 +27,8 @@ Vue.component('avatar-default', {
 					this.$el.classList.add('right');
 				}
 
-				const direction = this.$el.offsetLeft < destination
-					? 1 : -1;
-
 				this.$el.classList.add('walking');
-				this.walk(destination, direction);
+				this.walk(destination);
 
 				return;
 			}
@@ -41,20 +38,23 @@ Vue.component('avatar-default', {
 					* (WAIT_WINDOW - WAIT_MIN))) * 1000);
 		},
 		getRandomX() {
-			return Math.round(Math.random()
+			return Math.floor(Math.random()
 				* (window.innerWidth - this.$el.clientWidth));
 		},
-		walk(destination, direction) {
+		walk(destination) {
+			const direction = this.$el.offsetLeft < destination
+				? 1 : -1;
+
 			this.$el.style.left = (this.$el.offsetLeft + direction) + 'px';
 
-			if (this.$el.offsetLeft == this.destination) {
+			if (this.$el.offsetLeft == destination) {
 				this.$el.classList.remove('walking');
 				this.act();
 
 				return;
 			}
 
-			setTimeout(() => this.walk(destination, direction), 100);
+			setTimeout(() => this.walk(destination), 100);
 		}
 	},
 	template: `
