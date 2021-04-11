@@ -1,3 +1,5 @@
+import { store } from '../../avatars.js';
+
 'use strict';
 
 /** chance of avatar choosing to walk (between 0 and 1) */
@@ -35,7 +37,7 @@ Vue.component('avatar-default', {
 			}
 
 			setTimeout(this.act,
-				(WAIT_MIN + Math.round(Math.random()
+				(WAIT_MIN + Math.floor(Math.random()
 					* (WAIT_WINDOW - WAIT_MIN))) * 1000);
 		},
 		getRandomX() {
@@ -65,3 +67,5 @@ Vue.component('avatar-default', {
 		this.act();
 	},
 });
+
+store.commit('registerAvatar', 'avatar-default');

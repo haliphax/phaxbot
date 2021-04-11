@@ -10,10 +10,10 @@
 		<input type="hidden" id="data-twitch-user" value="strager" />
 		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.js"></script>
-		<script type="module" src="avatars/default/index.js"></script>
-        <script type="module" src="index.js" async></script>
+		<script type="module" src="avatars/default/index.js" async></script>
+        <script type="module" src="index.js" defer></script>
 		<div id="main">
-			<stream-avatars :cors-proxy="'http://localhost:8080/'" />
+			<stream-avatars />
 		</div>
     </body>
 </html>

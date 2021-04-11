@@ -2,9 +2,9 @@
 
 /** simple avatar object */
 const Avatar = class {
-	constructor(user) {
+	constructor(user, component) {
 		this.user = user;
-		this.component = 'avatar-default';
+		this.component = component;
 	}
 };
 
@@ -22,6 +22,7 @@ const store = new Vuex.Store({
 		AVATAR_LIMIT: 20,
 		CORS_PROXY: 'http://localhost:8080/',
 		TWITCH_USER: 'haliphax',
+		availableAvatars: [],
 		avatars: {},
 		chatters: {},
 	},
@@ -67,11 +68,17 @@ const store = new Vuex.Store({
 					state[p] = val[p];
 				}
 		},
+		registerAvatar(state, val) {
+			state.availableAvatars.push(val);
+		},
 	},
 	actions: {
 		addAvatar(ctx, payload) {
 			const copy = {},
-				avatar = new Avatar(payload);
+				randomAvatar = ctx.state.availableAvatars[
+					Math.floor(Math.random()
+						* ctx.state.availableAvatars.length)],
+				avatar = new Avatar(payload, randomAvatar);
 
 			Object.assign(copy, ctx.state.avatars);
 			copy[payload.user] = avatar;
@@ -142,7 +149,4 @@ Vue.component('stream-avatars', {
 	},
 });
 
-new Vue({
-	el: '#main',
-	store: store,
-});
+export { Avatar, Chatter, store };
