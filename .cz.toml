@@ -1,0 +1,32 @@
+[tool.commitizen]
+name = "cz_customize"
+version = "0.0.0"
+
+[tool.commitizen.customize]
+message_template = "{{change_type}}: {{message}}"
+example = "feature: this feature enables flying toasters"
+schema = "<type>: <body>"
+schema_pattern = "^(bump|break|feature|fix|refactor|perf|style|asset|docs|build):(\\s.*)"
+bump_pattern = "^(break|feature|fix):\\s"
+bump_map = {break = "MAJOR", feature = "MINOR", fix = "PATCH"}
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "change_type"
+choices = [
+	{value = "break", name = "Breaking change. (MAJOR semver)"},
+	{value = "feature", name = "New feature. (MINOR semver)"},
+	{value = "fix", name = "Fixing a bug. (PATCH semver)"},
+	{value = "refactor", name = "Refactoring code, no change in API."},
+	{value = "perf", name = "Performance tuning, no change in API."},
+	{value = "style", name = "Style/UI tweaks."},
+	{value = "asset", name = "Adding/removing asset(s)."},
+	{value = "docs", name = "Updating documentation."},
+	{value = "build", name = "Updating build/CI files."}
+]
+message = "Select the type of change you are committing:"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "message"
+message = "Commit message:"
