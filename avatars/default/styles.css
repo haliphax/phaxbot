@@ -23,21 +23,6 @@
 	animation-name: avatar-walking-right;
 }
 
-.avatar.default .avatar-label {
-	position: relative;
-	top: -1em;
-	color: #fff;
-	text-shadow: #000 0 0 6px;
-}
-.avatar.default .avatar-label::before {
-	content: '';
-	margin-left: -100%;
-}
-.avatar.default .avatar-label::after {
-	content: '';
-	margin-right: -100%;
-}
-
 @keyframes avatar-walking-left {
 	11.1111% {
 		background-position: -64px 0;
