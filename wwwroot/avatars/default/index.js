@@ -68,4 +68,5 @@ Vue.component('avatar-default', {
 	},
 });
 
-store.commit('registerAvatar', 'avatar-default');
+store.commit('registerAvatar',
+	['avatar-default', 'avatars/default/styles.css']);

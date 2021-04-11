@@ -69,7 +69,18 @@ const store = new Vuex.Store({
 				}
 		},
 		registerAvatar(state, val) {
-			state.availableAvatars.push(val);
+			const sliced = val.slice(1);
+
+			state.availableAvatars.push(val[0]);
+
+			for (let i = 0; i < sliced.length; i++) {
+				const s = document.createElement('link');
+
+				s.type = 'text/css';
+				s.rel = 'stylesheet';
+				s.href = sliced[i];
+				document.body.appendChild(s);
+			}
 		},
 	},
 	actions: {
