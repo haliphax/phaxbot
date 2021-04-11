@@ -1,90 +1,10 @@
 'use strict';
 
-/** URL stem for CORS proxy */
-const CORS_PROXY = document.getElementById('data-cors-proxy')
-	.getAttribute('value');
-/** Twitch user to load chatters from */
-const TWITCH_USER = document.getElementById('data-twitch-user')
-	.getAttribute('value');
-/** maximum number of avatars allowed on screen */
-const AVATAR_LIMIT = 20;
-/** chance of avatar choosing to walk (between 0 and 1) */
-const PROBABILITY_WALK = 0.25;
-/** window for random wait time between avatar decisions (in seconds) */
-const WAIT_WINDOW = 20;
-/** minimum number of seconds to wait between avatar decisions */
-const WAIT_MIN = 5;
-
-/** base avatar component */
-Vue.component('stream-avatar', {
-	data() {
-		return {
-			destination: null,
-		};
-	},
-	props: ['avatar'],
-	methods: {
-		act() {
-			if (Math.random() < PROBABILITY_WALK) {
-				this.destination = this.getRandomX();
-
-				if (this.destination < this.$el.offsetLeft)
-				{
-					this.$el.classList.remove('right');
-					this.$el.classList.add('left');
-				}
-				else {
-					this.$el.classList.remove('left');
-					this.$el.classList.add('right');
-				}
-
-				const direction = this.$el.offsetLeft < this.destination
-					? 1 : -1;
-
-				this.$el.classList.add('walking');
-				this.walk(direction);
-
-				return;
-			}
-
-			setTimeout(this.act,
-				(WAIT_MIN + Math.round(Math.random()
-					* (WAIT_WINDOW - WAIT_MIN))) * 1000);
-		},
-		getRandomX() {
-			return Math.round(Math.random()
-				* (window.innerWidth - this.$el.clientWidth));
-		},
-		walk(direction) {
-			this.$el.style.left = (this.$el.offsetLeft + direction) + 'px';
-
-			if (this.$el.offsetLeft == this.destination) {
-				this.destination = null;
-				this.$el.classList.remove('walking');
-				this.act();
-
-				return;
-			}
-
-			setTimeout(() => this.walk(direction), 100);
-		}
-	},
-	template: `
-		<div class="avatar">
-			<span class="avatar-label">{{ avatar.user.user }}</span>
-		</div>
-	`,
-	mounted() {
-		this.$el.style.left = this.getRandomX() + 'px';
-		this.act();
-	},
-});
-
 /** simple avatar object */
 const Avatar = class {
 	constructor(user) {
 		this.user = user;
-		this.component = 'stream-avatar';
+		this.component = 'avatar-default';
 	}
 };
 
@@ -99,6 +19,9 @@ const Chatter = class {
 /** main Vuex store */
 const store = new Vuex.Store({
 	state: {
+		AVATAR_LIMIT: 20,
+		CORS_PROXY: 'https://cors-anywhere.herokuapp.com/',
+		TWITCH_USER: 'haliphax',
 		avatars: {},
 		chatters: {},
 	},
@@ -111,13 +34,10 @@ const store = new Vuex.Store({
 		avatars(state, val) {
 			state.avatars = val;
 		},
-		twitchUser(state, val) {
-			state.twitchUser = val;
-		},
 		chatters(state, val) {
 			const keys = Object.keys(val),
 				result = {},
-				limit = Math.min(AVATAR_LIMIT, keys.length);
+				limit = Math.min(state.AVATAR_LIMIT, keys.length);
 
 			for (let i = 0; i < limit; i++) {
 				const key = keys[i],
@@ -138,6 +58,11 @@ const store = new Vuex.Store({
 			}
 
 			state.chatters = result;
+		},
+		config(state, val) {
+			for (const p in val)
+				if (typeof state[p] != 'undefined')
+					state[p] = val[p];
 		},
 	},
 	actions: {
@@ -181,29 +106,40 @@ const store = new Vuex.Store({
 				}
 			}
 		},
-		updateChatters(ctx, payload) {
-			ctx.commit('chatters', payload);
+		async fetch(ctx) {
+			// requires cors-container - https://github.com/Rob--W/cors-anywhere
+			await fetch(`${ctx.state.CORS_PROXY}https://tmi.twitch.tv/group/user/${ctx.state.TWITCH_USER}/chatters`)
+				.then(r => r.json()).then(async d => {
+					ctx.commit('chatters', d.chatters);
+					ctx.dispatch('updateAvatars');
+				});
 		},
 	},
 });
 
-/** pull list of chatters and adjust avatars */
-const updateAvatars = async () => {
-	// requires cors-container - https://github.com/Rob--W/cors-anywhere
-	await fetch(`${CORS_PROXY}https://tmi.twitch.tv/group/user/${TWITCH_USER}/chatters`)
-		.then(r => r.json()).then(d => {
-			store.dispatch('updateChatters', d.chatters);
-			store.dispatch('updateAvatars');
-		});
-};
-
-updateAvatars();
-setInterval(updateAvatars, 10000);
-
-new Vue({
+Vue.component('stream-avatars', {
+	props: ['corsProxy', 'limit', 'twitchUser'],
 	computed: {
 		...Vuex.mapGetters(['avatarsArray']),
 	},
+	template: `
+		<div>
+			<component v-for="avatar in $store.getters.avatarsArray"
+				:is="avatar.component" :key="avatar.user.user" :avatar="avatar" />
+		</div>
+	`,
+	mounted() {
+		store.commit('config', {
+			CORS_PROXY: this.$props.corsProxy,
+			AVATAR_LIMIT: this.$props.limit,
+			TWITCH_USER: this.$props.twitchUser,
+		});
+		store.dispatch('fetch');
+		setInterval(() => store.dispatch('fetch'), 10000);
+	},
+});
+
+new Vue({
 	el: '#main',
 	store: store,
 });
