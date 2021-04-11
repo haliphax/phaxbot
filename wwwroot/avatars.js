@@ -138,6 +138,70 @@ const store = new Vuex.Store({
 	},
 });
 
+/** chance of avatar choosing to walk (between 0 and 1) */
+const PROBABILITY_WALK = 0.25;
+/** window for random wait time between avatar decisions (in seconds) */
+const WAIT_WINDOW = 23;
+/** minimum number of seconds to wait between avatar decisions */
+const WAIT_MIN = 7;
+
+/** Vue mixin for default avatar behavior */
+const AvatarMixIn = Vue.extend({
+	props: ['avatar'],
+	methods: {
+		act() {
+			if (Math.random() < PROBABILITY_WALK) {
+				const destination = this.getRandomX();
+
+				if (destination < this.$el.offsetLeft)
+				{
+					this.$el.classList.remove('right');
+					this.$el.classList.add('left');
+				}
+				else {
+					this.$el.classList.remove('left');
+					this.$el.classList.add('right');
+				}
+
+				this.$el.classList.add('walking');
+				this.walk(destination);
+
+				return;
+			}
+
+			setTimeout(this.act,
+				(WAIT_MIN + Math.floor(Math.random()
+					* (WAIT_WINDOW - WAIT_MIN))) * 1000);
+		},
+		getRandomX() {
+			return Math.floor(Math.random()
+				* (window.innerWidth - this.$el.clientWidth));
+		},
+		walk(destination) {
+			const direction = this.$el.offsetLeft < destination
+				? 1 : -1;
+
+			this.$el.style.left = (this.$el.offsetLeft + direction) + 'px';
+
+			if (this.$el.offsetLeft == destination) {
+				this.$el.classList.remove('walking');
+				this.act();
+
+				return;
+			}
+
+			setTimeout(() => this.walk(destination), 100);
+		}
+	},
+	mounted() {
+		if (Math.random() < 0.5)
+			this.$el.classList.add('right');
+
+		this.$el.style.left = this.getRandomX() + 'px';
+		this.act();
+	},
+});
+
 Vue.component('stream-avatars', {
 	props: ['corsProxy', 'limit', 'twitchUser'],
 	computed: {
@@ -160,4 +224,4 @@ Vue.component('stream-avatars', {
 	},
 });
 
-export { Avatar, Chatter, store };
+export { Avatar, AvatarMixIn, Chatter, store };
