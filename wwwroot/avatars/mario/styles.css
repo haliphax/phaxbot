@@ -15,7 +15,7 @@
 	image-rendering: pixelated;
 }
 .avatar.mario.walking {
-	animation-duration: 1s;
+	animation-duration: .75s;
 	animation-timing-function: steps(1, end);
 	animation-iteration-count: infinite;
 }
