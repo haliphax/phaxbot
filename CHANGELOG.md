@@ -1,3 +1,12 @@
+## 0.5.0 (2021-04-12)
+
+
+- refactor: rename 'default' avatar to 'skeleton'
+- feature: link avatar
+- refactor: relative import of avatars module
+- refactor: whitespace
+- refactor: remove vestigial hidden inputs
+
 ## 0.4.0 (2021-04-11)
 
 
