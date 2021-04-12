@@ -28,6 +28,7 @@ const store = new Vuex.Store({
 		avatarLimit: 20,
 		avatars: {},
 		avatarsUrl: 'avatars.json',
+		bot: false,
 		chatters: {},
 		choicesUrl: 'choices.json',
 		corsProxy: 'http://localhost:8080/',
@@ -163,7 +164,9 @@ const store = new Vuex.Store({
 				.then(r => r.json()).then(async d => {
 					ctx.commit('chatters', d.chatters);
 					ctx.dispatch('updateAvatars');
-					ctx.dispatch('pollChoices');
+
+					if (ctx.state.bot)
+						ctx.dispatch('pollChoices');
 				});
 		},
 	},
@@ -259,6 +262,7 @@ Vue.component('stream-avatars', {
 	props: [
 		'avatarLimit',
 		'avatarsUrl',
+		'bot',
 		'choicesUrl',
 		'corsProxy',
 		'excludeChatters',
@@ -278,6 +282,7 @@ Vue.component('stream-avatars', {
 		store.commit('config', {
 			avatarLimit: this.$props.avatarLimit,
 			avatarsUrl: this.$props.avatarsUrl,
+			bot: this.$props.bot,
 			choicesUrl: this.$props.choicesUrl,
 			excludeChatters: this.$props.excludeChatters,
 			corsProxy: this.$props.corsProxy,
