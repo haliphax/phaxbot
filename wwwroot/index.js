@@ -1,4 +1,4 @@
-import { store } from '/avatars.js';
+import { store } from './avatars.js';
 
 'use strict';
 
