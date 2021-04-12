@@ -12,6 +12,5 @@ Vue.component('avatar-mario', {
 	`,
 });
 
-if (store.state.availableAvatars.indexOf('mario') < 0)
 	store.commit('registerAvatar',
 		['avatar-mario', 'avatars/mario/styles.css']);

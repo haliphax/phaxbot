@@ -80,16 +80,20 @@ const store = new Vuex.Store({
 				}
 		},
 		registerAvatar(state, val) {
-			const sliced = val.slice(1);
+			const assets = val.slice(1),
+				key = val[0];
+
+			if (state.availableAvatars.indexOf(val[0]) >= 0)
+				return;
 
 			state.availableAvatars.push(val[0]);
 
-			for (let i = 0; i < sliced.length; i++) {
+			for (let i = 0; i < assets.length; i++) {
 				const s = document.createElement('link');
 
 				s.type = 'text/css';
 				s.rel = 'stylesheet';
-				s.href = sliced[i];
+				s.href = assets[i];
 				document.body.appendChild(s);
 			}
 		},

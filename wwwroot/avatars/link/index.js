@@ -12,6 +12,5 @@ Vue.component('avatar-link', {
 	`,
 });
 
-if (store.state.availableAvatars.indexOf('link') < 0)
-	store.commit('registerAvatar',
-		['avatar-link', 'avatars/link/styles.css']);
+store.commit('registerAvatar',
+	['avatar-link', 'avatars/link/styles.css']);
