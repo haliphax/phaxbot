@@ -12,5 +12,6 @@ Vue.component('avatar-skeleton', {
 	`,
 });
 
-store.commit('registerAvatar',
-	['avatar-skeleton', 'avatars/skeleton/styles.css']);
+if (store.state.availableAvatars.indexOf('skeleton') < 0)
+	store.commit('registerAvatar',
+		['avatar-skeleton', 'avatars/skeleton/styles.css']);
