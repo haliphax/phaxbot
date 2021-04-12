@@ -1,3 +1,12 @@
+## 0.7.0 (2021-04-12)
+
+
+- fix: protect against repeated asset loading
+- refactor: encapsulated vue/x dependencies
+- feature: exclude chatters from avatars declaratively
+- feature: slightly randomized walk interval for all avatars
+- style: refactored css to maximize cascading styles, tweaked sprite y positions
+
 ## 0.6.1 (2021-04-12)
 
 
