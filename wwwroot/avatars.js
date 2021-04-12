@@ -27,6 +27,7 @@ const store = new Vuex.Store({
 		avatarsUrl: 'avatars.json',
 		chatters: {},
 		corsProxy: 'http://localhost:8080/',
+		excludeChatters: ['hxavatarsbot', 'streamelements'],
 		twitchUser: 'haliphax',
 	},
 	getters: {
@@ -49,6 +50,10 @@ const store = new Vuex.Store({
 
 				for (let j = 0; j < chatters.length; j++) {
 					const chatter = chatters[j];
+
+					if (state.excludeChatters.indexOf(chatter) >= 0)
+						continue;
+
 					let chatterObj = null;
 
 					if (result.hasOwnProperty(chatter))
@@ -245,7 +250,13 @@ const AvatarMixIn = Vue.extend({
 });
 
 Vue.component('stream-avatars', {
-	props: ['avatarLimit', 'avatarsUrl', 'corsProxy', 'twitchUser'],
+	props: [
+		'avatarLimit',
+		'avatarsUrl',
+		'corsProxy',
+		'excludeChatters',
+		'twitchUser',
+	],
 	computed: {
 		...Vuex.mapGetters(['avatarsArray']),
 	},
@@ -260,6 +271,7 @@ Vue.component('stream-avatars', {
 		store.commit('config', {
 			avatarLimit: this.$props.avatarLimit,
 			avatarsUrl: this.$props.avatarsUrl,
+			excludeChatters: this.$props.excludeChatters,
 			corsProxy: this.$props.corsProxy,
 			twitchUser: this.$props.twitchUser,
 		});
