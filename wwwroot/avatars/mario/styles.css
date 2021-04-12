@@ -31,25 +31,25 @@
 }
 
 @keyframes mario-walking-left {
-	33.3333% {
+	0% {
 		background-position: calc(2 * 18px * -1) 0;
 	}
-	66.6667% {
+	33.3333% {
 		background-position: calc(1 * 18px * -1) 0;
 	}
-	100% {
+	66.6667% {
 		background-position: calc(0 * 18px * -1) 0;
 	}
 }
 
 @keyframes mario-walking-right {
-	33.3333% {
+	0% {
 		background-position: calc(5 * 18px * -1) 0;
 	}
-	66.6667% {
+	33.3333% {
 		background-position: calc(6 * 18px * -1) 0;
 	}
-	100% {
+	66.6667% {
 		background-position: calc(7 * 18px * -1) 0;
 	}
 }
