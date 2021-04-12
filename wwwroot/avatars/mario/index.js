@@ -4,11 +4,6 @@ import { AvatarMixIn, store } from '../../avatars.js';
 
 /** default avatar component */
 Vue.component('avatar-mario', {
-	data() {
-		return {
-			walkInterval: 75,
-		};
-	},
 	mixins: [AvatarMixIn],
 	template: `
 		<div class="avatar mario">

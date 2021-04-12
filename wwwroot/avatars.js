@@ -173,7 +173,7 @@ const AvatarMixIn = Vue.extend({
 			// minimum number of seconds to wait between decisions
 			waitMinimum: 5,
 			// number of milliseconds between "walking" the avatar 1 pixel
-			walkInterval: 100,
+			walkInterval: 100 + Math.floor(Math.random() * 20) - 10,
 		};
 	},
 	props: ['avatar'],
