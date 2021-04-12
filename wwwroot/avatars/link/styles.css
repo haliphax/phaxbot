@@ -1,15 +1,8 @@
 .avatar.link {
-	display: inline-block;
 	width: 32px;
 	height: 32px;
-	background-color: transparent;
 	background-image: url(avatar.gif);
-	background-repeat: no-repeat;
-	background-size: cover;
 	background-position: calc(1 * 32px * -1) 0;
-	position: absolute;
-	bottom: 0;
-	text-align: center;
 }
 .avatar.link.walking {
 	animation-duration: 1s;

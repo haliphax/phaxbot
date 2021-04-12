@@ -1,14 +1,8 @@
 .avatar.skeleton {
-	display: inline-block;
 	width: 64px;
 	height: 64px;
-	background-color: transparent;
 	background-image: url(avatar.png);
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: absolute;
-	bottom: 0;
-	text-align: center;
+	bottom: -2px;
 }
 .avatar.skeleton.walking {
 	animation-duration: 1s;
@@ -16,69 +10,69 @@
 	animation-iteration-count: infinite;
 }
 .avatar.skeleton.left {
-	animation-name: avatar-walking-left;
+	animation-name: skeleton-walking-left;
 }
 .avatar.skeleton.right {
 	background-position: calc(9 * 64px * -1) 0;
-	animation-name: avatar-walking-right;
+	animation-name: skeleton-walking-right;
 }
 
-@keyframes avatar-walking-left {
-	11.1111% {
+@keyframes skeleton-walking-left {
+	0% {
 		background-position: calc(1 * 64px * -1) 0;
 	}
-	22.2222% {
+	11.1111% {
 		background-position: calc(2 * 64px * -1) 0;
 	}
-	33.3333% {
+	22.2222% {
 		background-position: calc(3 * 64px * -1) 0;
 	}
-	44.4444% {
+	33.3333% {
 		background-position: calc(4 * 64px * -1) 0;
 	}
-	55.5555% {
+	44.4444% {
 		background-position: calc(5 * 64px * -1) 0;
 	}
-	66.6667% {
+	55.5555% {
 		background-position: calc(6 * 64px * -1) 0;
 	}
-	77.7778% {
+	66.6667% {
 		background-position: calc(7 * 64px * -1) 0;
 	}
-	88.8889% {
+	77.7778% {
 		background-position: calc(8 * 64px * -1) 0;
 	}
-	100% {
+	88.8889% {
 		background-position: calc(0 * 64px * -1) 0;
 	}
 }
 
-@keyframes avatar-walking-right {
-	11.1111% {
+@keyframes skeleton-walking-right {
+	0% {
 		background-position: calc(10 * 64px * -1) 0;
 	}
-	22.2222% {
+	11.1111% {
 		background-position: calc(11 * 64px * -1) 0;
 	}
-	33.3333% {
+	22.2222% {
 		background-position: calc(12 * 64px * -1) 0;
 	}
-	44.4444% {
+	33.3333% {
 		background-position: calc(13 * 64px * -1) 0;
 	}
-	55.5555% {
+	44.4444% {
 		background-position: calc(14 * 64px * -1) 0;
 	}
-	66.6667% {
+	55.5555% {
 		background-position: calc(15 * 64px * -1) 0;
 	}
-	77.7778% {
+	66.6667% {
 		background-position: calc(16 * 64px * -1) 0;
 	}
-	88.8889% {
+	77.7778% {
 		background-position: calc(17 * 64px * -1) 0;
 	}
-	100% {
+	88.8889% {
 		background-position: calc(9 * 64px * -1) 0;
 	}
 }

@@ -1,18 +1,10 @@
 .avatar.mario {
-	display: inline-block;
 	width: 18px;
 	height: 32px;
-	background-color: transparent;
 	background-image: url(avatar.gif);
-	background-repeat: no-repeat;
-	background-size: cover;
 	background-position: calc(3 * 18px * -1) 0;
-	position: absolute;
-	bottom: 0;
-	text-align: center;
-	margin-bottom: 18px;
+	bottom: 16px;
 	transform: scale(2);
-	image-rendering: pixelated;
 }
 .avatar.mario.walking {
 	animation-duration: .75s;
