@@ -1,3 +1,12 @@
+## 0.8.0 (2021-04-12)
+
+
+- feature: sort avatars list in chatbot output
+- style: better keyframes for mario's walking animation
+- style: fixed link's walking animation
+- refactor: encapsulated avatar registration dedupe
+- fix: don't poll choices.json 2x
+
 ## 0.7.0 (2021-04-12)
 
 
