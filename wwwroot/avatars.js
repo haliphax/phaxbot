@@ -161,7 +161,6 @@ const store = new Vuex.Store({
 					ctx.dispatch('updateAvatars');
 					ctx.dispatch('pollChoices');
 				});
-			await ctx.dispatch('pollChoices');
 		},
 	},
 });
