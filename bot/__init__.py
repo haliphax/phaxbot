@@ -12,7 +12,7 @@ MY_DIR = realpath(dirname(__file__))
 
 with open(join(MY_DIR, '..', 'wwwroot', 'avatars.json'), 'r') as avatars_file:
 	data = json.loads(avatars_file.read())
-	AVATARS = data['avatars']
+	AVATARS = set(sorted(data['avatars']))
 
 
 @Command('avatar')
