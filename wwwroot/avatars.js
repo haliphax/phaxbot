@@ -22,6 +22,7 @@ const store = new Vuex.Store({
 		availableAvatars: [],
 		avatarLimit: 20,
 		avatars: {},
+		avatarsUrl: 'avatars.json',
 		chatters: {},
 		corsProxy: 'http://localhost:8080/',
 		twitchUser: 'haliphax',
@@ -208,7 +209,7 @@ const AvatarMixIn = Vue.extend({
 });
 
 Vue.component('stream-avatars', {
-	props: ['corsProxy', 'limit', 'twitchUser'],
+	props: ['avatarLimit', 'avatarsUrl', 'corsProxy', 'twitchUser'],
 	computed: {
 		...Vuex.mapGetters(['avatarsArray']),
 	},
@@ -219,13 +220,23 @@ Vue.component('stream-avatars', {
 				:avatar="avatar" />
 		</div>
 	`,
-	mounted() {
+	async mounted() {
 		store.commit('config', {
-			corsProxy: this.$props.corsProxy,
 			avatarLimit: this.$props.avatarLimit,
+			avatarsUrl: this.$props.avatarsUrl,
+			corsProxy: this.$props.corsProxy,
 			twitchUser: this.$props.twitchUser,
 		});
-		store.dispatch('fetch');
+
+		if (store.state.avatarsUrl) {
+			await fetch(store.state.avatarsUrl).then(r => r.json())
+				.then(async d => {
+					for (let i = 0; i < d.avatars.length; i++)
+						await import(`./avatars/${d.avatars[i]}/index.js`);
+				});
+		}
+
+		await store.dispatch('fetch');
 		setInterval(() => store.dispatch('fetch'), 10000);
 	},
 });
