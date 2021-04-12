@@ -123,9 +123,8 @@ const store = new Vuex.Store({
 			for (let i = 0; i < flat.length; i++) {
 				const chatter = flat[i];
 
-				if (typeof ctx.state.avatars[chatter.user] == 'undefined') {
+				if (typeof ctx.state.avatars[chatter.user] == 'undefined')
 					ctx.dispatch('addAvatar', chatter);
-				}
 			}
 		},
 		async fetch(ctx) {
