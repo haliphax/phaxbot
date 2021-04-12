@@ -25,7 +25,7 @@ async def cmd_avatar(msg, *args):
 	avatar = args[0].lower()
 
 	if avatar not in AVATARS:
-		await msg.reply('Unknown avatar. use !avatar by itself for a list '
+		await msg.reply('Unknown avatar. Use !avatar by itself for a list '
 						'of available choices.')
 
 		return
