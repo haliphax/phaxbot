@@ -5,6 +5,8 @@ const Avatar = class {
 	constructor(user, component) {
 		this.user = user;
 		this.component = component;
+		this.existing = false;
+		this.x = 0;
 	}
 };
 
@@ -105,7 +107,10 @@ const store = new Vuex.Store({
 						value = d[key],
 						avatar = ctx.state.avatars[key];
 
-					avatar.component = `avatar-${value}`;
+					avatar.existing = true;
+					// newline because template syntax highlighting is weird
+					avatar.component = `
+						avatar-${value}`.trim();
 				}
 			});
 		},
@@ -157,6 +162,10 @@ const store = new Vuex.Store({
 const AvatarMixIn = Vue.extend({
 	data() {
 		return {
+			// if the component is currently being mounted
+			mounting: true,
+			// x coordinate of avatar on screen
+			x: 0,
 			// chance of avatar choosing to walk (between 0 and 1)
 			walkProbability: 0.25,
 			// maximum number of seconds to wait between decisions
@@ -173,7 +182,7 @@ const AvatarMixIn = Vue.extend({
 			if (Math.random() < this.walkProbability) {
 				const destination = this.getRandomX();
 
-				if (destination < this.$el.offsetLeft)
+				if (destination < this.x)
 				{
 					this.$el.classList.remove('right');
 					this.$el.classList.add('left');
@@ -198,12 +207,12 @@ const AvatarMixIn = Vue.extend({
 				* (window.innerWidth - this.$el.clientWidth));
 		},
 		walk(destination) {
-			const direction = this.$el.offsetLeft < destination
+			const direction = this.x < destination
 				? 1 : -1;
 
-			this.$el.style.left = (this.$el.offsetLeft + direction) + 'px';
+			this.x += direction;
 
-			if (this.$el.offsetLeft == destination) {
+			if (this.x == destination) {
 				this.$el.classList.remove('walking');
 				this.act();
 
@@ -213,11 +222,24 @@ const AvatarMixIn = Vue.extend({
 			setTimeout(() => this.walk(destination), this.walkInterval);
 		}
 	},
+	watch: {
+		x(val) {
+			if (!(this.mounting && this.avatar.existing))
+				this.avatar.x = val;
+
+			this.$el.style.left = val + 'px';
+		},
+	},
 	mounted() {
+		if (this.avatar.existing)
+			this.x = this.avatar.x;
+		else if (this.mounting)
+			this.x = this.getRandomX();
+
 		if (Math.random() < 0.5)
 			this.$el.classList.add('right');
 
-		this.$el.style.left = this.getRandomX() + 'px';
+		this.mounting = false;
 		this.act();
 	},
 });
