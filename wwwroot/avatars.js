@@ -96,6 +96,19 @@ const store = new Vuex.Store({
 			copy[payload.user] = avatar;
 			ctx.commit('avatars', copy);
 		},
+		async pollChoices(ctx) {
+			await fetch('choices.json').then(r => r.json()).then(d => {
+				const keys = Object.keys(d);
+
+				for (let i = 0; i < keys.length; i++) {
+					const key = keys[i],
+						value = d[key],
+						avatar = ctx.state.avatars[key];
+
+					avatar.component = `avatar-${value}`;
+				}
+			});
+		},
 		removeAvatar(ctx, payload) {
 			const copy = {};
 
@@ -133,7 +146,9 @@ const store = new Vuex.Store({
 				.then(r => r.json()).then(async d => {
 					ctx.commit('chatters', d.chatters);
 					ctx.dispatch('updateAvatars');
+					ctx.dispatch('pollChoices');
 				});
+			await ctx.dispatch('pollChoices');
 		},
 	},
 });

@@ -1,2 +1,3 @@
 commitizen==2.17.2
 pre-commit==2.12.0
+PythonTwitchBotFramework==2.2.5
