@@ -1,0 +1,53 @@
+.avatar.link {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	background-color: transparent;
+	background-image: url(avatar.gif);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: calc(1 * 32px * -1) 0;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+}
+.avatar.link.walking {
+	animation-duration: 1s;
+	animation-timing-function: steps(1, end);
+	animation-iteration-count: infinite;
+}
+.avatar.link.left {
+	animation-name: link-walking-left;
+}
+.avatar.link.right {
+	background-position: calc(4 * 32px * -1) 0;
+	animation-name: link-walking-right;
+}
+
+.avatar.link .avatar-label {
+	top: -1.8em;
+}
+
+@keyframes link-walking-left {
+	0% {
+		background-position: calc(0 * 32px * -1) 0;
+	}
+	33.3333% {
+		background-position: calc(1 * 32px * -1) 0;
+	}
+	66.6667% {
+		background-position: calc(2 * 32px * -1) 0;
+	}
+}
+
+@keyframes link-walking-right {
+	0% {
+		background-position: calc(5 * 32px * -1) 0;
+	}
+	33.3333% {
+		background-position: calc(4 * 32px * -1) 0;
+	}
+	66.6667% {
+		background-position: calc(3 * 32px * -1) 0;
+	}
+}
