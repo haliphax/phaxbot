@@ -120,9 +120,8 @@ const store = new Vuex.Store({
 						avatar = ctx.state.avatars[key];
 
 					avatar.existing = true;
-					// newline because template syntax highlighting is weird
-					avatar.component = `
-						avatar-${value}`.trim();
+					avatar.component = `avatar-${value}`;
+					/* ` <-- this is to fix template syntax highlighting */
 				}
 			});
 		},
