@@ -6,11 +6,13 @@
 	background-image: url(avatar.gif);
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: -54px 0;
+	background-position: calc(3 * 18px * -1) 0;
 	position: absolute;
 	bottom: 0;
 	text-align: center;
-	margin-bottom: 2px;
+	margin-bottom: 18px;
+	transform: scale(2);
+	image-rendering: pixelated;
 }
 .avatar.mario.walking {
 	animation-duration: 1s;
@@ -24,37 +26,38 @@
 	background-position: 0 0;
 }
 .avatar.mario.right {
-	background-position: -72px 0;
+	background-position: calc(4 * 18px * -1) 0;
 	animation-name: mario-walking-right;
 }
 .avatar.mario.walking.right {
-	background-position: -126px 0;
+	background-position: calc(7 * 18px * -1) 0;
 }
 
 .avatar.mario .avatar-label {
-	top: -2em;
+	top: -2.5em;
+	font-size: 50%;
 }
 
 @keyframes mario-walking-left {
 	33.3333% {
-		background-position: -36px 0;
+		background-position: calc(2 * 18px * -1) 0;
 	}
 	66.6667% {
-		background-position: -18px 0;
+		background-position: calc(1 * 18px * -1) 0;
 	}
 	100% {
-		background-position: 0 0;
+		background-position: calc(0 * 18px * -1) 0;
 	}
 }
 
 @keyframes mario-walking-right {
 	33.3333% {
-		background-position: -90px 0;
+		background-position: calc(5 * 18px * -1) 0;
 	}
 	66.6667% {
-		background-position: -108px 0;
+		background-position: calc(6 * 18px * -1) 0;
 	}
 	100% {
-		background-position: -126px 0;
+		background-position: calc(7 * 18px * -1) 0;
 	}
 }
