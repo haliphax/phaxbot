@@ -1,3 +1,10 @@
+## 0.6.0 (2021-04-12)
+
+
+- feature: chatbot integration for self-service
+- build: gitignore
+- feature: docker-compose
+
 ## 0.5.1 (2021-04-12)
 
 
