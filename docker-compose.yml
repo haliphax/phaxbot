@@ -1,14 +1,29 @@
 version: '3'
 services:
-  cors-anywhere:
-    image: testcab/cors-anywhere
-    ports:
-      - '8080:8080'
-    restart: unless-stopped
-  nginx:
-    image: nginx
-    ports:
-      - '80:80'
+  bot:
+    build:
+      context: .
+    image: hxavatarsbot
     restart: unless-stopped
     volumes:
-      - './wwwroot:/usr/share/nginx/html:ro'
+      - ./commands:/app/commands
+      - ./configs:/app/configs
+      - ./database.sqlite:/app/database.sqlite
+      - ./docker/avatars.json:/app/wwwroot/docker.json
+      - ./docker/choices.json:/app/wwwroot/choices.json
+      - ./mods:/app/mods
+  cors:
+    image: testcab/cors-anywhere
+    ports:
+      - 127.0.0.1:8080:8080
+    restart: unless-stopped
+  web:
+    image: nginx
+    ports:
+      - 127.0.0.1:80:80
+    restart: unless-stopped
+    volumes:
+      - ./wwwroot:/usr/share/nginx/html/overlay
+      - ./docker/avatars.json:/usr/share/nginx/html/avatars.json
+      - ./docker/choices.json:/usr/share/nginx/html/choices.json
+      - ./docker/index.html:/usr/share/nginx/html/overlay/docker.html

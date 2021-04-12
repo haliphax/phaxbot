@@ -4,5 +4,7 @@
 commands/
 configs/
 database.sqlite*
+docker/*.json
 mods/
 wwwroot/choices.json
+wwwroot/docker.html

@@ -29,6 +29,7 @@ const store = new Vuex.Store({
 		avatars: {},
 		avatarsUrl: 'avatars.json',
 		chatters: {},
+		choicesUrl: 'choices.json',
 		corsProxy: 'http://localhost:8080/',
 		excludeChatters: ['hxavatarsbot', 'streamelements'],
 		twitchUser: 'haliphax',
@@ -111,7 +112,7 @@ const store = new Vuex.Store({
 			ctx.commit('avatars', copy);
 		},
 		async pollChoices(ctx) {
-			await fetch('choices.json').then(r => r.json()).then(d => {
+			await fetch(ctx.state.choicesUrl).then(r => r.json()).then(d => {
 				const keys = Object.keys(d);
 
 				for (let i = 0; i < keys.length; i++) {
@@ -258,6 +259,7 @@ Vue.component('stream-avatars', {
 	props: [
 		'avatarLimit',
 		'avatarsUrl',
+		'choicesUrl',
 		'corsProxy',
 		'excludeChatters',
 		'twitchUser',
@@ -276,6 +278,7 @@ Vue.component('stream-avatars', {
 		store.commit('config', {
 			avatarLimit: this.$props.avatarLimit,
 			avatarsUrl: this.$props.avatarsUrl,
+			choicesUrl: this.$props.choicesUrl,
 			excludeChatters: this.$props.excludeChatters,
 			corsProxy: this.$props.corsProxy,
 			twitchUser: this.$props.twitchUser,
