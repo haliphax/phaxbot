@@ -1,3 +1,14 @@
+## 0.4.0 (2021-04-11)
+
+
+- feature: load avatars via JSON file instead of HTML elements
+- style: only set bg color on body for easier OBS integration
+- refactor: 10 second API interval
+- style: faster mario animations
+- feature: move avatar config to mixin for override
+- refactor: move config back into Vuex store
+- style: frame-relative bg position with calc()
+
 ## 0.3.0 (2021-04-11)
 
 
