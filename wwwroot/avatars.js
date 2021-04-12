@@ -226,7 +226,7 @@ Vue.component('stream-avatars', {
 			twitchUser: this.$props.twitchUser,
 		});
 		store.dispatch('fetch');
-		setInterval(() => store.dispatch('fetch'), 30000);
+		setInterval(() => store.dispatch('fetch'), 10000);
 	},
 });
 
