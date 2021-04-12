@@ -1,3 +1,9 @@
+## 0.9.0 (2021-04-12)
+
+
+- feature: dockerized chat bot
+- refactor: found a better template syntax highlighting bug workaround
+
 ## 0.8.0 (2021-04-12)
 
 
