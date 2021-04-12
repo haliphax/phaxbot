@@ -1,4 +1,4 @@
-.avatar.default {
+.avatar.skeleton {
 	display: inline-block;
 	width: 64px;
 	height: 64px;
@@ -10,15 +10,15 @@
 	bottom: 0;
 	text-align: center;
 }
-.avatar.default.walking {
+.avatar.skeleton.walking {
 	animation-duration: 1s;
 	animation-timing-function: steps(1, end);
 	animation-iteration-count: infinite;
 }
-.avatar.default.left {
+.avatar.skeleton.left {
 	animation-name: avatar-walking-left;
 }
-.avatar.default.right {
+.avatar.skeleton.right {
 	background-position: calc(9 * 64px * -1) 0;
 	animation-name: avatar-walking-right;
 }
