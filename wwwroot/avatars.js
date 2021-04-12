@@ -138,19 +138,24 @@ const store = new Vuex.Store({
 	},
 });
 
-/** chance of avatar choosing to walk (between 0 and 1) */
-const PROBABILITY_WALK = 0.25;
-/** window for random wait time between avatar decisions (in seconds) */
-const WAIT_WINDOW = 23;
-/** minimum number of seconds to wait between avatar decisions */
-const WAIT_MIN = 7;
-
 /** Vue mixin for default avatar behavior */
 const AvatarMixIn = Vue.extend({
+	data() {
+		return {
+			// chance of avatar choosing to walk (between 0 and 1)
+			walkProbability: 0.25,
+			// maximum number of seconds to wait between decisions
+			waitMaximum: 17,
+			// minimum number of seconds to wait between decisions
+			waitMinimum: 5,
+			// number of milliseconds between "walking" the avatar 1 pixel
+			walkInterval: 100,
+		};
+	},
 	props: ['avatar'],
 	methods: {
 		act() {
-			if (Math.random() < PROBABILITY_WALK) {
+			if (Math.random() < this.walkProbability) {
 				const destination = this.getRandomX();
 
 				if (destination < this.$el.offsetLeft)
@@ -170,8 +175,8 @@ const AvatarMixIn = Vue.extend({
 			}
 
 			setTimeout(this.act,
-				(WAIT_MIN + Math.floor(Math.random()
-					* (WAIT_WINDOW - WAIT_MIN))) * 1000);
+				(this.waitMinimum + Math.floor(Math.random()
+					* (this.waitMaximum - this.waitMinimum))) * 1000);
 		},
 		getRandomX() {
 			return Math.floor(Math.random()
@@ -190,7 +195,7 @@ const AvatarMixIn = Vue.extend({
 				return;
 			}
 
-			setTimeout(() => this.walk(destination), 100);
+			setTimeout(() => this.walk(destination), this.walkInterval);
 		}
 	},
 	mounted() {
@@ -210,7 +215,8 @@ Vue.component('stream-avatars', {
 	template: `
 		<div>
 			<component v-for="avatar in $store.getters.avatarsArray"
-				:is="avatar.component" :key="avatar.user.user" :avatar="avatar" />
+				:is="avatar.component" :key="avatar.user.user"
+				:avatar="avatar" />
 		</div>
 	`,
 	mounted() {
