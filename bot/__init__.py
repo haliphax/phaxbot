@@ -10,15 +10,17 @@ AVATARS = set([])
 MY_DIR = realpath(dirname(__file__))
 
 
+# TODO will the docker container pick up the correct JSON file?
 with open(join(MY_DIR, '..', 'wwwroot', 'avatars.json'), 'r') as avatars_file:
 	data = json.loads(avatars_file.read())
-	AVATARS = set(sorted(data['avatars']))
+	AVATARS = set(data['avatars'])
 
 
 @Command('avatar')
 async def cmd_avatar(msg, *args):
 	if not args:
-		await msg.reply(f'Available avatars: {", ".join(AVATARS)}')
+		output = ', '.join(sorted(AVATARS))
+		await msg.reply(f'Available avatars: {output}')
 
 		return
 
