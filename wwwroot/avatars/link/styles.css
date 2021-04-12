@@ -23,24 +23,30 @@
 
 @keyframes link-walking-left {
 	0% {
-		background-position: calc(0 * 32px * -1) 0;
-	}
-	33.3333% {
 		background-position: calc(1 * 32px * -1) 0;
 	}
-	66.6667% {
+	25% {
+		background-position: calc(0 * 32px * -1) 0;
+	}
+	50% {
+		background-position: calc(1 * 32px * -1) 0;
+	}
+	75% {
 		background-position: calc(2 * 32px * -1) 0;
 	}
 }
 
 @keyframes link-walking-right {
 	0% {
-		background-position: calc(5 * 32px * -1) 0;
-	}
-	33.3333% {
 		background-position: calc(4 * 32px * -1) 0;
 	}
-	66.6667% {
+	25% {
+		background-position: calc(5 * 32px * -1) 0;
+	}
+	50% {
+		background-position: calc(4 * 32px * -1) 0;
+	}
+	75% {
 		background-position: calc(3 * 32px * -1) 0;
 	}
 }
