@@ -1,3 +1,11 @@
+## 0.10.0 (2021-04-12)
+
+
+- fix: actually sort avatars in command output
+- feature: ability to enable/disable overlay's bot integration
+- build: split dev requirements from app requirements
+- build: removed extraneous symlink
+
 ## 0.9.0 (2021-04-12)
 
 
