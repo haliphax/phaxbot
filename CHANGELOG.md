@@ -1,3 +1,9 @@
+## 0.6.1 (2021-04-12)
+
+
+- fix: maintain x position when swapping avatars
+- style: fixed capitalization in unknown avatar message
+
 ## 0.6.0 (2021-04-12)
 
 
