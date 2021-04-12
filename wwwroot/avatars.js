@@ -19,12 +19,12 @@ const Chatter = class {
 /** main Vuex store */
 const store = new Vuex.Store({
 	state: {
-		AVATAR_LIMIT: 20,
-		CORS_PROXY: 'http://localhost:8080/',
-		TWITCH_USER: 'haliphax',
 		availableAvatars: [],
+		avatarLimit: 20,
 		avatars: {},
 		chatters: {},
+		corsProxy: 'http://localhost:8080/',
+		twitchUser: 'haliphax',
 	},
 	getters: {
 		avatarsArray(state) {
@@ -38,7 +38,7 @@ const store = new Vuex.Store({
 		chatters(state, val) {
 			const keys = Object.keys(val),
 				result = {},
-				limit = Math.min(state.AVATAR_LIMIT, keys.length);
+				limit = Math.min(state.avatarLimit, keys.length);
 
 			for (let i = 0; i < limit; i++) {
 				const key = keys[i],
@@ -129,7 +129,7 @@ const store = new Vuex.Store({
 		},
 		async fetch(ctx) {
 			// requires cors-container - https://github.com/Rob--W/cors-anywhere
-			await fetch(`${ctx.state.CORS_PROXY}https://tmi.twitch.tv/group/user/${ctx.state.TWITCH_USER}/chatters`)
+			await fetch(`${ctx.state.corsProxy}https://tmi.twitch.tv/group/user/${ctx.state.twitchUser}/chatters`)
 				.then(r => r.json()).then(async d => {
 					ctx.commit('chatters', d.chatters);
 					ctx.dispatch('updateAvatars');
@@ -215,9 +215,9 @@ Vue.component('stream-avatars', {
 	`,
 	mounted() {
 		store.commit('config', {
-			CORS_PROXY: this.$props.corsProxy,
-			AVATAR_LIMIT: this.$props.limit,
-			TWITCH_USER: this.$props.twitchUser,
+			corsProxy: this.$props.corsProxy,
+			avatarLimit: this.$props.avatarLimit,
+			twitchUser: this.$props.twitchUser,
 		});
 		store.dispatch('fetch');
 		setInterval(() => store.dispatch('fetch'), 30000);
