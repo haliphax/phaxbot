@@ -1,3 +1,9 @@
+## 0.5.1 (2021-04-12)
+
+
+- docs: update screenshot
+- fix: fix skeleton avatar reference in avatars.json
+
 ## 0.5.0 (2021-04-12)
 
 
