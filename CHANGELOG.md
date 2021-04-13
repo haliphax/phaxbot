@@ -1,3 +1,12 @@
+## 0.11.0 (2021-04-13)
+
+
+- feature: added purple avatar
+- style: scaled link avatar
+- feature: get avatars.json filename from env variable
+- build: fix avatars.json location in container volume
+- feature: added cache-busting query string to CSS references
+
 ## 0.10.0 (2021-04-12)
 
 
