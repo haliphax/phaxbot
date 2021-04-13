@@ -3,6 +3,8 @@
 	height: 32px;
 	background-image: url(avatar.gif);
 	background-position: calc(1 * 32px * -1) 0;
+	transform: scale(1.4);
+	margin-bottom: 8px;
 }
 .avatar.link.walking {
 	animation-duration: 1s;
@@ -18,7 +20,8 @@
 }
 
 .avatar.link .avatar-label {
-	top: -1.8em;
+	top: -2.4em;
+	font-size: 70%;
 }
 
 @keyframes link-walking-left {
