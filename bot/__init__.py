@@ -2,6 +2,7 @@
 
 # stdlib
 import json
+from os import environ
 from os.path import dirname, exists, join, realpath
 # 3rd party
 from twitchbot import Command
@@ -9,9 +10,13 @@ from twitchbot import Command
 AVATARS = set([])
 MY_DIR = realpath(dirname(__file__))
 
+avatars_fn = environ.get('AVATARS_FILE', None)
 
-# TODO will the docker container pick up the correct JSON file?
-with open(join(MY_DIR, '..', 'wwwroot', 'avatars.json'), 'r') as avatars_file:
+
+if avatars_fn is None:
+	avatars_fn = join(MY_DIR, '..', 'wwwroot', 'avatars.json')
+
+with open(avatars_fn, 'r') as avatars_file:
 	data = json.loads(avatars_file.read())
 	AVATARS = set(data['avatars'])
 
