@@ -25,7 +25,8 @@ with open(avatars_fn, 'r') as avatars_file:
 async def cmd_avatar(msg, *args):
 	if not args:
 		output = ', '.join(sorted(AVATARS))
-		await msg.reply(f'Available avatars: {output}')
+		await msg.reply(f'Available avatars: {output} -- Use !avatar <name> '
+						'to assign one to yourself.')
 
 		return
 
