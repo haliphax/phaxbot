@@ -1,3 +1,11 @@
+## 0.12.0 (2021-04-13)
+
+
+- refactor: reorganized shared storage for containers
+- feature: "hide" avatar type to hide from stream
+- docs: add note about usage in default command output
+- feature: exclude avatars from random selection
+
 ## 0.11.0 (2021-04-13)
 
 
