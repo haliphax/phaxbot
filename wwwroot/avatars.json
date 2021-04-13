@@ -1,8 +1,12 @@
 {
 	"avatars": [
+		"hide",
 		"skeleton",
 		"mario",
 		"link",
 		"purple"
+	],
+	"exludeRandom": [
+		"hide"
 	]
 }

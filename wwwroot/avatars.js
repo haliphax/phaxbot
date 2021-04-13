@@ -128,7 +128,6 @@ const store = new Vuex.Store({
 
 					avatar.existing = true;
 					avatar.component = `avatar-${value}`;
-					/* ` <-- this is to fix template syntax highlighting */
 				}
 			});
 		},
