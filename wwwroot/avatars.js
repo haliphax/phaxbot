@@ -95,7 +95,7 @@ const store = new Vuex.Store({
 
 				s.type = 'text/css';
 				s.rel = 'stylesheet';
-				s.href = assets[i];
+				s.href = `${assets[i]}?_=${Date.now()}`;
 				document.body.appendChild(s);
 			}
 		},
