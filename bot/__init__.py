@@ -11,10 +11,14 @@ AVATARS = set([])
 MY_DIR = realpath(dirname(__file__))
 
 avatars_fn = environ.get('AVATARS_FILE', None)
+choices_fn = environ.get('CHOICES_FILE', None)
 
 
 if avatars_fn is None:
 	avatars_fn = join(MY_DIR, '..', 'wwwroot', 'avatars.json')
+
+if choices_fn is None:
+	choices_fn = join(MY_DIR, '..', 'wwwroot', 'choices.json')
 
 with open(avatars_fn, 'r') as avatars_file:
 	data = json.loads(avatars_file.read())
@@ -41,17 +45,16 @@ async def cmd_avatar(msg, *args):
 	await msg.reply('Avatar selected. There may be some delay before your '
 					'selection is reflected on stream.')
 
-	choices_filename = join(MY_DIR, '..', 'wwwroot', 'choices.json')
 	choices = None
 
-	if not exists(choices_filename):
-		with open(choices_filename, 'w') as choices_file:
+	if not exists(choices_fn):
+		with open(choices_fn, 'w') as choices_file:
 			choices_file.write('{}')
 			choices = {}
 	else:
-		with open(choices_filename, 'r') as choices_file:
+		with open(choices_fn, 'r') as choices_file:
 			choices = json.loads(choices_file.read())
 
-	with open(choices_filename, 'w') as choices_file:
+	with open(choices_fn, 'w') as choices_file:
 		choices[msg.author] = avatar
 		choices_file.write(json.dumps(choices))

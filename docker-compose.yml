@@ -5,14 +5,14 @@ services:
       context: .
     image: hxavatarsbot
     environment:
-      AVATARS_FILE: /app/avatars.json
+      AVATARS_FILE: /app/data/avatars.json
+      CHOICES_FILE: /app/data/choices.json
     restart: unless-stopped
     volumes:
       - ./commands:/app/commands
       - ./configs:/app/configs
       - ./database.sqlite:/app/database.sqlite
-      - ./docker/avatars.json:/app/avatars.json
-      - ./docker/choices.json:/app/wwwroot/choices.json
+      - ./shared:/app/data
       - ./mods:/app/mods
   cors:
     image: testcab/cors-anywhere
@@ -26,6 +26,4 @@ services:
     restart: unless-stopped
     volumes:
       - ./wwwroot:/usr/share/nginx/html/overlay
-      - ./docker/avatars.json:/usr/share/nginx/html/avatars.json
-      - ./docker/choices.json:/usr/share/nginx/html/choices.json
-      - ./docker/index.html:/usr/share/nginx/html/overlay/docker.html
+      - ./shared:/usr/share/nginx/html/data

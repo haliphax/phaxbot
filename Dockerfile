@@ -8,5 +8,5 @@ RUN /bin/bash -c "useradd -u 1000 yokai \
 	&& pip install --no-cache-dir -r requirements.txt \
 	&& chown -R yokai:yokai /app"
 USER 1000
-VOLUME ["/app/commands", "/app/configs", "/app/mods", "/app/database.sqlite", "/app/wwwroot/choices.json"]
+VOLUME ["/app/commands", "/app/configs", "/app/mods", "/app/database.sqlite"]
 CMD ["python", "-m", "bot"]
