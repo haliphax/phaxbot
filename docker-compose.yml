@@ -4,12 +4,14 @@ services:
     build:
       context: .
     image: hxavatarsbot
+    environment:
+      AVATARS_FILE: /app/avatars.json
     restart: unless-stopped
     volumes:
       - ./commands:/app/commands
       - ./configs:/app/configs
       - ./database.sqlite:/app/database.sqlite
-      - ./docker/avatars.json:/app/wwwroot/docker.json
+      - ./docker/avatars.json:/app/avatars.json
       - ./docker/choices.json:/app/wwwroot/choices.json
       - ./mods:/app/mods
   cors:
