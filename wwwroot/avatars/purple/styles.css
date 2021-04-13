@@ -1,0 +1,55 @@
+.avatar.purple {
+	width: 16px;
+	height: 32px;
+	background-image: url(avatar.gif);
+	background-position: calc(1 * 16px * -1) 0;
+	transform: scale(2);
+	margin-bottom: 16px;
+}
+.avatar.purple.walking {
+	animation-duration: 1s;
+	animation-timing-function: steps(1, end);
+	animation-iteration-count: infinite;
+}
+.avatar.purple.left {
+	animation-name: purple-walking-left;
+}
+.avatar.purple.right {
+	background-position: calc(4 * 16px * -1) 0;
+	animation-name: purple-walking-right;
+}
+
+.avatar.purple .avatar-label {
+	top: -2.4em;
+	font-size: 50%;
+}
+
+@keyframes purple-walking-left {
+	0% {
+		background-position: calc(4 * 16px * -1) 0;
+	}
+	25% {
+		background-position: calc(3 * 16px * -1) 0;
+	}
+	50% {
+		background-position: calc(4 * 16px * -1) 0;
+	}
+	75% {
+		background-position: calc(5 * 16px * -1) 0;
+	}
+}
+
+@keyframes purple-walking-right {
+	0% {
+		background-position: calc(1 * 16px * -1) 0;
+	}
+	25% {
+		background-position: calc(0 * 16px * -1) 0;
+	}
+	50% {
+		background-position: calc(1 * 16px * -1) 0;
+	}
+	75% {
+		background-position: calc(2 * 16px * -1) 0;
+	}
+}
