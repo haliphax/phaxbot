@@ -33,6 +33,7 @@ const store = new Vuex.Store({
 		choicesUrl: 'choices.json',
 		corsProxy: 'http://localhost:8080/',
 		excludeChatters: ['hxavatarsbot', 'streamelements'],
+		excludeRandom: ['hide'],
 		twitchUser: 'haliphax',
 	},
 	getters: {
@@ -81,6 +82,9 @@ const store = new Vuex.Store({
 					state[p] = val[p];
 				}
 		},
+		excludeRandom(state, val) {
+			state.excludeRandom = val;
+		},
 		registerAvatar(state, val) {
 			const assets = val.slice(1),
 				key = val[0];
@@ -103,9 +107,10 @@ const store = new Vuex.Store({
 	actions: {
 		addAvatar(ctx, payload) {
 			const copy = {},
-				randomAvatar = ctx.state.availableAvatars[
-					Math.floor(Math.random()
-						* ctx.state.availableAvatars.length)],
+				filteredAvatars = ctx.state.availableAvatars.filter(
+					v => ctx.state.excludeRandom.indexOf(v.substring(7)) < 0),
+				randomAvatar = filteredAvatars[
+					Math.floor(Math.random() * filteredAvatars.length)],
 				avatar = new Avatar(payload, randomAvatar);
 
 			Object.assign(copy, ctx.state.avatars);
@@ -294,6 +299,9 @@ Vue.component('stream-avatars', {
 				.then(async d => {
 					for (let i = 0; i < d.avatars.length; i++)
 						await import(`./avatars/${d.avatars[i]}/index.js`);
+
+					if (d.hasOwnProperty('excludeRandom'))
+						store.commit('excludeRandom', d.excludeRandom);
 				});
 		}
 
