@@ -256,6 +256,8 @@ const AvatarMixIn = Vue.extend({
 
 		if (Math.random() < 0.5)
 			this.$el.classList.add('right');
+		else
+			this.$el.classList.add('left');
 
 		this.mounting = false;
 		this.act();
