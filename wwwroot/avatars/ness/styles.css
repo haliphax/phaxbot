@@ -16,7 +16,7 @@
 	animation-duration: 16s;
 }
 .avatar.ness.left::before {
-	transform: scaleX(-1) scale(1.2) !important;
+	transform: scaleX(-1) scale(1.2);
 }
 .avatar.ness.walking::before {
 	animation-name: ness-walking;
