@@ -6,7 +6,6 @@ import click
 @click.group()
 def main():
 	"Spritesheet CSS utilities."
-	pass
 
 @main.command()
 @click.option('-a', '--avatar', type=str, required=True)
