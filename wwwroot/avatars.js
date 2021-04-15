@@ -210,10 +210,14 @@ const AvatarMixIn = Vue.extend({
 					this.$el.classList.add('right');
 				}
 
+				this.$el.classList.remove('idle');
 				this.$el.classList.add('walking');
 				this.walk(destination);
 
 				return;
+			}
+			else {
+				this.$el.classList.add('idle');
 			}
 
 			setTimeout(this.act,
