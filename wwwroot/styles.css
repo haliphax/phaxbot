@@ -12,7 +12,6 @@ body {
 
 .avatar {
 	background-color: transparent;
-	background-image: url(avatar.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	bottom: 0;
