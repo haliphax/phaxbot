@@ -1,3 +1,9 @@
+## 0.15.0 (2021-04-16)
+
+
+- feature: page for listing available avatars
+- fix: cache busting for avatar js files
+
 ## 0.14.0 (2021-04-16)
 
 
