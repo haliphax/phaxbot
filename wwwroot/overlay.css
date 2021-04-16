@@ -1,0 +1,11 @@
+html, body {
+	font-family: 'Arial', sans-serif;
+	height: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+body {
+	background-color: #555;
+}

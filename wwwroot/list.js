@@ -34,17 +34,36 @@ Vue.component('avatars-list', {
 		this.avatars = avatars;
 	},
 	template: `
-		<table class="avatars-list">
-			<caption>Available avatars</caption>
-			<tbody>
-				<tr v-for="avatar in avatars">
-					<th scope="row">{{ avatar }}</th>
-					<td>
-						<component :is="'avatar-' + avatar"></component>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div>
+			<slot>
+				<div class="jumbotron">
+					<h1 class="display-4">Available avatars</h1>
+					<p class="lead">
+						These avatars are available to represent you on-stream.
+						Use the <code>!avatar</code> command to select one from
+						the list.
+					</p>
+					<p>
+						If you do not wish to be represented by an avatar
+						on-stream, use <code>!avatar hide</code> to prevent
+						your username from being processed.
+					</p>
+				</div>
+			</slot>
+			<table class="avatars-list table table-striped">
+				<tbody>
+					<tr v-for="avatar in avatars">
+						<th scope="row"
+							class="text-monospace text-right w-50">
+							{{ avatar }}
+						</th>
+						<td class="text-left">
+							<component :is="'avatar-' + avatar"></component>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	`,
 });
 

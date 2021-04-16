@@ -4,14 +4,21 @@
 	background-image: url(avatar.png);
 	bottom: -2px;
 }
+
+.avatars-list .avatar.skeleton {
+	margin-left: -20px;
+}
+
 .avatar.skeleton.walking {
 	animation-duration: 1s;
 	animation-timing-function: steps(1, end);
 	animation-iteration-count: infinite;
 }
+
 .avatar.skeleton.left {
 	animation-name: skeleton-walking-left;
 }
+
 .avatar.skeleton.right {
 	background-position: calc(9 * 64px * -1) 0;
 	animation-name: skeleton-walking-right;
