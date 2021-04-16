@@ -1,27 +1,25 @@
-.avatar.ness, .avatar.ness::before {
-	width: 32px;
-	height: 48px;
-	display: block;
-	transform: scale(1.2);
-	margin-top: -8px;
-}
-.avatar.ness::before {
-	background: transparent url(avatar.gif) 0 0 no-repeat;
-	content: '';
-	animation-timing-function: steps(1, end);
-	animation-iteration-count: infinite;
-}
-
-.avatar.ness.left::before {
-	transform: scaleX(-1) scale(1.2);
+.avatar.ness {
+	height: calc(48px * 1.2);
+	width: calc(32px * 1.2);
 }
 
 .avatar.ness .avatar-label {
-	top: -70px;
-	font-size: 90%;
+	top: -1.4em;
 }
 
-.avatar.ness.walking::before {
+.avatar.ness .sprite {
+	background-image: url(avatar.gif);
+	bottom: 12px;
+	height: 48px;
+	transform: scale(1.2);
+	width: 32px;
+}
+
+.avatar.ness.left .sprite {
+	transform: scaleX(-1) scale(1.2);
+}
+
+.avatar.ness.walking .sprite {
 	animation-name: ness-walking;
 	animation-duration: 2s;
 }
@@ -36,9 +34,9 @@
 	75.0% { background-position: calc(37 * 32px * -1) 0; }
 	87.5% { background-position: calc(38 * 32px * -1) 0; }
 }
-.avatar.ness.dance::before {
+
+.avatar.ness.dance .sprite {
 	animation-name: ness-dance1;
-	animation-duration: 1s;
 	animation-iteration-count: 6;
 }
 
@@ -49,10 +47,8 @@
 	75.0% { background-position: calc(3 * 32px * -1) 0; }
 }
 
-.avatar.ness.backpack::before {
+.avatar.ness.backpack .sprite {
 	animation-name: ness-backpack;
-	animation-duration: 1s;
-	animation-iteration-count: 1;
 }
 
 @keyframes ness-backpack {
@@ -63,10 +59,8 @@
 	80.0% { background-position: calc(8 * 32px * -1) 0; }
 }
 
-.avatar.ness.look::before {
+.avatar.ness.look .sprite {
 	animation-name: ness-look;
-	animation-duration: 1s;
-	animation-iteration-count: 1;
 }
 
 @keyframes ness-look {
@@ -79,10 +73,8 @@
 	85.7143% { background-position: calc(15 * 32px * -1) 0; }
 }
 
-.avatar.ness.point::before {
+.avatar.ness.point .sprite {
 	animation-name: ness-point;
-	animation-duration: 1s;
-	animation-iteration-count: 1;
 }
 
 @keyframes ness-point {

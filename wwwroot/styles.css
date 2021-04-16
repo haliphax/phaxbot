@@ -1,23 +1,25 @@
-.avatar {
-	background-color: transparent;
-	background-repeat: no-repeat;
-	background-size: cover;
+.avatar, .avatar .sprite {
 	bottom: 0;
-	display: inline-block;
 	height: 64px;
-	image-rendering: pixelated;
-	position: absolute;
 	text-align: center;
 	width: 64px;
 }
 
-.avatar .avatar-label {
-	color: #fff;
-	display: inline;
-	margin-left: -100vw;
-	margin-right: -100vw;
+.avatar {
+	display: inline-block;
+	position: absolute;
+}
+
+.avatar .sprite {
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+	animation-timing-function: steps(1, end);
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	image-rendering: pixelated;
+	margin: 0 auto;
 	position: relative;
-	text-align: center;
-	text-shadow: #000 0 0 6px;
-	top: -1em;
+	transform-origin: bottom center;
 }

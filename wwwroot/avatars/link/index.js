@@ -4,12 +4,12 @@ import { AvatarMixIn, store } from '../../avatars.js';
 
 /** default avatar component */
 export default Vue.component('avatar-link', {
+	data() {
+		return {
+			stub: 'link',
+		};
+	},
 	mixins: [AvatarMixIn],
-	template: `
-		<div class="avatar link">
-			<avatar-label :avatar="avatar"></avatar-label>
-		</div>
-	`,
 });
 
 store.commit('registerAvatar',

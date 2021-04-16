@@ -9,3 +9,20 @@ html, body {
 body {
 	background-color: #555;
 }
+
+.avatar.walking .sprite {
+	animation-iteration-count: infinite;
+}
+
+.avatar .avatar-label {
+	color: #fff;
+	display: inline;
+	font-size: 120%;
+	font-weight: bolder;
+	margin-left: -100%;
+	margin-right: -100%;
+	position: relative;
+	text-align: center;
+	top: -1em;
+	-webkit-text-stroke: 1px #000;
+}

@@ -1,27 +1,28 @@
 .avatar.link {
+	width: calc(32px * 1.4);
+	height: calc(32px * 1.4);
+}
+
+.avatar.link .sprite {
 	width: 32px;
 	height: 32px;
 	background-image: url(avatar.gif);
 	background-position: calc(1 * 32px * -1) 0;
+	bottom: 8px;
 	transform: scale(1.4);
-	margin-bottom: 8px;
 }
-.avatar.link.walking {
-	animation-duration: 1s;
-	animation-timing-function: steps(1, end);
-	animation-iteration-count: infinite;
-}
-.avatar.link.left {
+
+.avatar.link.left.walking .sprite {
 	animation-name: link-walking-left;
 }
-.avatar.link.right {
+
+.avatar.link.right.walking .sprite {
 	background-position: calc(4 * 32px * -1) 0;
 	animation-name: link-walking-right;
 }
 
 .avatar.link .avatar-label {
-	top: -2.4em;
-	font-size: 70%;
+	top: -1.8em;
 }
 
 @keyframes link-walking-left {

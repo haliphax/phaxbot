@@ -12,6 +12,7 @@ export default Vue.component('avatar-ness', {
 				new Animation(1, 'dance'),
 				new Animation(1, 'point'),
 			],
+			stub: 'ness',
 			walkProbability: 0.15,
 			// maximum number of seconds to wait between decisions
 			waitMaximum: 10,
@@ -20,11 +21,6 @@ export default Vue.component('avatar-ness', {
 		};
 	},
 	mixins: [AvatarMixIn],
-	template: `
-		<div class="avatar ness">
-			<avatar-label :avatar="avatar"></avatar-label>
-		</div>
-	`,
 });
 
 store.commit('registerAvatar',

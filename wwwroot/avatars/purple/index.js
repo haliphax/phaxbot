@@ -4,12 +4,12 @@ import { AvatarMixIn, store } from '../../avatars.js';
 
 /** default avatar component */
 export default Vue.component('avatar-purple', {
+	data() {
+		return {
+			stub: 'purple',
+		};
+	},
 	mixins: [AvatarMixIn],
-	template: `
-		<div class="avatar purple">
-			<avatar-label :avatar="avatar"></avatar-label>
-		</div>
-	`,
 });
 
 store.commit('registerAvatar',

@@ -1,26 +1,32 @@
-.avatar.skeleton {
+.avatar-skeleton {
+	height: 64px;
+	width: 64px;
+}
+
+.avatar.skeleton .avatar-label {
+	top: -0.8em;
+}
+
+.avatar.skeleton .sprite {
 	width: 64px;
 	height: 64px;
 	background-image: url(avatar.png);
-	bottom: -2px;
+	bottom: 20px;
 }
 
-.avatars-list .avatar.skeleton {
+.avatars-list .avatar.skeleton .sprite {
 	margin-left: -20px;
 }
 
-.avatar.skeleton.walking {
-	animation-duration: 1s;
-	animation-timing-function: steps(1, end);
-	animation-iteration-count: infinite;
-}
-
-.avatar.skeleton.left {
+.avatar.skeleton.left.walking .sprite {
 	animation-name: skeleton-walking-left;
 }
 
-.avatar.skeleton.right {
+.avatar.skeleton.right .sprite {
 	background-position: calc(9 * 64px * -1) 0;
+}
+
+.avatar.skeleton.right.walking .sprite {
 	animation-name: skeleton-walking-right;
 }
 

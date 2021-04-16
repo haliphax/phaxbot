@@ -1,27 +1,31 @@
 .avatar.purple {
+	height: calc(32px * 2);
+	width: calc(16px * 2);
+}
+
+.avatar.purple .avatar-label {
+	top: -1.6em;
+}
+
+.avatar.purple .sprite {
 	width: 16px;
 	height: 32px;
 	background-image: url(avatar.gif);
 	background-position: calc(1 * 16px * -1) 0;
 	transform: scale(2);
-	margin-bottom: 16px;
-}
-.avatar.purple.walking {
-	animation-duration: 1s;
-	animation-timing-function: steps(1, end);
-	animation-iteration-count: infinite;
-}
-.avatar.purple.left {
-	animation-name: purple-walking-left;
-}
-.avatar.purple.right {
-	background-position: calc(4 * 16px * -1) 0;
-	animation-name: purple-walking-right;
+	bottom: -10px;
 }
 
-.avatar.purple .avatar-label {
-	top: -2.4em;
-	font-size: 50%;
+.avatar.purple.left.walking .sprite {
+	animation-name: purple-walking-left;
+}
+
+.avatar.purple.right .sprite {
+	background-position: calc(4 * 16px * -1) 0;
+}
+
+.avatar.purple.right.walking .sprite {
+	animation-name: purple-walking-right;
 }
 
 @keyframes purple-walking-left {

@@ -1,33 +1,32 @@
 .avatar.mario {
-	width: 18px;
-	height: 32px;
-	background-image: url(avatar.gif);
-	background-position: calc(3 * 18px * -1) 0;
-	bottom: 16px;
-	transform: scale(2);
-}
-.avatar.mario.walking {
-	animation-duration: .75s;
-	animation-timing-function: steps(1, end);
-	animation-iteration-count: infinite;
-}
-.avatar.mario.left {
-	animation-name: mario-walking-left;
-}
-.avatar.mario.walking.left {
-	background-position: 0 0;
-}
-.avatar.mario.right {
-	background-position: calc(4 * 18px * -1) 0;
-	animation-name: mario-walking-right;
-}
-.avatar.mario.walking.right {
-	background-position: calc(7 * 18px * -1) 0;
+	height: calc(32px * 2);
+	width: calc(18px * 2);
 }
 
 .avatar.mario .avatar-label {
-	top: -2.5em;
-	font-size: 50%;
+	top: -1.9em;
+}
+
+.avatar.mario .sprite {
+	background-image: url(avatar.gif);
+	background-position: calc(3 * 18px * -1) 0;
+	bottom: -10px;
+	height: 32px;
+	transform: scale(2);
+	width: 18px;
+}
+
+.avatar.mario.left.walking .sprite {
+	animation-name: mario-walking-left;
+}
+
+.avatar.mario.right .sprite {
+	background-position: calc(4 * 18px * -1) 0;
+}
+
+.avatar.mario.right.walking .sprite {
+	animation-duration: .75s;
+	animation-name: mario-walking-right;
 }
 
 @keyframes mario-walking-left {

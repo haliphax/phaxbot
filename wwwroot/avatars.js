@@ -190,6 +190,8 @@ const store = new Vuex.Store({
 const AvatarMixIn = Vue.extend({
 	data() {
 		return {
+			// unique identifier for the avatar
+			stub: '',
 			// list of Animation objects to choose from for idle event
 			idleAnimations: [],
 			// if events should be disabled (e.g. on the list page)
@@ -312,6 +314,12 @@ const AvatarMixIn = Vue.extend({
 		this.mounting = false;
 		this.act();
 	},
+	template: `
+		<span :class="'avatar ' + stub">
+			<avatar-label :avatar="avatar"></avatar-label>
+			<div class="sprite"></div>
+		</span>
+	`,
 });
 
 Vue.component('avatar-label', {
