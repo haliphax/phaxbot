@@ -16,13 +16,9 @@ services:
       - ./mods:/app/mods
   cors:
     image: testcab/cors-anywhere
-    ports:
-      - 127.0.0.1:8080:8080
     restart: unless-stopped
   web:
     image: nginx
-    ports:
-      - 127.0.0.1:80:80
     restart: unless-stopped
     volumes:
       - ./wwwroot:/usr/share/nginx/html/overlay
