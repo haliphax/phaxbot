@@ -172,7 +172,9 @@ const store = new Vuex.Store({
 		},
 		async fetch(ctx) {
 			// requires cors-container - https://github.com/Rob--W/cors-anywhere
-			await fetch(`${ctx.state.corsProxy}https://tmi.twitch.tv/group/user/${ctx.state.twitchUser}/chatters`)
+			await fetch(
+				`${ctx.state.corsProxy}https://tmi.twitch.tv/group/user/`
+					+ `${ctx.state.twitchUser}/chatters`)
 				.then(r => r.json()).then(async d => {
 					ctx.commit('chatters', d.chatters);
 					ctx.dispatch('updateAvatars');
@@ -341,7 +343,8 @@ Vue.component('stream-avatars', {
 			await fetch(store.state.avatarsUrl).then(r => r.json())
 				.then(async d => {
 					for (let i = 0; i < d.avatars.length; i++)
-						await import(`./avatars/${d.avatars[i]}/index.js`);
+						await import(`./avatars/${d.avatars[i]}/index.js`
+							+ `?_=${Date.now()}`);
 
 					if (d.hasOwnProperty('excludeRandom'))
 						store.commit('excludeRandom', d.excludeRandom);
