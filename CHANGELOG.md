@@ -1,3 +1,12 @@
+## 0.14.0 (2021-04-16)
+
+
+- feature: animation events (multiple idle animations)
+- refactor: 'pass' is unnecessary when a method has a docstring
+- style: !important should be unnecessary
+- fix: ness avatar url
+- bump: version 0.12.0 → 0.13.0
+
 ## 0.13.0 (2021-04-15)
 
 
