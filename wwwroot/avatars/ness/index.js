@@ -3,7 +3,7 @@ import { Animation, AvatarMixIn, store } from '../../avatars.js';
 'use strict';
 
 /** default avatar component */
-Vue.component('avatar-ness', {
+export default Vue.component('avatar-ness', {
 	data() {
 		return {
 			idleAnimations: [
@@ -22,7 +22,7 @@ Vue.component('avatar-ness', {
 	mixins: [AvatarMixIn],
 	template: `
 		<div class="avatar ness">
-			<span class="avatar-label">{{ avatar.user.user }}</span>
+			<avatar-label :avatar="avatar"></avatar-label>
 		</div>
 	`,
 });

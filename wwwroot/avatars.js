@@ -190,7 +190,10 @@ const store = new Vuex.Store({
 const AvatarMixIn = Vue.extend({
 	data() {
 		return {
+			// list of Animation objects to choose from for idle event
 			idleAnimations: [],
+			// if events should be disabled (e.g. on the list page)
+			inactive: false,
 			// if the component is currently being mounted
 			mounting: true,
 			// x coordinate of avatar on screen
@@ -293,6 +296,9 @@ const AvatarMixIn = Vue.extend({
 		},
 	},
 	mounted() {
+		if (typeof this.avatar == 'undefined')
+			return;
+
 		if (this.avatar.existing)
 			this.x = this.avatar.x;
 		else if (this.mounting)
@@ -306,6 +312,24 @@ const AvatarMixIn = Vue.extend({
 		this.mounting = false;
 		this.act();
 	},
+});
+
+Vue.component('avatar-label', {
+	computed: {
+		username() {
+			if (typeof this.avatar == 'undefined'
+				|| !this.avatar.user.hasOwnProperty('user'))
+			{
+				return;
+			}
+
+			return this.avatar.user.user;
+		},
+	},
+	props: ['avatar'],
+	template: `
+		<span class="avatar-label">{{ username }}</span>
+	`
 });
 
 Vue.component('stream-avatars', {

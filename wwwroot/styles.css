@@ -33,3 +33,32 @@ body {
 	text-shadow: #000 0 0 6px;
 	top: -1em;
 }
+
+/* list page */
+
+.avatars-list caption {
+	font-size: 120%;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.avatars-list th {
+	font-weight: normal;
+	padding-right: 1em;
+	vertical-align: middle;
+}
+
+.avatars-list td {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	height: 96px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.avatars-list .avatar {
+	display: block !important;
+	position: relative;
+	transform-origin: top left !important;
+}

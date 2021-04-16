@@ -3,11 +3,11 @@ import { AvatarMixIn, store } from '../../avatars.js';
 'use strict';
 
 /** default avatar component */
-Vue.component('avatar-link', {
+export default Vue.component('avatar-link', {
 	mixins: [AvatarMixIn],
 	template: `
 		<div class="avatar link">
-			<span class="avatar-label">{{ avatar.user.user }}</span>
+			<avatar-label :avatar="avatar"></avatar-label>
 		</div>
 	`,
 });
