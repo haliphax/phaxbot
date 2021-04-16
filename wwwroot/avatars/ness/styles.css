@@ -11,16 +11,9 @@
 	animation-timing-function: steps(1, end);
 	animation-iteration-count: infinite;
 }
-.avatar.ness.idle::before {
-	animation-name: ness-idle;
-	animation-duration: 16s;
-}
+
 .avatar.ness.left::before {
 	transform: scaleX(-1) scale(1.2);
-}
-.avatar.ness.walking::before {
-	animation-name: ness-walking;
-	animation-duration: 2s;
 }
 
 .avatar.ness .avatar-label {
@@ -28,91 +21,11 @@
 	font-size: 90%;
 }
 
-@keyframes ness-idle {
-	0.0% { background-position: calc(0 * 32px * -1) 0; }
-	1.2048% { background-position: calc(1 * 32px * -1) 0; }
-	2.4096% { background-position: calc(2 * 32px * -1) 0; }
-	3.6145% { background-position: calc(3 * 32px * -1) 0; }
-	4.8193% { background-position: calc(0 * 32px * -1) 0; }
-	6.0241% { background-position: calc(1 * 32px * -1) 0; }
-	7.2289% { background-position: calc(2 * 32px * -1) 0; }
-	8.4337% { background-position: calc(3 * 32px * -1) 0; }
-	9.6386% { background-position: calc(0 * 32px * -1) 0; }
-	10.8434% { background-position: calc(1 * 32px * -1) 0; }
-	12.0482% { background-position: calc(2 * 32px * -1) 0; }
-	13.253% { background-position: calc(3 * 32px * -1) 0; }
-	14.4578% { background-position: calc(0 * 32px * -1) 0; }
-	15.6627% { background-position: calc(1 * 32px * -1) 0; }
-	16.8675% { background-position: calc(2 * 32px * -1) 0; }
-	18.0723% { background-position: calc(3 * 32px * -1) 0; }
-	19.2771% { background-position: calc(0 * 32px * -1) 0; }
-	20.4819% { background-position: calc(1 * 32px * -1) 0; }
-	21.6867% { background-position: calc(2 * 32px * -1) 0; }
-	22.8916% { background-position: calc(3 * 32px * -1) 0; }
-	24.0964% { background-position: calc(0 * 32px * -1) 0; }
-	25.3012% { background-position: calc(1 * 32px * -1) 0; }
-	26.506% { background-position: calc(2 * 32px * -1) 0; }
-	27.7108% { background-position: calc(3 * 32px * -1) 0; }
-	28.9157% { background-position: calc(4 * 32px * -1) 0; }
-	30.1205% { background-position: calc(5 * 32px * -1) 0; }
-	31.3253% { background-position: calc(6 * 32px * -1) 0; }
-	32.5301% { background-position: calc(7 * 32px * -1) 0; }
-	33.7349% { background-position: calc(8 * 32px * -1) 0; }
-	34.9398% { background-position: calc(9 * 32px * -1) 0; }
-	36.1446% { background-position: calc(10 * 32px * -1) 0; }
-	37.3494% { background-position: calc(11 * 32px * -1) 0; }
-	38.5542% { background-position: calc(12 * 32px * -1) 0; }
-	39.759% { background-position: calc(13 * 32px * -1) 0; }
-	40.9639% { background-position: calc(14 * 32px * -1) 0; }
-	42.1687% { background-position: calc(15 * 32px * -1) 0; }
-	43.3735% { background-position: calc(16 * 32px * -1) 0; }
-	44.5783% { background-position: calc(17 * 32px * -1) 0; }
-	45.7831% { background-position: calc(18 * 32px * -1) 0; }
-	46.988% { background-position: calc(19 * 32px * -1) 0; }
-	48.1928% { background-position: calc(20 * 32px * -1) 0; }
-	49.3976% { background-position: calc(21 * 32px * -1) 0; }
-	50.6024% { background-position: calc(16 * 32px * -1) 0; }
-	51.8072% { background-position: calc(17 * 32px * -1) 0; }
-	53.012% { background-position: calc(18 * 32px * -1) 0; }
-	54.2169% { background-position: calc(19 * 32px * -1) 0; }
-	55.4217% { background-position: calc(20 * 32px * -1) 0; }
-	56.6265% { background-position: calc(21 * 32px * -1) 0; }
-	57.8313% { background-position: calc(16 * 32px * -1) 0; }
-	59.0361% { background-position: calc(17 * 32px * -1) 0; }
-	60.241% { background-position: calc(18 * 32px * -1) 0; }
-	61.4458% { background-position: calc(19 * 32px * -1) 0; }
-	62.6506% { background-position: calc(20 * 32px * -1) 0; }
-	63.8554% { background-position: calc(21 * 32px * -1) 0; }
-	65.0602% { background-position: calc(16 * 32px * -1) 0; }
-	66.2651% { background-position: calc(17 * 32px * -1) 0; }
-	67.4699% { background-position: calc(18 * 32px * -1) 0; }
-	68.6747% { background-position: calc(19 * 32px * -1) 0; }
-	69.8795% { background-position: calc(20 * 32px * -1) 0; }
-	71.0843% { background-position: calc(21 * 32px * -1) 0; }
-	72.2892% { background-position: calc(16 * 32px * -1) 0; }
-	73.494% { background-position: calc(17 * 32px * -1) 0; }
-	74.6988% { background-position: calc(18 * 32px * -1) 0; }
-	75.9036% { background-position: calc(19 * 32px * -1) 0; }
-	77.1084% { background-position: calc(20 * 32px * -1) 0; }
-	78.3133% { background-position: calc(21 * 32px * -1) 0; }
-	79.5181% { background-position: calc(16 * 32px * -1) 0; }
-	80.7229% { background-position: calc(17 * 32px * -1) 0; }
-	81.9277% { background-position: calc(18 * 32px * -1) 0; }
-	83.1325% { background-position: calc(19 * 32px * -1) 0; }
-	84.3373% { background-position: calc(20 * 32px * -1) 0; }
-	85.5422% { background-position: calc(21 * 32px * -1) 0; }
-	86.747% { background-position: calc(20 * 32px * -1) 0; }
-	87.9518% { background-position: calc(21 * 32px * -1) 0; }
-	89.1566% { background-position: calc(22 * 32px * -1) 0; }
-	90.3614% { background-position: calc(23 * 32px * -1) 0; }
-	91.5663% { background-position: calc(24 * 32px * -1) 0; }
-	92.7711% { background-position: calc(25 * 32px * -1) 0; }
-	93.9759% { background-position: calc(26 * 32px * -1) 0; }
-	95.1807% { background-position: calc(27 * 32px * -1) 0; }
-	96.3855% { background-position: calc(28 * 32px * -1) 0; }
-	97.5904% { background-position: calc(29 * 32px * -1) 0; }
-	98.7952% { background-position: calc(30 * 32px * -1) 0; }
+.avatar.ness.walking::before {
+	animation-name: ness-walking;
+	animation-duration: 2s;
 }
+
 @keyframes ness-walking {
 	0.0% { background-position: calc(31 * 32px * -1) 0; }
 	12.5% { background-position: calc(32 * 32px * -1) 0; }
@@ -122,4 +35,64 @@
 	62.5% { background-position: calc(36 * 32px * -1) 0; }
 	75.0% { background-position: calc(37 * 32px * -1) 0; }
 	87.5% { background-position: calc(38 * 32px * -1) 0; }
+}
+.avatar.ness.dance::before {
+	animation-name: ness-dance1;
+	animation-duration: 1s;
+	animation-iteration-count: 6;
+}
+
+@keyframes ness-dance {
+	0.0% { background-position: calc(0 * 32px * -1) 0; }
+	25.0% { background-position: calc(1 * 32px * -1) 0; }
+	50.0% { background-position: calc(2 * 32px * -1) 0; }
+	75.0% { background-position: calc(3 * 32px * -1) 0; }
+}
+
+.avatar.ness.backpack::before {
+	animation-name: ness-backpack;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+}
+
+@keyframes ness-backpack {
+	0.0% { background-position: calc(4 * 32px * -1) 0; }
+	20.0% { background-position: calc(5 * 32px * -1) 0; }
+	40.0% { background-position: calc(6 * 32px * -1) 0; }
+	60.0% { background-position: calc(7 * 32px * -1) 0; }
+	80.0% { background-position: calc(8 * 32px * -1) 0; }
+}
+
+.avatar.ness.look::before {
+	animation-name: ness-look;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+}
+
+@keyframes ness-look {
+	0.0% { background-position: calc(9 * 32px * -1) 0; }
+	14.2857% { background-position: calc(10 * 32px * -1) 0; }
+	28.5714% { background-position: calc(11 * 32px * -1) 0; }
+	42.8571% { background-position: calc(12 * 32px * -1) 0; }
+	57.1429% { background-position: calc(13 * 32px * -1) 0; }
+	71.4286% { background-position: calc(14 * 32px * -1) 0; }
+	85.7143% { background-position: calc(15 * 32px * -1) 0; }
+}
+
+.avatar.ness.point::before {
+	animation-name: ness-point;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+}
+
+@keyframes ness-point {
+	0.0% { background-position: calc(22 * 32px * -1) 0; }
+	11.1111% { background-position: calc(23 * 32px * -1) 0; }
+	22.2222% { background-position: calc(24 * 32px * -1) 0; }
+	33.3333% { background-position: calc(25 * 32px * -1) 0; }
+	44.4444% { background-position: calc(26 * 32px * -1) 0; }
+	55.5556% { background-position: calc(27 * 32px * -1) 0; }
+	66.6667% { background-position: calc(28 * 32px * -1) 0; }
+	77.7778% { background-position: calc(29 * 32px * -1) 0; }
+	88.8889% { background-position: calc(30 * 32px * -1) 0; }
 }

@@ -21,6 +21,14 @@ const Chatter = class {
 	}
 };
 
+/** simple animation event object */
+const Animation = class {
+	constructor(weight, className) {
+		this.weight = weight;
+		this.className = className;
+	}
+};
+
 /** main Vuex store */
 const store = new Vuex.Store({
 	state: {
@@ -180,6 +188,7 @@ const store = new Vuex.Store({
 const AvatarMixIn = Vue.extend({
 	data() {
 		return {
+			idleAnimations: [],
 			// if the component is currently being mounted
 			mounting: true,
 			// x coordinate of avatar on screen
@@ -197,6 +206,11 @@ const AvatarMixIn = Vue.extend({
 	props: ['avatar'],
 	methods: {
 		act() {
+			if (this.$el.dataset.eventClass) {
+				this.$el.classList.remove(this.$el.dataset.eventClass);
+				delete this.$el.dataset.eventClass;
+			}
+
 			if (Math.random() < this.walkProbability) {
 				const destination = this.getRandomX();
 
@@ -217,7 +231,31 @@ const AvatarMixIn = Vue.extend({
 				return;
 			}
 			else {
-				this.$el.classList.add('idle');
+				const weighted = {};
+
+				if (this.idleAnimations.length == 0) {
+					this.$el.classList.add('idle');
+				}
+				else {
+					const
+						total = this.idleAnimations.reduce(
+							(p, v) => p + v.weight, 0),
+						roll = Math.floor(Math.random() * total);
+					let current = 0;
+
+					for (let i = 0; i < this.idleAnimations.length; i++) {
+						const anim = this.idleAnimations[i];
+
+						if (roll <= anim.weight + current) {
+							this.$el.dataset.eventClass = anim.className;
+							this.$el.classList.add(anim.className);
+
+							break;
+						}
+
+						current += anim.weight;
+					}
+				}
 			}
 
 			setTimeout(this.act,
@@ -315,4 +353,4 @@ Vue.component('stream-avatars', {
 	},
 });
 
-export { Avatar, AvatarMixIn, Chatter, store };
+export { Animation, Avatar, AvatarMixIn, Chatter, store };
