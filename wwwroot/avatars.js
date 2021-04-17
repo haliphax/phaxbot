@@ -42,6 +42,7 @@ const store = new Vuex.Store({
 		corsProxy: 'http://localhost:8080/',
 		excludeChatters: ['hxavatarsbot', 'streamelements'],
 		excludeRandom: ['hide'],
+		restricted: {},
 		twitchUser: 'haliphax',
 	},
 	getters: {
@@ -97,10 +98,10 @@ const store = new Vuex.Store({
 			const assets = val.slice(1),
 				key = val[0];
 
-			if (state.availableAvatars.indexOf(val[0]) >= 0)
+			if (state.availableAvatars.indexOf(key) >= 0)
 				return;
 
-			state.availableAvatars.push(val[0]);
+			state.availableAvatars.push(key);
 
 			for (let i = 0; i < assets.length; i++) {
 				const s = document.createElement('link');
@@ -110,6 +111,9 @@ const store = new Vuex.Store({
 				s.href = `${assets[i]}?_=${Date.now()}`;
 				document.body.appendChild(s);
 			}
+		},
+		restricted(state, val) {
+			state.restricted = val;
 		},
 	},
 	actions: {
@@ -124,6 +128,18 @@ const store = new Vuex.Store({
 			Object.assign(copy, ctx.state.avatars);
 			copy[payload.user] = avatar;
 			ctx.commit('avatars', copy);
+		},
+		async json(state, val) {
+			for (let i = 0; i < val.avatars.length; i++)
+				await import(`./avatars/${val.avatars[i]}/index.js`
+					+ `?_=${Date.now()}`);
+
+			if (val.hasOwnProperty('excludeRandom'))
+				store.commit('excludeRandom', val.excludeRandom);
+
+			if (val.hasOwnProperty('restricted')) {
+				store.commit('restricted', val.restricted);
+			}
 		},
 		async pollChoices(ctx) {
 			await fetch(ctx.state.choicesUrl).then(r => r.json()).then(d => {
@@ -373,14 +389,7 @@ Vue.component('stream-avatars', {
 
 		if (store.state.avatarsUrl) {
 			await fetch(store.state.avatarsUrl).then(r => r.json())
-				.then(async d => {
-					for (let i = 0; i < d.avatars.length; i++)
-						await import(`./avatars/${d.avatars[i]}/index.js`
-							+ `?_=${Date.now()}`);
-
-					if (d.hasOwnProperty('excludeRandom'))
-						store.commit('excludeRandom', d.excludeRandom);
-				});
+				.then(async d => await store.dispatch('json', d));
 		}
 
 		await store.dispatch('fetch');

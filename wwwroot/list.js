@@ -4,34 +4,28 @@ import { store } from './avatars.js';
 'use strict';
 
 Vue.component('avatars-list', {
-	props: ['avatarsUrl'],
 	data() {
 		return {
-			avatars: [],
+			exclude: [],
 		};
 	},
+	props: ['avatarsUrl'],
+	computed: {
+		...Vuex.mapState(['availableAvatars']),
+		...Vuex.mapState(['restricted']),
+		avatars() {
+			return this.availableAvatars.map(v => v.replace(/^avatar-/, ''))
+				.filter(v => this.exclude.indexOf(v) < 0);
+		},
+	},
 	async created() {
-		const avatars = [];
-
 		await fetch(this.avatarsUrl || 'avatars.json').then(r => r.json())
 			.then(async d => {
-				for (let i = 0; i < d.avatars.length; i++) {
-					if (d.avatars[i] == 'hide')
-						continue;
+				if (d.hasOwnProperty('excludeList'))
+					this.exclude = d.excludeList;
 
-					const avatar = d.avatars[i],
-						s = document.createElement('link')
-
-					await import(`./avatars/${avatar}/index.js`);
-
-					s.rel = 'stylesheet';
-					s.href = `avatars/${avatar}/styles.css`;
-					document.body.appendChild(s);
-					avatars.push(avatar);
-				}
+				await this.$store.dispatch('json', d);
 			});
-
-		this.avatars = avatars;
 	},
 	template: `
 		<div>
@@ -54,8 +48,18 @@ Vue.component('avatars-list', {
 				<tbody>
 					<tr v-for="avatar in avatars">
 						<th scope="row"
-							class="text-monospace text-right w-50">
-							{{ avatar }}
+							class="text-right w-50">
+							<span class="d-block text-monospace">
+								{{ avatar }}
+							</span>
+							<small class="text-muted"
+								v-if="Object.keys(restricted).indexOf(avatar) >= 0">
+								Restricted to:
+								<span class="badge badge-primary"
+									v-for="role in restricted[avatar]">
+									{{ role }}
+								</span>
+							</small>
 						</th>
 						<td class="text-left">
 							<component :is="'avatar-' + avatar"></component>
