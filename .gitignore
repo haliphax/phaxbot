@@ -5,6 +5,6 @@
 commands/
 configs/
 database.sqlite*
-local.yml
+docker-compose.override.yml
 mods/
 shared/choices.json
