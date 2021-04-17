@@ -1,3 +1,17 @@
+## 0.16.0 (2021-04-16)
+
+
+- feature: bot advertises avatar list URL
+- build: more appropriate user for bot container
+- build: use docker-compose.override.yml instead of local.yml
+- style: remove bootstrap, as it's included in bootswatch
+- build: local docker-compose config override
+- fix: removed ports from docker-compose so they can be overidden
+- style: adjust skeleton left margin in avatars list
+- style: get rid of bootstrap JS
+- style: outline avatar labels, consistent label size
+- refactor: there is only docker; polish avatars list page
+
 ## 0.15.0 (2021-04-16)
 
 
