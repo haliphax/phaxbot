@@ -12,7 +12,8 @@ MY_DIR = realpath(dirname(__file__))
 
 avatars_fn = environ.get('AVATARS_FILE', None)
 choices_fn = environ.get('CHOICES_FILE', None)
-
+list_url = environ.get('AVATAR_LIST_URL',
+					   'https://avatars.oddnetwork.org/overlay/list.html')
 
 if avatars_fn is None:
 	avatars_fn = join(MY_DIR, '..', 'wwwroot', 'avatars.json')
@@ -28,8 +29,7 @@ with open(avatars_fn, 'r') as avatars_file:
 @Command('avatar')
 async def cmd_avatar(msg, *args):
 	if not args:
-		output = ', '.join(sorted(AVATARS))
-		await msg.reply(f'Available avatars: {output} -- Use !avatar <name> '
+		await msg.reply(f'Available avatars: {list_url} -- Use !avatar <name> '
 						'to assign one to yourself.')
 
 		return
