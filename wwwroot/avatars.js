@@ -142,18 +142,19 @@ const store = new Vuex.Store({
 			}
 		},
 		async pollChoices(ctx) {
-			await fetch(ctx.state.choicesUrl).then(r => r.json()).then(d => {
-				const keys = Object.keys(d);
+			await fetch(`${ctx.state.choicesUrl}?_=${Date.now()}`)
+				.then(r => r.json()).then(d => {
+					const keys = Object.keys(d);
 
-				for (let i = 0; i < keys.length; i++) {
-					const key = keys[i],
-						value = d[key],
-						avatar = ctx.state.avatars[key];
+					for (let i = 0; i < keys.length; i++) {
+						const key = keys[i],
+							value = d[key],
+							avatar = ctx.state.avatars[key];
 
-					avatar.existing = true;
-					avatar.component = `avatar-${value}`;
-				}
-			});
+						avatar.existing = true;
+						avatar.component = `avatar-${value}`;
+					}
+				});
 		},
 		removeAvatar(ctx, payload) {
 			const copy = {};
