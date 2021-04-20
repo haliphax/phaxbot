@@ -1,3 +1,10 @@
+## 0.16.1 (2021-04-19)
+
+
+- fix: add cache busting to choices retrieval
+- style: fix centering of long names with new avatar format
+- refactor: wip
+
 ## 0.16.0 (2021-04-16)
 
 
