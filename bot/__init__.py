@@ -3,7 +3,7 @@
 # stdlib
 import json
 from os import environ
-from os.path import dirname, exists, join, realpath
+from os.path import exists
 # 3rd party
 from twitchbot import Command
 
@@ -16,10 +16,10 @@ list_url = environ.get('AVATAR_LIST_URL',
 					   'https://avatars.oddnetwork.org/overlay/list.html')
 
 if avatars_fn is None:
-	avatars_fn = join(MY_DIR, '..', 'wwwroot', 'avatars.json')
+	avatars_fn = '/app/data/avatars.json'
 
 if choices_fn is None:
-	choices_fn = join(MY_DIR, '..', 'wwwroot', 'choices.json')
+	choices_fn = '/app/data/choices.json'
 
 with open(avatars_fn, 'r') as avatars_file:
 	data = json.loads(avatars_file.read())
