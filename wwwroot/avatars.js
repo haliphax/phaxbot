@@ -38,8 +38,8 @@ const store = new Vuex.Store({
 		avatarsUrl: 'avatars.json',
 		bot: false,
 		chatters: {},
+		chattersUrl: 'chatters.json',
 		choicesUrl: 'choices.json',
-		corsProxy: 'http://localhost:8080/',
 		excludeChatters: ['hxavatarsbot', 'streamelements'],
 		excludeRandom: ['hide'],
 		restricted: {},
@@ -55,30 +55,24 @@ const store = new Vuex.Store({
 			state.avatars = val;
 		},
 		chatters(state, val) {
-			const keys = Object.keys(val),
-				result = {},
-				limit = Math.min(state.avatarLimit, keys.length);
+			const result = {},
+				limit = Math.min(state.avatarLimit, val.length);
 
 			for (let i = 0; i < limit; i++) {
-				const key = keys[i],
-					chatters = val[key];
+				const chatter = val[i];
 
-				for (let j = 0; j < chatters.length; j++) {
-					const chatter = chatters[j];
+				if (state.excludeChatters.indexOf(chatter) >= 0)
+					continue;
 
-					if (state.excludeChatters.indexOf(chatter) >= 0)
-						continue;
+				let chatterObj = null;
 
-					let chatterObj = null;
+				if (result.hasOwnProperty(chatter))
+					chatterObj = result[chatter];
+				else
+					chatterObj = new Chatter(chatter);
 
-					if (result.hasOwnProperty(chatter))
-						chatterObj = result[chatter];
-					else
-						chatterObj = new Chatter(chatter);
-
-					chatterObj.tags.add(key);
-					result[chatter] = chatterObj;
-				}
+				chatterObj.tags.add(chatter);
+				result[chatter] = chatterObj;
 			}
 
 			state.chatters = result;
@@ -189,11 +183,9 @@ const store = new Vuex.Store({
 		},
 		async fetch(ctx) {
 			// requires cors-container - https://github.com/Rob--W/cors-anywhere
-			await fetch(
-				`${ctx.state.corsProxy}https://tmi.twitch.tv/group/user/`
-					+ `${ctx.state.twitchUser}/chatters`)
+			await fetch(ctx.state.chattersUrl)
 				.then(r => r.json()).then(async d => {
-					ctx.commit('chatters', d.chatters);
+					ctx.commit('chatters', d);
 					ctx.dispatch('updateAvatars');
 
 					if (ctx.state.bot)
@@ -362,8 +354,8 @@ Vue.component('stream-avatars', {
 		'avatarLimit',
 		'avatarsUrl',
 		'bot',
+		'chattersUrl',
 		'choicesUrl',
-		'corsProxy',
 		'excludeChatters',
 		'twitchUser',
 	],
@@ -382,9 +374,9 @@ Vue.component('stream-avatars', {
 			avatarLimit: this.$props.avatarLimit,
 			avatarsUrl: this.$props.avatarsUrl,
 			bot: this.$props.bot,
+			chattersUrl: this.$props.chattersUrl,
 			choicesUrl: this.$props.choicesUrl,
 			excludeChatters: this.$props.excludeChatters,
-			corsProxy: this.$props.corsProxy,
 			twitchUser: this.$props.twitchUser,
 		});
 

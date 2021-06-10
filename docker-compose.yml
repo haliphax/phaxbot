@@ -4,19 +4,10 @@ services:
     build:
       context: .
     image: hxavatarsbot
-    environment:
-      AVATARS_FILE: /app/data/avatars.json
-      CHOICES_FILE: /app/data/choices.json
     restart: unless-stopped
     volumes:
-      - ./commands:/app/commands
-      - ./configs:/app/configs
-      - ./database.sqlite:/app/database.sqlite
+      - ./.env:/app/.env
       - ./shared:/app/data
-      - ./mods:/app/mods
-  cors:
-    image: testcab/cors-anywhere
-    restart: unless-stopped
   web:
     image: nginx
     restart: unless-stopped
