@@ -1,3 +1,10 @@
+## 0.17.0 (2021-06-10)
+
+
+- refactor: python .editorconfig settings
+- feature: use new chatters source (Helix) instead of deprecated API
+- fix: use /app/data for default json location
+
 ## 0.16.1 (2021-04-19)
 
 
