@@ -2,7 +2,6 @@
 
 # stdlib
 import json
-from logging import getLogger
 from os import getenv
 from os.path import dirname, exists, realpath
 # 3rd party
@@ -95,5 +94,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print('starting up!')
     main()
