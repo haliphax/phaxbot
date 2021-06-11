@@ -72,9 +72,7 @@ def handle_message(msg: Message):
         choices = None
 
         if not exists(choices_fn):
-            with open(choices_fn, 'w') as choices_file:
-                choices_file.write('{}')
-                choices = {}
+            choices = {}
         else:
             with open(choices_fn, 'r') as choices_file:
                 choices = json.loads(choices_file.read())
