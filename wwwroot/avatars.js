@@ -183,7 +183,7 @@ const store = new Vuex.Store({
 		},
 		async fetch(ctx) {
 			// requires cors-container - https://github.com/Rob--W/cors-anywhere
-			await fetch(ctx.state.chattersUrl)
+			await fetch(`${ctx.state.chattersUrl}?_=${Date.now()}`)
 				.then(r => r.json()).then(async d => {
 					ctx.commit('chatters', d);
 					ctx.dispatch('updateAvatars');
@@ -381,7 +381,8 @@ Vue.component('stream-avatars', {
 		});
 
 		if (store.state.avatarsUrl) {
-			await fetch(store.state.avatarsUrl).then(r => r.json())
+			await fetch(`${store.state.avatarsUrl}?_=${Date.now()}`)
+				.then(r => r.json())
 				.then(async d => await store.dispatch('json', d));
 		}
 
