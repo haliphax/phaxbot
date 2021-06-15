@@ -35,15 +35,10 @@ const store = new Vuex.Store({
 		availableAvatars: [],
 		avatarLimit: 20,
 		avatars: {},
-		avatarsUrl: 'avatars.json',
-		bot: false,
 		chatters: {},
-		chattersUrl: 'chatters.json',
-		choicesUrl: 'choices.json',
-		excludeChatters: ['hxavatarsbot', 'streamelements'],
+		excludeChatters: ['nightbot', 'hxavatarsbot'],
 		excludeRandom: ['hide'],
 		restricted: {},
-		twitchUser: 'haliphax',
 	},
 	getters: {
 		avatarsArray(state) {
@@ -124,31 +119,29 @@ const store = new Vuex.Store({
 			ctx.commit('avatars', copy);
 		},
 		async json(state, val) {
-			for (let i = 0; i < val.avatars.length; i++)
-				await import(`./avatars/${val.avatars[i]}/index.js`
+			const data = val;
+
+			for (let i = 0; i < data.avatars.length; i++)
+				await import(`./avatars/${data.avatars[i]}/index.js`
 					+ `?_=${Date.now()}`);
 
-			if (val.hasOwnProperty('excludeRandom'))
-				store.commit('excludeRandom', val.excludeRandom);
+			if (data.hasOwnProperty('excludeRandom'))
+				await store.commit('excludeRandom', data.excludeRandom);
 
-			if (val.hasOwnProperty('restricted')) {
-				store.commit('restricted', val.restricted);
-			}
+			if (data.hasOwnProperty('restricted'))
+				await store.commit('restricted', data.restricted);
 		},
-		async pollChoices(ctx) {
-			await fetch(`${ctx.state.choicesUrl}?_=${Date.now()}`)
-				.then(r => r.json()).then(d => {
-					const keys = Object.keys(d);
+		choices(ctx, payload) {
+			const keys = Object.keys(payload);
 
-					for (let i = 0; i < keys.length; i++) {
-						const key = keys[i],
-							value = d[key],
-							avatar = ctx.state.avatars[key];
+			for (let i = 0; i < keys.length; i++) {
+				const key = keys[i],
+					value = payload[key],
+					avatar = ctx.state.avatars[key];
 
-						avatar.existing = true;
-						avatar.component = `avatar-${value}`;
-					}
-				});
+				avatar.existing = true;
+				avatar.component = `avatar-${value}`;
+			}
 		},
 		removeAvatar(ctx, payload) {
 			const copy = {};
@@ -180,17 +173,6 @@ const store = new Vuex.Store({
 				if (typeof ctx.state.avatars[chatter.user] == 'undefined')
 					ctx.dispatch('addAvatar', chatter);
 			}
-		},
-		async fetch(ctx) {
-			// requires cors-container - https://github.com/Rob--W/cors-anywhere
-			await fetch(ctx.state.chattersUrl)
-				.then(r => r.json()).then(async d => {
-					ctx.commit('chatters', d);
-					ctx.dispatch('updateAvatars');
-
-					if (ctx.state.bot)
-						ctx.dispatch('pollChoices');
-				});
 		},
 	},
 });
@@ -247,8 +229,6 @@ const AvatarMixIn = Vue.extend({
 				return;
 			}
 			else {
-				const weighted = {};
-
 				if (this.idleAnimations.length == 0) {
 					this.$el.classList.add('idle');
 				}
@@ -352,12 +332,7 @@ Vue.component('avatar-label', {
 Vue.component('stream-avatars', {
 	props: [
 		'avatarLimit',
-		'avatarsUrl',
-		'bot',
-		'chattersUrl',
-		'choicesUrl',
 		'excludeChatters',
-		'twitchUser',
 	],
 	computed: {
 		...Vuex.mapGetters(['avatarsArray']),
@@ -370,23 +345,32 @@ Vue.component('stream-avatars', {
 		</div>
 	`,
 	async mounted() {
-		store.commit('config', {
-			avatarLimit: this.$props.avatarLimit,
-			avatarsUrl: this.$props.avatarsUrl,
-			bot: this.$props.bot,
-			chattersUrl: this.$props.chattersUrl,
-			choicesUrl: this.$props.choicesUrl,
+		await store.commit('config', {
 			excludeChatters: this.$props.excludeChatters,
-			twitchUser: this.$props.twitchUser,
 		});
 
-		if (store.state.avatarsUrl) {
-			await fetch(store.state.avatarsUrl).then(r => r.json())
-				.then(async d => await store.dispatch('json', d));
-		}
+		const socket = io.connect();
 
-		await store.dispatch('fetch');
-		setInterval(() => store.dispatch('fetch'), 10000);
+		socket.on('init', async d => {
+			let chattersLoaded = false;
+
+			await store.dispatch('json', d);
+
+			socket.on('chatters', async d => {
+				await store.commit('chatters', d);
+				await store.dispatch('updateAvatars');
+
+				if (!chattersLoaded)
+					socket.emit('ready.choices');
+
+				chattersLoaded = true;
+			});
+
+			socket.on(
+				'choices', async d => await store.dispatch('choices', d));
+
+			socket.emit('ready.chatters');
+		});
 	},
 });
 

@@ -2,18 +2,16 @@
 <html lang="en-US">
     <head>
         <meta charset="utf-8" />
-		<base href="/overlay/" />
+		<base href="/static/" />
 		<title>Overlay | hxAvatars</title>
 		<link rel="stylesheet" href="styles.css" />
 		<link rel="stylesheet" href="overlay.css" />
         <script type="module" src="index.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/socket.io-client@3/dist/socket.io.min.js"></script>
     </head>
     <body>
 		<div id="main">
-			<stream-avatars bot="true"
-				avatars-url="/data/avatars.json"
-				chatters-url="/data/chatters.json"
-				choices-url="/data/choices.json" />
+			<stream-avatars bot="true"></stream-avatars>
 		</div>
     </body>
 </html>
