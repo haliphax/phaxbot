@@ -90,7 +90,3 @@ def main():
 
     # Subscribe to messages
     chat.subscribe(MessageHandler())
-
-
-if __name__ == '__main__':
-    main()
