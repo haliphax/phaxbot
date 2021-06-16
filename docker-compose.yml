@@ -3,14 +3,12 @@ services:
   bot:
     build:
       context: .
+    command: /bin/sh -c "python3 -m hxavatars.web"
     image: hxavatarsbot
+    ports:
+      - 5000:5000
     restart: unless-stopped
+    tty: true
     volumes:
       - ./.env:/app/.env
       - ./shared:/app/data
-  web:
-    image: nginx
-    restart: unless-stopped
-    volumes:
-      - ./wwwroot:/usr/share/nginx/html/overlay
-      - ./shared:/usr/share/nginx/html/data
