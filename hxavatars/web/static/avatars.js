@@ -236,7 +236,7 @@ const AvatarMixIn = Vue.extend({
 					const
 						total = this.idleAnimations.reduce(
 							(p, v) => p + v.weight, 0),
-						roll = Math.floor(Math.random() * total);
+						roll = Math.ceil(Math.random() * total);
 					let current = 0;
 
 					for (let i = 0; i < this.idleAnimations.length; i++) {
