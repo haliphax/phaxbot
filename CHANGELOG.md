@@ -1,3 +1,65 @@
+## 0.17.1 (2021-06-16)
+
+
+- Merge branch 'websockets'
+- refactor: use websockets instead of polling
+- fix: cache busting for avatars and chatters
+- refactor: remove unused logging
+- Merge branch 'master' of github.com:haliphax/stream-avatars
+- refactor: no need to write to file twice
+- build: bump pre-commit from 2.12.0 to 2.13.0 (#15)
+- Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 2.12.0 to 2.13.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v2.12.0...v2.13.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump click from 7.1.2 to 8.0.1 (#16)
+- Bumps [click](https://github.com/pallets/click) from 7.1.2 to 8.0.1.
+- [Release notes](https://github.com/pallets/click/releases)
+- [Changelog](https://github.com/pallets/click/blob/main/CHANGES.rst)
+- [Commits](https://github.com/pallets/click/compare/7.1.2...8.0.1)
+
+---
+updated-dependencies:
+- dependency-name: click
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump commitizen from 2.17.2 to 2.17.8 (#14)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.2 to 2.17.8.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.2...v2.17.8)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: remove anchore
+- refactor: Anchore container scan
+- refactor: CodeQL
+- refactor: dependabot
+
 ## 0.17.0 (2021-06-10)
 
 
