@@ -4,6 +4,8 @@ from eventlet import monkey_patch; monkey_patch()
 
 # stdlib
 import json
+import logging
+from os.path import dirname, join, realpath
 # 3rd party
 from flask import Flask
 from flask_socketio import emit, SocketIO
@@ -34,3 +36,18 @@ def ready_choices():
     with open(config.CHOICES_FILE, 'r') as choices_file:
         app.logger.info('emitting choices')
         emit('choices', json.loads(choices_file.read()))
+
+
+def main():
+    "Entry point."
+
+    from ..bot import main as bot
+
+    bot()
+    app.logger.level = logging.INFO
+    app.static_folder = join(realpath(dirname(__file__)), 'static')
+    socketio.run(app, host='0.0.0.0')
+
+
+if __name__ == '__main__':
+    main()
