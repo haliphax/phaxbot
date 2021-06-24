@@ -41,9 +41,11 @@ def ready_choices():
 def main():
     "Entry point."
 
-    from ..bot import main as bot
+    if config.BOT:
+        from ..bot import main as bot
 
-    bot()
+        bot()
+
     app.logger.level = logging.INFO
     app.static_folder = join(realpath(dirname(__file__)), 'static')
     socketio.run(app, host='0.0.0.0')

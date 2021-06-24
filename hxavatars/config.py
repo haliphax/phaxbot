@@ -20,6 +20,8 @@ AVATAR_LIST_URL = list_url = getenv('AVATAR_LIST_URL',
 AVATARS = set([])
 #: Filename of avatars list (TODO replace with API endpoint)
 AVATARS_FILE = getenv('AVATARS_FILE', '/app/data/avatars.json')
+#: Whether to enable the bot
+BOT = bool(getenv('BOT', True))
 #: Twitch channel to join
 CHANNEL = getenv('TWITCH_CHANNEL')
 #: Filename of list of chatters (TODO replace with websocket stuff)
