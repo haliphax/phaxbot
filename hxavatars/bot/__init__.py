@@ -10,7 +10,7 @@ from rx.core.typing import Observer
 from twitch import Chat, Helix
 from twitch.chat import Message
 # local
-from .. import config, MessageHandler
+from .. import config
 # local
 from .. import config
 from ..web import app, socketio
