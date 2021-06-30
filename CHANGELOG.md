@@ -1,3 +1,26 @@
+## 0.18.0 (2021-06-30)
+
+
+- fix: avatars list
+- feature: bot toggle in config
+- refactor: remove ports from compose for override
+- fix: remove bad MessageHandler import
+- build: bump commitizen from 2.17.8 to 2.17.9 (#17)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.8 to 2.17.9.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.8...v2.17.9)
+- ---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+- Signed-off-by: dependabot[bot] <support@github.com>
+- Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- refactor: get rid of __main__.py files
+- fix: use ceil instead of floor to open last idle animation
+
 ## 0.17.1 (2021-06-16)
 
 

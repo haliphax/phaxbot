@@ -1,6 +1,6 @@
 [tool.commitizen]
 name = "cz_customize"
-version = "0.17.1"
+version = "0.18.0"
 
 [tool.commitizen.customize]
 message_template = "{{change_type}}: {{message}}"
