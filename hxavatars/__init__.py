@@ -1,11 +1,15 @@
 "hxAvatars module"
 
 # stdlib
-from sys import stderr
+import json
+
+from . import config
 
 
-def echo(text: str):
-    "Write to stderr like print()."
+class Global:
+    #: Available avatars
+    AVATARS: dict = None
 
-    stderr.write(f'{text}\n')
-    stderr.flush()
+
+with open(config.AVATARS_FILE, 'r') as avatars_file:
+    Global.AVATARS = json.loads(avatars_file.read())

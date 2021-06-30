@@ -19,7 +19,7 @@ Vue.component('avatars-list', {
 		},
 	},
 	async created() {
-		await fetch(this.avatarsUrl || 'avatars.json').then(r => r.json())
+		await fetch(this.avatarsUrl || '/api/avatars').then(r => r.json())
 			.then(async d => {
 				if (d.hasOwnProperty('excludeList'))
 					this.exclude = d.excludeList;

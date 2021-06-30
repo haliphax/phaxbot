@@ -10,18 +10,18 @@ from os.path import dirname, join, realpath
 from flask import Flask
 from flask_socketio import emit, SocketIO
 # local
-from .. import config
+from .. import config, Global
 
 #: The main Flask application
 app = Flask('hxAvatars')
+#: SocketIO application
 socketio = SocketIO(app)
 
 
 @socketio.on('connect')
 def connect():
-    with open(config.AVATARS_FILE, 'r') as avatars_file:
-        app.logger.info('emitting init')
-        emit('init', json.loads(avatars_file.read()))
+    app.logger.info('emitting init')
+    emit('init', Global.AVATARS)
 
 
 @socketio.on('ready.chatters')
@@ -38,6 +38,11 @@ def ready_choices():
         emit('choices', json.loads(choices_file.read()))
 
 
+@app.get('/api/avatars')
+def get_avatars():
+    return Global.AVATARS
+
+
 def main():
     "Entry point."
 
@@ -48,4 +53,5 @@ def main():
 
     app.logger.level = logging.INFO
     app.static_folder = join(realpath(dirname(__file__)), 'static')
+
     socketio.run(app, host='0.0.0.0')
