@@ -48,9 +48,8 @@ class MessageHandler(Observer):
         if txt == '!avatar':
             # TODO rate limiting
             msg.chat.send(
-                'Available avatars: '
-                'https://avatars.oddnetwork.org/overlay/list.html '
-                '-- Use !avatar <name> to assign one to yourself.')
+                'Available avatars: https://avatars.oddnetwork.org -- Use '
+                '!avatar <name> to assign one to yourself.')
         elif txt.startswith('!avatar '):
             avatar = txt[len('!avatar '):].strip()
 
