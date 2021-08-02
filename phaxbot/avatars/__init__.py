@@ -1,4 +1,4 @@
-"hxAvatars module"
+"phaxbot avatars module"
 
 # stdlib
 import json

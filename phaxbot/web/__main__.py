@@ -1,4 +1,4 @@
-"hxAvatars web entry point"
+"phaxbot web entry point"
 
 # local
 from . import main

@@ -1,21 +1,17 @@
-"hxAvatars web module"
-
-from eventlet import monkey_patch; monkey_patch()
+"phaxbot avatars web endpoints"
 
 # stdlib
 import json
-import logging
 from os.path import dirname, join, realpath
 # 3rd party
-from flask import Flask
-from flask_socketio import emit, SocketIO
+from flask import Blueprint
+from flask_socketio import emit
 # local
+from ...web import app, socketio
 from .. import config, Global
 
-#: The main Flask application
-app = Flask('hxAvatars')
-#: SocketIO application
-socketio = SocketIO(app)
+my_dir = realpath(join(dirname(__file__)))
+bp = Blueprint('avatars', __name__, join(my_dir, 'static'))
 
 
 @socketio.on('connect')
@@ -38,20 +34,9 @@ def ready_choices():
         emit('choices', json.loads(choices_file.read()))
 
 
-@app.get('/api/avatars')
+@bp.get('/api/list')
 def get_avatars():
     return Global.AVATARS
 
 
-def main():
-    "Entry point."
-
-    if config.BOT:
-        from ..bot import main as bot
-
-        bot()
-
-    app.logger.level = logging.INFO
-    app.static_folder = join(realpath(dirname(__file__)), 'static')
-
-    socketio.run(app, host='0.0.0.0')
+app.register_blueprint(bp, url_prefix='/avatars')

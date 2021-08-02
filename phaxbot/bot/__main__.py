@@ -1,4 +1,4 @@
-"hxAvatars bot entry point"
+"phaxbot bot entry point"
 
 from . import main
 
