@@ -3,10 +3,15 @@ services:
   bot:
     build:
       context: .
-    command: /bin/sh -c "python3 -m hxavatars.web"
-    image: hxavatarsbot
+    command: /bin/sh -c "python3 -m phaxbot.web"
+    depends_on:
+      - redis
+    image: phaxbot
     restart: unless-stopped
     tty: true
     volumes:
       - ./.env:/app/.env
       - ./shared:/app/data
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
