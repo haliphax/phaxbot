@@ -11,10 +11,10 @@ Vue.component('chat-message', {
 	computed: {
 		parsedMessage() {
 			const message = this.message;
-			let parsed = message.message;
+			let parsed = message.message.replace('<', '\x01');
 
 			if (message.tags.emotes === null)
-				return parsed;
+				return parsed.replace('\x01', '&lt;');
 
 			Object.keys(message.tags.emotes).map(key => {
 				const emotes = message.tags.emotes[key];
@@ -32,7 +32,7 @@ Vue.component('chat-message', {
 				});
 			});
 
-			return parsed;
+			return parsed.replace('\x01', '&lt;');
 		},
 	},
 	props: ['message'],
