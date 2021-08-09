@@ -1,5 +1,5 @@
-import 'https://gitcdn.xyz/repo/tmijs/cdn/master/latest/1.x/tmi.min.js';
 import 'https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js';
+import './tmi.min.js';
 
 'use strict';
 
