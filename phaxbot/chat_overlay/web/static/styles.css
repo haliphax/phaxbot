@@ -26,13 +26,22 @@ body {
 }
 
 .message.message-item {
+	animation: 0.5s ease-out slide-in;
 	display: inline;
 	flex-direction: column;
 	line-height: 1.2;
 	list-style: none;
 	margin: 0.5rem;
 	padding: 0;
+	position: relative;
 	width: 100%;
+	left: 0;
+}
+
+@keyframes slide-in {
+	from {
+		left: 100%;
+	}
 }
 
 .message-item.message-username {
