@@ -12,6 +12,9 @@ from .. import config
 HANDLERS = ('avatars',)
 message_handlers = []
 
+# Twitch API client
+helix = Helix(config.CLIENT_ID, config.CLIENT_SECRET)
+user = helix.user(config.USERNAME)
 
 for mod in HANDLERS:
     module = import_module(f'..{mod}.bot', __name__)
@@ -39,9 +42,6 @@ class MessageHandler(Observer):
 
 
 def main():
-    # Twitch API client
-    helix = Helix(config.CLIENT_ID, config.CLIENT_SECRET)
-
     # Chat connection
     chat = Chat(channel=config.CHANNEL, nickname=config.NICKNAME,
                 oauth=config.CLIENT_OAUTH, helix=helix)
