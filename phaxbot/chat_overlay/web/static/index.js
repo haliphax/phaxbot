@@ -5,16 +5,21 @@ import './tmi.min.js';
 
 const store = {
 	messages: [],
-}
+};
 
 Vue.component('chat-message', {
+	methods: {
+		clean(text) {
+			return text.replace('\x01', '&lt;');
+		},
+	},
 	computed: {
 		parsedMessage() {
 			const message = this.message;
 			let parsed = message.message.replace('<', '\x01');
 
 			if (message.tags.emotes === null)
-				return parsed.replace('\x01', '&lt;');
+				return this.clean(parsed);
 
 			Object.keys(message.tags.emotes).map(key => {
 				const emotes = message.tags.emotes[key];
@@ -32,7 +37,7 @@ Vue.component('chat-message', {
 				});
 			});
 
-			return parsed.replace('\x01', '&lt;');
+			return this.clean(parsed);
 		},
 	},
 	props: ['message'],
