@@ -44,7 +44,7 @@ Vue.component('chat-message', {
 	template: /*html*/`
 		<li class="message message-item">
 			<span class="message-item message-username"
-				:style="'color: ' + message.tags['color']">
+				:style="{ color: message.tags['color'] }">
 				{{ message.tags['display-name'] }}:
 			</span>
 			<span class="message-item message-text"
