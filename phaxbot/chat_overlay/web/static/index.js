@@ -1,96 +1,93 @@
-import 'https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js';
-import './tmi.min.js';
+(async function(){
+	/** configuration object */
+	const config = await fetch('/chat_overlay/init').then(r => r.json());
+	/** vue shared store */
+	const store = {
+		messages: [],
+	};
 
-'use strict';
-
-/** configuration object */
-const config = await fetch('/chat_overlay/init').then(r => r.json());
-/** vue shared store */
-const store = {
-	messages: [],
-};
-
-Vue.component('chat-message', {
-	methods: {
-		clean(text) {
-			return text.replace('\x01', '&lt;');
+	Vue.component('chat-message', {
+		methods: {
+			clean(text) {
+				return text.replace('\x01', '&lt;');
+			},
 		},
-	},
-	computed: {
-		badges() {
-			return Object.keys(this.message.tags.badges || {}).map(v => {
-				const version = this.message.tags.badges[v];
-				const pool = (config.badges.channel.hasOwnProperty(v)
-					? config.badges.channel : config.badges.global);
+		computed: {
+			badges() {
+				return Object.keys(this.message.tags.badges || {}).map(v => {
+					const version = this.message.tags.badges[v];
+					const pool = (config.badges.channel.hasOwnProperty(v)
+						? config.badges.channel : config.badges.global);
 
-				return pool[v].versions[version].image_url_1x;
-			});
-		},
-		parsedMessage() {
-			const message = this.message;
-			let parsed = message.message.replace('<', '\x01');
-
-			if (message.tags.emotes === null)
-				return this.clean(parsed);
-
-			Object.keys(message.tags.emotes).map(key => {
-				const emotes = message.tags.emotes[key];
-				let offset = 0;
-
-				emotes.forEach(range => {
-					const tag = `<img class="message-text message-emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${key}/default/dark/1.0" /> `,
-						split = range.split('-'),
-						start = parseInt(split[0]),
-						end = parseInt(split[1]);
-
-					parsed = parsed.slice(0, offset + start) + tag
-						+ parsed.slice(offset + end + 1);
-					offset += tag.length - end + start - 1;
+					return pool[v].versions[version].image_url_1x;
 				});
-			});
+			},
+			parsedMessage() {
+				const message = this.message;
+				let parsed = message.message.replace('<', '\x01');
 
-			return this.clean(parsed);
+				if (message.tags.emotes === null)
+					return this.clean(parsed);
+
+				Object.keys(message.tags.emotes).map(key => {
+					const emotes = message.tags.emotes[key];
+					let offset = 0;
+
+					emotes.forEach(range => {
+						const tag = `<img class="message-text message-emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${key}/default/dark/1.0" /> `,
+							split = range.split('-'),
+							start = parseInt(split[0]),
+							end = parseInt(split[1]);
+
+						parsed = parsed.slice(0, offset + start) + tag
+							+ parsed.slice(offset + end + 1);
+						offset += tag.length - end + start - 1;
+					});
+				});
+
+				return this.clean(parsed);
+			},
 		},
-	},
-	props: ['message'],
-	template: /*html*/`
-		<li class="message message-item">
-			<span class="message-item message-badges">
-				<img class="message-badges message-badge"
-					v-for="badge in badges" :src="badge" />
-			</span>
-			<span class="message-item message-username"
-				:style="{ color: message.tags['color'] }">
-				{{ message.tags['display-name'] }}:
-			</span>
-			<span class="message-item message-text"
-				v-html="parsedMessage">
-			</span>
-		</li>
-	`,
-});
+		props: ['message'],
+		template: /*html*/`
+			<li class="message message-item">
+				<span class="message-item message-badges">
+					<img class="message-badges message-badge"
+						v-for="badge in badges" :src="badge" />
+				</span>
+				<span class="message-item message-username"
+					:style="{ color: message.tags['color'] }">
+					{{ message.tags['display-name'] }}:
+				</span>
+				<span class="message-item message-text"
+					v-html="parsedMessage">
+				</span>
+			</li>
+		`,
+	});
 
-Vue.component('chat-overlay', {
-	data() {
-		return {
-			store: store,
-		};
-	},
-	template: /*html*/`
-		<ul class="messages messages-list">
-			<chat-message v-for="m in store.messages" :key="m.id" :message="m">
-			</chat-message>
-		</ul>
-	`,
-});
+	Vue.component('chat-overlay', {
+		data() {
+			return {
+				store: store,
+			};
+		},
+		template: /*html*/`
+			<ul class="messages messages-list">
+				<chat-message v-for="m in store.messages" :key="m.id" :message="m">
+				</chat-message>
+			</ul>
+		`,
+	});
 
-/** Twitch client */
-const twitch = new tmi.Client({ channels: [config.user.username] });
+	/** Twitch client */
+	const twitch = new tmi.Client({ channels: [config.user.username] });
 
-twitch.on('message', (channel, tags, message, self) => {
-	store.messages.push({ message: message, tags: tags });
-	console.log(channel, tags, message);
-});
-twitch.connect();
+	twitch.on('message', (channel, tags, message, self) => {
+		store.messages.push({ message: message, tags: tags });
+		console.log(channel, tags, message);
+	});
+	twitch.connect();
 
-new Vue({ el: 'body > div:first-child' });
+	new Vue({ el: 'body > div:first-child' });
+}());
