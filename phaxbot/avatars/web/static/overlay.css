@@ -23,6 +23,7 @@ body {
 	margin-right: -100vw;
 	position: relative;
 	text-align: center;
+	text-shadow: 0 0 4px #000;
 	top: -1em;
 	-webkit-text-stroke: 1px #000;
 }
