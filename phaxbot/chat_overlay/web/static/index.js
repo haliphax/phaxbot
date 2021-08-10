@@ -29,21 +29,39 @@
 				if (message.tags.emotes === null)
 					return this.clean(parsed);
 
-				Object.keys(message.tags.emotes).map(key => {
-					const emotes = message.tags.emotes[key];
-					let offset = 0;
+				// loop through emotes
+				// add individual records to list for each range
+				// order list by start indexes ascending
+				// loop through list
+				// replace text in one loop
 
-					emotes.forEach(range => {
-						const tag = `<img class="message-text message-emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${key}/default/dark/1.0" /> `,
-							split = range.split('-'),
-							start = parseInt(split[0]),
-							end = parseInt(split[1]);
+				let all = [];
 
-						parsed = parsed.slice(0, offset + start) + tag
-							+ parsed.slice(offset + end + 1);
-						offset += tag.length - end + start - 1;
-					});
-				});
+				for (const key of Object.keys(message.tags.emotes)) {
+					const emote = message.tags.emotes[key];
+
+					for (const range of emote) {
+						const split = range.split('-');
+
+						all.push({
+							emote: key,
+							start: parseInt(split[0]),
+							end: parseInt(split[1]),
+						});
+					}
+				}
+
+				all.sort((a, b) => a.start < b.start);
+
+				let offset = 0;
+
+				for (const emote of all) {
+					const tag = `<img class="message-text message-emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.emote}/default/dark/1.0" />`;
+
+					parsed = parsed.slice(0, offset + emote.start)
+						+ tag + parsed.slice(offset + emote.end + 1);
+					offset = offset - emote.emote.length + tag.length - 2;
+				}
 
 				return this.clean(parsed);
 			},
@@ -85,7 +103,6 @@
 
 	twitch.on('message', (channel, tags, message, self) => {
 		store.messages.push({ message: message, tags: tags });
-		console.log(channel, tags, message);
 	});
 	twitch.connect();
 
