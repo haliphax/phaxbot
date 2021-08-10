@@ -3,6 +3,8 @@ import './tmi.min.js';
 
 'use strict';
 
+const config = await fetch('/chat_overlay/init').then(r => r.json());
+
 const store = {
 	messages: [],
 };
@@ -14,6 +16,15 @@ Vue.component('chat-message', {
 		},
 	},
 	computed: {
+		badges() {
+			return Object.keys(this.message.tags.badges || {}).map(v => {
+				const version = this.message.tags.badges[v];
+				const pool = (config.badges.channel.hasOwnProperty(v)
+					? config.badges.channel : config.badges.global);
+
+				return pool[v].versions[version].image_url_1x;
+			});
+		},
 		parsedMessage() {
 			const message = this.message;
 			let parsed = message.message.replace('<', '\x01');
@@ -43,6 +54,10 @@ Vue.component('chat-message', {
 	props: ['message'],
 	template: /*html*/`
 		<li class="message message-item">
+			<span class="message-item message-badges">
+				<img class="message-badges message-badge"
+					v-for="badge in badges" :src="badge" />
+			</span>
 			<span class="message-item message-username"
 				:style="{ color: message.tags['color'] }">
 				{{ message.tags['display-name'] }}:

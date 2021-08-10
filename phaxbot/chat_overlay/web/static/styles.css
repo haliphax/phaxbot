@@ -39,7 +39,12 @@ body {
 	font-weight: bold;
 }
 
+.message-badges.message-badge,
 .message-text.message-emoji {
 	max-height: 1rem;
 	vertical-align: middle;
+}
+
+.message-badges.message-badge {
+	margin-right: 2px;
 }
