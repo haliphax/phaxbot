@@ -1,3 +1,156 @@
+## 0.19.0 (2021-08-09)
+
+
+- refactor: object syntax for computed style attribute
+- refactor: move text cleaning to own function
+- style: split html/body styles
+- style: inline messages
+- refactor: load scripts just before body close
+- style: vertically-stacked message contents
+- refactor: default indent of 2
+- Merge branch 'master' of github.com:haliphax/phaxbot
+- fix: encoded chat messages
+- refactor: local tmi.min.js source
+- build: bump flask-socketio from 5.1.0 to 5.1.1 (#25)
+- Bumps [flask-socketio](https://github.com/miguelgrinberg/flask-socketio) from 5.1.0 to 5.1.1.
+- [Release notes](https://github.com/miguelgrinberg/flask-socketio/releases)
+- [Changelog](https://github.com/miguelgrinberg/Flask-SocketIO/blob/main/CHANGES.md)
+- [Commits](https://github.com/miguelgrinberg/flask-socketio/compare/v5.1.0...v5.1.1)
+
+---
+updated-dependencies:
+- dependency-name: flask-socketio
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- fix: include chat_overlay in web modules
+- feature: beginnings of chat overlay
+- refactor: reorg so extensions can be modular
+- build: reorg dockerfile for optimized build
+- build: rename service in compose and add redis
+- build: bump python-dotenv from 0.18.0 to 0.19.0 (#24)
+- Bumps [python-dotenv](https://github.com/theskumar/python-dotenv) from 0.18.0 to 0.19.0.
+- [Release notes](https://github.com/theskumar/python-dotenv/releases)
+- [Changelog](https://github.com/theskumar/python-dotenv/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/theskumar/python-dotenv/compare/v0.18.0...v0.19.0)
+
+---
+updated-dependencies:
+- dependency-name: python-dotenv
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump commitizen from 2.17.12 to 2.17.13 (#23)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.12 to 2.17.13.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.12...v2.17.13)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump eventlet from 0.31.0 to 0.31.1 (#22)
+- Bumps [eventlet](https://github.com/eventlet/eventlet) from 0.31.0 to 0.31.1.
+- [Release notes](https://github.com/eventlet/eventlet/releases)
+- [Changelog](https://github.com/eventlet/eventlet/blob/master/NEWS)
+- [Commits](https://github.com/eventlet/eventlet/compare/v0.31.0...v0.31.1)
+
+---
+updated-dependencies:
+- dependency-name: eventlet
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- fix: update avatars url
+- build: bump commitizen from 2.17.11 to 2.17.12 (#21)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.11 to 2.17.12.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.11...v2.17.12)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump commitizen from 2.17.9 to 2.17.11 (#20)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.9 to 2.17.11.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.9...v2.17.11)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump python-dotenv from 0.17.1 to 0.18.0 (#18)
+- * build: bump commitizen from 2.17.8 to 2.17.9 (#17)
+
+Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.8 to 2.17.9.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.8...v2.17.9)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
+* build: bump python-dotenv from 0.17.1 to 0.18.0
+
+Bumps [python-dotenv](https://github.com/theskumar/python-dotenv) from 0.17.1 to 0.18.0.
+- [Release notes](https://github.com/theskumar/python-dotenv/releases)
+- [Changelog](https://github.com/theskumar/python-dotenv/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/theskumar/python-dotenv/compare/v0.17.1...v0.18.0)
+
+---
+updated-dependencies:
+- dependency-name: python-dotenv
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: haliphax <haliphax@gmail.com>
+
 ## 0.18.0 (2021-06-30)
 
 
