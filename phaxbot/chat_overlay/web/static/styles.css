@@ -22,7 +22,7 @@ html, body {
 }
 
 .message.message-item {
-	display: flex;
+	display: inline;
 	flex-direction: column;
 	line-height: 1.2;
 	list-style: none;
