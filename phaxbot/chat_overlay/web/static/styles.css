@@ -51,8 +51,8 @@ body {
 
 .message-badges.message-badge,
 .message-text.message-emoji {
-	max-height: 1.2rem;
-	vertical-align: baseline;
+	max-height: 1.6rem;
+	vertical-align: bottom;
 }
 
 .message-badges.message-badge {
