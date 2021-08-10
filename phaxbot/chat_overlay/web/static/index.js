@@ -3,8 +3,9 @@ import './tmi.min.js';
 
 'use strict';
 
+/** configuration object */
 const config = await fetch('/chat_overlay/init').then(r => r.json());
-
+/** vue shared store */
 const store = {
 	messages: [],
 };
@@ -84,7 +85,7 @@ Vue.component('chat-overlay', {
 });
 
 /** Twitch client */
-const twitch = new tmi.Client({ channels: ['haliphax'] });
+const twitch = new tmi.Client({ channels: [config.user.username] });
 
 twitch.on('message', (channel, tags, message, self) => {
 	store.messages.push({ message: message, tags: tags });
