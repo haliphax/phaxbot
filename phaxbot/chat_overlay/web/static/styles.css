@@ -23,19 +23,16 @@ html, body {
 
 .message.message-item {
 	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
 	list-style: none;
-	margin: 0 .25rem .25rem .25rem;
+	margin: 0.5rem 0.25rem;
 	padding: 0;
 	width: 100%;
 }
 
 .message-item.message-username {
 	font-weight: bold;
-	margin-right: .25rem;
-}
-
-.message-item {
-	line-height: 1.2;
 }
 
 .message-text.message-emoji {
