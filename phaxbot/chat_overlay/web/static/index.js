@@ -9,7 +9,7 @@
 	Vue.component('chat-message', {
 		methods: {
 			clean(text) {
-				return text.replace('\x01', '&lt;');
+				return text.replace(/\x01/g, '&lt;');
 			},
 		},
 		computed: {
@@ -24,16 +24,10 @@
 			},
 			parsedMessage() {
 				const message = this.message;
-				let parsed = message.message.replace('<', '\x01');
+				let parsed = message.message.replace(/</g, '\x01');
 
 				if (message.tags.emotes === null)
 					return this.clean(parsed);
-
-				// loop through emotes
-				// add individual records to list for each range
-				// order list by start indexes ascending
-				// loop through list
-				// replace text in one loop
 
 				let all = [];
 
