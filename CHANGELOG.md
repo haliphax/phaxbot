@@ -1,3 +1,53 @@
+## 0.20.0 (2021-08-12)
+
+
+- docs: update readme to reflect new project goals
+- fix: replace all instances of < in chat message, not just the first
+- style: unifont
+- style: add shadow to avatar labels
+- style: realign badges
+- fix: multiple emoji
+- style: taller emoji
+- style: bg color w/ opacity on list only
+- fix: async wrapper to get working in OBS
+- refactor: add Twitch username to chat JSON init
+- style: larger emoji, baseline alignment
+- style: animated slide-in
+- feature: badges
+- refactor: move helix object to main scope, add user object
+- build: bump simple-websocket from 0.2.0 to 0.3.0 (#26)
+- Bumps [simple-websocket](https://github.com/miguelgrinberg/simple-websocket) from 0.2.0 to 0.3.0.
+- [Release notes](https://github.com/miguelgrinberg/simple-websocket/releases)
+- [Changelog](https://github.com/miguelgrinberg/simple-websocket/blob/main/CHANGES.md)
+- [Commits](https://github.com/miguelgrinberg/simple-websocket/compare/v0.2.0...v0.3.0)
+
+---
+updated-dependencies:
+- dependency-name: simple-websocket
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump pre-commit from 2.13.0 to 2.14.0 (#27)
+- Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 2.13.0 to 2.14.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v2.13.0...v2.14.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
 ## 0.19.0 (2021-08-09)
 
 
