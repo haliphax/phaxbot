@@ -1,3 +1,13 @@
+## 0.21.0 (2021-08-13)
+
+
+- refactor: alphabetize .message.message-item styles
+- style: replace slide-left effect with slide-up effect for new messages
+- style: fix margins and word-wrapping
+- style: move background color from list to messages
+- feature: self-destructing messages
+- fix: actually fix multiple emoji rendering
+
 ## 0.20.0 (2021-08-12)
 
 
