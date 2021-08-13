@@ -29,13 +29,13 @@ body {
 	background-color: rgba(0, 0, 0, 0.9);
 	display: inline;
 	flex-direction: column;
+	left: 0;
 	line-height: 1.2;
 	list-style: none;
 	padding: 0.5rem;
 	padding-bottom: 0;
 	position: relative;
 	word-wrap: break-word;
-	left: 0;
 }
 
 .message.message-item:last-child {
