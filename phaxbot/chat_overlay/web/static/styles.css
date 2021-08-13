@@ -31,11 +31,15 @@ body {
 	flex-direction: column;
 	line-height: 1.2;
 	list-style: none;
-	margin: 0.5rem;
-	padding: 0;
+	padding: 0.5rem;
+	padding-bottom: 0;
 	position: relative;
-	width: 100%;
+	word-wrap: break-word;
 	left: 0;
+}
+
+.message.message-item:last-child {
+	padding-bottom: 0.5rem;
 }
 
 .message.message-item.displaying {
