@@ -27,7 +27,6 @@ body {
 }
 
 .message.message-item {
-	animation: 0.5s ease-out slide-in;
 	display: inline;
 	flex-direction: column;
 	line-height: 1.2;
@@ -39,8 +38,22 @@ body {
 	left: 0;
 }
 
+.message.message-item.displaying {
+	animation: 0.5s ease-out slide-in;
+}
+
+.message.message-item.expired {
+	animation: 0.5s ease-in slide-out;
+}
+
 @keyframes slide-in {
 	from {
+		left: 100%;
+	}
+}
+
+@keyframes slide-out {
+	to {
 		left: 100%;
 	}
 }
