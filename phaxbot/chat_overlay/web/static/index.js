@@ -45,16 +45,17 @@
 					}
 				}
 
-				all.sort((a, b) => a.start < b.start);
+				all.sort((a, b) => a.start - b.start);
 
 				let offset = 0;
 
 				for (const emote of all) {
 					const tag = `<img class="message-text message-emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.emote}/default/dark/1.0" />`;
+					const keyword = parsed.slice(offset + emote.start, offset + emote.end + 1);
 
 					parsed = parsed.slice(0, offset + emote.start)
 						+ tag + parsed.slice(offset + emote.end + 1);
-					offset = offset - emote.emote.length + tag.length - 2;
+					offset = offset + tag.length - keyword.length;
 				}
 
 				return this.clean(parsed);
