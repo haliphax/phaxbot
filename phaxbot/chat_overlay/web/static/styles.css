@@ -15,7 +15,7 @@ body {
 	font-size: 22px;
 }
 
-.messages.messages-list {
+.messages {
 	bottom: 0;
 	display: flex;
 	flex-direction: column;
@@ -25,7 +25,7 @@ body {
 	width: 100%;
 }
 
-.message.message-item {
+.message {
 	background-color: rgba(0, 0, 0, 0.9);
 	display: inline;
 	flex-direction: column;
@@ -38,16 +38,16 @@ body {
 	word-wrap: break-word;
 }
 
-.message.message-item:last-child {
+.message:last-child {
 	padding-bottom: 0.5rem;
 }
 
-.message.message-item.displaying {
-	animation: 0.75s ease-out slide-in;
+.message.displaying {
+	animation: 1s ease-out slide-in;
 }
 
-.message.message-item.expired {
-	animation: 0.5s ease-in slide-out;
+.message.expired {
+	animation: 1s ease-in slide-out;
 }
 
 @keyframes slide-in {
@@ -58,24 +58,21 @@ body {
 
 @keyframes slide-out {
 	to {
-		left: 100%;
+		opacity: 0;
 	}
 }
 
-.message-item.message-username {
+.username {
 	font-weight: bold;
 }
 
-.message-badges.message-badge {
+.badge {
+	margin-right: 2px;
 	max-height: 1.2rem;
 	vertical-align: middle;
 }
 
-.message-text.message-emoji {
+.emoji {
 	max-height: 1.6rem;
 	vertical-align: bottom;
-}
-
-.message-badges.message-badge {
-	margin-right: 2px;
 }

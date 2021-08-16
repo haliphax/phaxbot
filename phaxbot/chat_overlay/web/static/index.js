@@ -15,6 +15,12 @@
 			}
 		},
 		methods: {
+			animationEnd(e) {
+				if (e.animationName == 'slide-in')
+					this.message.displaying = false;
+				else if (e.animationName == 'slide-out')
+					this.store.messages.shift();
+			},
 			clean(text) {
 				return text.replace(/\x01/g, '&lt;');
 			},
@@ -28,6 +34,14 @@
 
 					return pool[v].versions[version].image_url_1x;
 				});
+			},
+			classes() {
+				const classes = ['message'];
+
+				if (this.message.displaying) classes.push('displaying');
+				if (this.message.expired) classes.push('expired');
+
+				return classes;
 			},
 			parsedMessage() {
 				const message = this.message;
@@ -57,7 +71,7 @@
 				let offset = 0;
 
 				for (const emote of all) {
-					const tag = `<img class="message-text message-emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.emote}/default/dark/1.0" />`;
+					const tag = `<img class="emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.emote}/default/dark/1.0" />`;
 					const keyword = parsed.slice(offset + emote.start, offset + emote.end + 1);
 
 					parsed = parsed.slice(0, offset + emote.start)
@@ -70,30 +84,20 @@
 		},
 		props: ['message'],
 		template: /*html*/`
-			<li :class="['message', 'message-item']
-				.concat(message.expired ? ['expired'] : [])
-				.concat(message.displaying ? ['displaying'] : [])">
-				<span class="message-item message-badges">
-					<img class="message-badges message-badge"
+			<li :class="classes" @animationend="animationEnd">
+				<span class="badges">
+					<img class="badge"
 						v-for="badge in badges" :src="badge" />
 				</span>
-				<span class="message-item message-username"
+				<span class="username"
 					:style="{ color: message.tags['color'] }">
-					{{ message.tags['display-name'] }}:
+					{{ message.tags['display-name'] }}
 				</span>
-				<span class="message-item message-text"
+				<span class="text"
 					v-html="parsedMessage">
 				</span>
 			</li>
 		`,
-		mounted() {
-			this.$el.addEventListener('animationend', e => {
-				if (e.animationName == 'slide-in')
-					this.message.displaying = false;
-				else if (e.animationName == 'slide-out')
-					this.store.messages.shift();
-			});
-		},
 	});
 
 	Vue.component('chat-overlay', {
@@ -103,7 +107,7 @@
 			};
 		},
 		template: /*html*/`
-			<ul class="messages messages-list">
+			<ul class="messages">
 				<chat-message v-for="m in store.messages" :key="m.id" :message="m">
 				</chat-message>
 			</ul>
@@ -121,7 +125,8 @@
 			expired: false,
 		});
 
-		setTimeout(() => { store.messages[0].expired = true }, DESTRUCT_TIMER);
+		setTimeout(() => { store.messages.find(v => !v.expired).expired = true; },
+			DESTRUCT_TIMER);
 	});
 	twitch.connect();
 
