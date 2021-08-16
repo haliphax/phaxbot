@@ -8,6 +8,13 @@
 		messages: [],
 	};
 
+	document.addEventListener('animationend', e => {
+		if (e.animationName == 'slide-out') {
+			document.querySelector('.message.expired').remove();
+			store.messages.shift();
+		}
+	});
+
 	Vue.component('chat-message', {
 		data() {
 			return {
@@ -18,8 +25,6 @@
 			animationEnd(e) {
 				if (e.animationName == 'slide-in')
 					this.message.displaying = false;
-				else if (e.animationName == 'slide-out')
-					this.store.messages.shift();
 			},
 			clean(text) {
 				return text.replace(/\x01/g, '&lt;');
