@@ -90,13 +90,15 @@
 		props: ['message'],
 		template: /*html*/`
 			<li :class="classes" @animationend="animationEnd">
-				<span class="badges">
-					<img class="badge"
-						v-for="badge in badges" :src="badge" />
-				</span>
-				<span class="username"
-					:style="{ color: message.tags['color'] }">
-					{{ message.tags['display-name'] }}
+				<span class="user">
+					<span class="badges">
+						<img class="badge"
+							v-for="badge in badges" :src="badge" />
+					</span>
+					<span class="username"
+						:style="{ color: message.tags['color'] }">
+						{{ message.tags['display-name'] }}
+					</span>
 				</span>
 				<span class="text"
 					v-html="parsedMessage">

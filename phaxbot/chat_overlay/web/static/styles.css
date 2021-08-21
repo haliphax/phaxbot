@@ -17,8 +17,7 @@ body {
 
 .messages {
 	bottom: 0;
-	display: flex;
-	flex-direction: column;
+	display: block;
 	margin: 0;
 	padding: 0;
 	position: absolute;
@@ -27,8 +26,7 @@ body {
 
 .message {
 	background-color: rgba(0, 0, 0, 0.9);
-	display: inline;
-	flex-direction: column;
+	display: block;
 	left: 0;
 	line-height: 1.2;
 	list-style: none;
@@ -62,14 +60,23 @@ body {
 	}
 }
 
+.user {
+	display: block;
+}
+
+.badge {
+	height: 0.8em;
+	margin: auto 0.1em auto 0.1em;
+	vertical-align: middle;
+	width: 0.8em;
+}
+
 .username {
 	font-weight: bold;
 }
 
-.badge {
-	margin-right: 2px;
-	max-height: 1.2rem;
-	vertical-align: middle;
+.text {
+	display: block;
 }
 
 .emoji {
