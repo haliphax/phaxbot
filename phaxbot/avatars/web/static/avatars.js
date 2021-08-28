@@ -36,7 +36,8 @@ const store = new Vuex.Store({
 		avatarLimit: 20,
 		avatars: {},
 		chatters: {},
-		excludeChatters: ['nightbot', 'hxavatarsbot'],
+		choices: {},
+		excludeChatters: ['nightbot', 'hxavatarsbot', 'streamcaptainbot'],
 		excludeRandom: ['hide'],
 		restricted: {},
 	},
@@ -71,6 +72,9 @@ const store = new Vuex.Store({
 			}
 
 			state.chatters = result;
+		},
+		choices(state, val) {
+			state.choices = val;
 		},
 		config(state, val) {
 			for (const p in val)
@@ -107,12 +111,22 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		addAvatar(ctx, payload) {
-			const copy = {},
-				filteredAvatars = ctx.state.availableAvatars.filter(
-					v => ctx.state.excludeRandom.indexOf(v.substring(7)) < 0),
-				randomAvatar = filteredAvatars[
-					Math.floor(Math.random() * filteredAvatars.length)],
+			const copy = {};
+			let avatar;
+
+			if (Object.keys(ctx.state.choices).indexOf(payload.user) < 0) {
+				const
+					filteredAvatars = ctx.state.availableAvatars.filter(
+						v => ctx.state.excludeRandom.indexOf(v.substring(7)) < 0),
+					randomAvatar = filteredAvatars[
+						Math.floor(Math.random() * filteredAvatars.length)];
+
 				avatar = new Avatar(payload, randomAvatar);
+			}
+			else {
+				avatar = new Avatar(payload,
+					`avatar-${ctx.state.choices[payload.user]}`);
+			}
 
 			Object.assign(copy, ctx.state.avatars);
 			copy[payload.user] = avatar;
@@ -132,16 +146,23 @@ const store = new Vuex.Store({
 				await store.commit('restricted', data.restricted);
 		},
 		choices(ctx, payload) {
-			const keys = Object.keys(payload);
+			const keys = Object.keys(payload),
+				users = Object.keys(ctx.state.avatars);
 
 			for (let i = 0; i < keys.length; i++) {
-				const key = keys[i],
-					value = payload[key],
+				const key = keys[i];
+
+				if (users.indexOf(key) < 0)
+					continue;
+
+				const value = payload[key],
 					avatar = ctx.state.avatars[key];
 
 				avatar.existing = true;
 				avatar.component = `avatar-${value}`;
 			}
+
+			ctx.commit('choices', payload);
 		},
 		removeAvatar(ctx, payload) {
 			const copy = {};
