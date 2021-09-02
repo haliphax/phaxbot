@@ -84,7 +84,7 @@
 					offset = offset + tag.length - keyword.length;
 				}
 
-				return this.clean(parsed);
+				return this.clean(parsed).replace(/> </g, '><');
 			},
 		},
 		props: ['message'],

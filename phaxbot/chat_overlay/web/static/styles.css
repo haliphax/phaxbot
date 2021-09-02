@@ -80,6 +80,8 @@ body {
 }
 
 .emoji {
-	max-height: 1.6rem;
-	vertical-align: bottom;
+	height: 1.5em;
+	margin: -0.3em auto;
+	vertical-align: middle;
+	width: 1.5em;
 }
