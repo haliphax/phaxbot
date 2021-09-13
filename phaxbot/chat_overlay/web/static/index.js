@@ -87,16 +87,26 @@
 				return this.clean(parsed).replace(/> </g, '><');
 			},
 			processedMessage() {
-				if (this.textClasses.indexOf('emote-only') < 0)
-					return this.parsedMessage;
+				let message = this.parsedMessage;
 
-				return this.parsedMessage.replace(/\/1.0"/g, '/2.0"');
+				if (this.textClasses.indexOf('emote-only') > 0) {
+					message = message.replace(/\/1.0"/g, '/2.0"');
+
+					if (this.textClasses.indexOf('yuge') > 0)
+						message = message.replace(/\/2.0"/g, '/3.0"');
+				}
+
+				return message;
 			},
 			textClasses() {
 				const classes = ['text'];
 
-				if (this.parsedMessage.replace(/<[^>]+>/g, '').trim().length === 0)
+				if (this.parsedMessage.replace(/<[^>]+>/g, '').trim().length === 0) {
 					classes.push('emote-only');
+
+					if (this.parsedMessage.trim().lastIndexOf('<') === 0)
+						classes.push('yuge');
+				}
 
 				return classes;
 			},

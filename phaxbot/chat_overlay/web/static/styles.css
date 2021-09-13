@@ -91,3 +91,8 @@ body {
 	margin: 0 auto;
 	width: 3em;
 }
+
+.text.emote-only.yuge .emote {
+	height: 6em;
+	width: 6em;
+}
