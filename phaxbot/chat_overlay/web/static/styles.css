@@ -79,9 +79,15 @@ body {
 	display: block;
 }
 
-.emoji {
+.emote {
 	height: 1.5em;
 	margin: -0.3em auto;
 	vertical-align: middle;
 	width: 1.5em;
+}
+
+.text.emote-only .emote {
+	height: 3em;
+	margin: 0 auto;
+	width: 3em;
 }

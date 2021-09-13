@@ -40,7 +40,7 @@
 					return pool[v].versions[version].image_url_1x;
 				});
 			},
-			classes() {
+			messageClasses() {
 				const classes = ['message'];
 
 				if (this.message.displaying) classes.push('displaying');
@@ -76,7 +76,7 @@
 				let offset = 0;
 
 				for (const emote of all) {
-					const tag = `<img class="emoji" src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.emote}/default/dark/1.0" />`;
+					const tag = `<img class="emote" src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.emote}/default/dark/1.0" />`;
 					const keyword = parsed.slice(offset + emote.start, offset + emote.end + 1);
 
 					parsed = parsed.slice(0, offset + emote.start)
@@ -86,10 +86,24 @@
 
 				return this.clean(parsed).replace(/> </g, '><');
 			},
+			processedMessage() {
+				if (this.textClasses.indexOf('emote-only') < 0)
+					return this.parsedMessage;
+
+				return this.parsedMessage.replace(/\/1.0"/g, '/2.0"');
+			},
+			textClasses() {
+				const classes = ['text'];
+
+				if (this.parsedMessage.replace(/<[^>]+>/g, '').trim().length === 0)
+					classes.push('emote-only');
+
+				return classes;
+			},
 		},
 		props: ['message'],
 		template: /*html*/`
-			<li :class="classes" @animationend="animationEnd">
+			<li :class="messageClasses" @animationend="animationEnd">
 				<span class="user">
 					<span class="badges">
 						<img class="badge"
@@ -100,8 +114,8 @@
 						{{ message.tags['display-name'] }}
 					</span>
 				</span>
-				<span class="text"
-					v-html="parsedMessage">
+				<span :class="textClasses"
+					v-html="processedMessage">
 				</span>
 			</li>
 		`,
