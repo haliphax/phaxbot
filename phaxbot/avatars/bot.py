@@ -63,3 +63,10 @@ def handle_message(msg: Message):
         return True
 
     return False
+
+
+def init():
+    "Initialize bot module."
+
+    with open(config.CHATTERS_FILE, 'w') as chatters_file:
+        chatters_file.write('[]')
