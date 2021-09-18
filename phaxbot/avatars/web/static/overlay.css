@@ -15,15 +15,16 @@ body {
 }
 
 .avatar .avatar-label {
+	background-color: rgba(0, 0, 0, 0.9);
 	color: #fff;
 	display: inline;
 	font-size: 120%;
 	font-weight: bolder;
 	margin-left: -100vw;
 	margin-right: -100vw;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
 	position: relative;
 	text-align: center;
-	text-shadow: 0 0 4px #000;
 	top: -1em;
-	-webkit-text-stroke: 1px #000;
 }
