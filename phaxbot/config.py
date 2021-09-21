@@ -18,6 +18,8 @@ CLIENT_ID = getenv('TWITCH_CLIENT_ID')
 CLIENT_OAUTH = getenv('TWITCH_OAUTH')
 #: Twitch client secret
 CLIENT_SECRET = getenv('TWITCH_CLIENT_SECRET')
+#: Handlers to enable
+HANDLERS = getenv('MESSAGE_HANDLERS', 'avatars sr_thanks').split(' ')
 #: Main directory
 MY_DIR = realpath(dirname(__file__))
 #: Twitch nickname to subscribe to events for

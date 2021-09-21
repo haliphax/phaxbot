@@ -9,14 +9,13 @@ from twitch.chat import Message
 # local
 from .. import config
 
-HANDLERS = ('avatars',)
 message_handlers = []
 
 # Twitch API client
 helix = Helix(config.CLIENT_ID, config.CLIENT_SECRET)
 user = helix.user(config.USERNAME)
 
-for mod in HANDLERS:
+for mod in config.HANDLERS:
     module = import_module(f'..{mod}.bot', __name__)
     message_handlers.append(getattr(module, 'handle_message'))
 
