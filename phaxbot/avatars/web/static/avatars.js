@@ -1,6 +1,13 @@
 import 'https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js';
 import 'https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.js';
 
+const EXCLUDE = [
+	'hxavatarsbot',
+	'nightbot',
+	'streamcaptainbot',
+	'streamelements',
+];
+
 'use strict';
 
 /** simple avatar object */
@@ -37,7 +44,7 @@ const store = new Vuex.Store({
 		avatars: {},
 		chatters: {},
 		choices: {},
-		excludeChatters: ['nightbot', 'hxavatarsbot', 'streamcaptainbot'],
+		excludeChatters: EXCLUDE,
 		excludeRandom: ['hide'],
 		restricted: {},
 	},
