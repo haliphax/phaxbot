@@ -12,6 +12,17 @@ RESPONSES = (
     'SeemsGood',
     'PogChamp',
     'RyuChamp',
+    'GlitchNRG',
+    'HolidaySanta',
+    'SabaPing',
+    'TBAngel',
+    'TriHard',
+    'VoteYea',
+    'OhMyDog',
+    '<3',
+    'BloodTrail',
+    'SMOrc',
+    'KevinTurtle',
 )
 
 
