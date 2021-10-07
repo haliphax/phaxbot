@@ -4,6 +4,8 @@ import 'https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.js';
 const EXCLUDE = [
 	'hxavatarsbot',
 	'nightbot',
+	'rewardtts',
+	'soundalerts',
 	'streamcaptainbot',
 	'streamelements',
 ];
