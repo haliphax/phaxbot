@@ -30,14 +30,13 @@ body {
 	left: 0;
 	line-height: 1.2;
 	list-style: none;
-	padding: 0.5rem;
-	padding-bottom: 0;
+	padding: 0.25rem 0.5rem;
 	position: relative;
 	word-wrap: break-word;
 }
 
-.message:last-child {
-	padding-bottom: 0.5rem;
+.message.highlight {
+	filter: invert(1);
 }
 
 .message.displaying {

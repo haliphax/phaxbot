@@ -46,6 +46,9 @@
 				if (this.message.displaying) classes.push('displaying');
 				if (this.message.expired) classes.push('expired');
 
+				if (this.message.tags['msg-id'] == 'highlighted-message')
+					classes.push('highlight');
+
 				return classes;
 			},
 			parsedMessage() {
