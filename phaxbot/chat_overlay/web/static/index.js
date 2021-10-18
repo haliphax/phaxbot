@@ -1,18 +1,16 @@
+/** number of milliseconds between cleanup sweeps */
+const CLEANUP_TIMER = 10 * 1000;
+/** number of milliseconds before messages disappear */
+const DESTRUCT_TIMER = 90 * 1000;
+
 (async function(){
-	/** number of milliseconds before messages disappear */
-	const DESTRUCT_TIMER = 90 * 1000;
 	/** configuration object */
 	const config = await fetch('/chat_overlay/init').then(r => r.json());
 	/** vue shared store */
-	const store = {
-		messages: [],
-	};
-
-	document.addEventListener('animationend', e => {
-		if (e.animationName == 'slide-out') {
-			document.querySelector('.message.expired').remove();
-			store.messages.shift();
-		}
+	const store = new Vue({
+		data: {
+			messages: [],
+		},
 	});
 
 	Vue.component('chat-message', {
@@ -25,6 +23,8 @@
 			animationEnd(e) {
 				if (e.animationName == 'slide-in')
 					this.message.displaying = false;
+				else if (e.animationName == 'slide-out')
+					this.message.dead = true;
 			},
 			clean(text) {
 				return text.replace(/\x01/g, '&lt;');
@@ -45,6 +45,7 @@
 
 				if (this.message.displaying) classes.push('displaying');
 				if (this.message.expired) classes.push('expired');
+				if (this.message.dead) classes.push('dead');
 
 				if (this.message.tags['msg-id'] == 'highlighted-message')
 					classes.push('highlight');
@@ -119,16 +120,13 @@
 			<li :class="messageClasses" @animationend="animationEnd">
 				<span class="user">
 					<span class="badges">
-						<img class="badge"
-							v-for="badge in badges" :src="badge" />
+						<img class="badge" v-for="badge in badges" :src="badge" />
 					</span>
-					<span class="username"
-						:style="{ color: message.tags['color'] }">
+					<span class="username" :style="{ color: message.tags['color'] }">
 						{{ message.tags['display-name'] }}
 					</span>
 				</span>
-				<span :class="textClasses"
-					v-html="processedMessage">
+				<span :class="textClasses" v-html="processedMessage">
 				</span>
 			</li>
 		`,
@@ -142,7 +140,8 @@
 		},
 		template: /*html*/`
 			<ul class="messages">
-				<chat-message v-for="m in store.messages" :key="m.id" :message="m">
+				<chat-message v-for="m in store.messages" v-if="!m.dead"
+					:key="m.id" :message="m">
 				</chat-message>
 			</ul>
 		`,
@@ -157,12 +156,25 @@
 			tags: tags,
 			displaying: true,
 			expired: false,
+			dead: false,
 		});
 
 		setTimeout(() => { store.messages.find(v => !v.expired).expired = true; },
 			DESTRUCT_TIMER);
 	});
 	twitch.connect();
+
+	setInterval(
+		() => {
+			if (store.messages.length === 0) return;
+
+			const idx = store.messages.findIndex(v => !v.dead);
+
+			if (idx === 0) return;
+
+			store.messages.splice(0, idx < 0 ? store.messages.length : idx);
+		},
+		CLEANUP_TIMER);
 
 	new Vue({ el: 'body > div:first-child' });
 }());

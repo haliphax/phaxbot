@@ -39,6 +39,10 @@ body {
 	filter: invert(1);
 }
 
+.message.dead {
+	display: none !important;
+}
+
 .message.displaying {
 	animation: 1s ease-out slide-in;
 }
