@@ -13,7 +13,5 @@
 	"excludeRandom": [
 		"hide"
 	],
-	"restricted": {
-		"ness": [ "broadcaster" ]
-	}
+	"restricted": {}
 }
