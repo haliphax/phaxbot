@@ -1,6 +1,12 @@
 import 'https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js';
 import { store } from './avatars.js';
 
+/** base URL for interactions */
+const ROOT_URL = window.location.href.endsWith('.html')
+	? window.location.href.substring(0, window.location.href.lastIndexOf('/'))
+	: window.location.href.substring(
+		0, window.location.href.lastIndexOf('/static/'));
+
 'use strict';
 
 /** length of time in milliseconds to show "Copied!" text */
@@ -54,7 +60,7 @@ Vue.component('avatars-list', {
 		},
 	},
 	async created() {
-		await fetch(this.avatarsUrl || '/avatars/api/list').then(r => r.json())
+		await fetch(this.avatarsUrl || `${ROOT_URL}/api/list`).then(r => r.json())
 			.then(async d => {
 				if (d.hasOwnProperty('excludeList'))
 					this.exclude = d.excludeList;
