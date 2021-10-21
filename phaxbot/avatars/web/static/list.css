@@ -20,11 +20,15 @@
 }
 
 .avatars-list .avatar {
-	display: block !important;
+	display: inline-block !important;
 	position: relative;
 }
 
 .avatars-list .avatar .sprite {
 	bottom: 0 !important;
 	transform-origin: top left !important;
+}
+
+.avatars-list .btn {
+	vertical-align: middle;
 }
