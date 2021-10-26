@@ -15,8 +15,8 @@ chatters = set([])
 def handle_message(msg: Message):
     "Message handler"
 
-    if msg.sender not in chatters:
-        chatters.add(msg.sender)
+    if msg.user.display_name not in chatters:
+        chatters.add(msg.user.display_name)
         chatters_list = list(chatters)
 
         with open(config.CHATTERS_FILE, 'w') as chatters_file:
@@ -52,7 +52,7 @@ def handle_message(msg: Message):
             with open(config.CHOICES_FILE, 'r') as choices_file:
                 choices = json.loads(choices_file.read())
 
-        choices[msg.sender] = avatar
+        choices[msg.user.display_name] = avatar
         choices_json = json.dumps(choices)
         app.logger.info('emitting choices')
         socketio.server.emit('choices', choices)
