@@ -114,7 +114,6 @@ body {
 	animation-duration: 4s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease-in-out;
-	margin-top: 0.5em;
-	margin-bottom: -0.5em;
+	margin-top: 1em;
 	width: 6em;
 }
