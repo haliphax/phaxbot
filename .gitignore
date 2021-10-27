@@ -3,10 +3,6 @@
 *.pyc
 **/__pycache__/
 **/*.example.json
-commands/
-configs/
-database.sqlite*
 docker-compose.override.yml
-mods/
 shared/chatters.json
 shared/choices.json
