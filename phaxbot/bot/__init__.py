@@ -2,12 +2,15 @@
 
 # stdlib
 from importlib import import_module
+from os import O_PATH
 from rx.core.typing import Observer
 # 3rd party
 from twitch import Chat, Helix
 from twitch.chat import Message
 # local
 from .. import config
+from ..web import app
+from .commands import *
 
 message_handlers = []
 
@@ -44,6 +47,12 @@ def main():
     # Chat connection
     chat = Chat(channel=config.CHANNEL, nickname=config.NICKNAME,
                 oauth=config.CLIENT_OAUTH, helix=helix)
+
+    # commands
+    for cmd in [c for c in dir(commands) if c[0] != '_']:
+        app.logger.info(f'Loading command: {cmd}')
+        command = getattr(commands, cmd)
+        message_handlers.append(command.handle_message)
 
     # Subscribe to messages
     chat.subscribe(MessageHandler())

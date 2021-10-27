@@ -27,12 +27,14 @@ for mod in MODULES:
 def main():
     "Entry point."
 
-    if config.BOT:
-        from ..bot import main as bot
-
-        bot()
-
     app.logger.level = logging.INFO
     app.static_folder = join(realpath(dirname(__file__)), 'static')
 
+    if config.BOT:
+        from ..bot import main as bot
+
+        app.logger.info('Starting bot')
+        bot()
+
+    app.logger.info('Starting web server')
     socketio.run(app, host='0.0.0.0')

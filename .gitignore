@@ -6,3 +6,4 @@
 docker-compose.override.yml
 shared/chatters.json
 shared/choices.json
+shared/*.txt
