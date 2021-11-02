@@ -1,3 +1,197 @@
+## 0.22.0 (2021-11-02)
+
+
+- feature: glow effect on streamer text
+- feature: simple commands
+- refactor: clean .gitignore
+- feature: use display name for avatars
+- fix: no overlap from floating emotes
+- feature: animation for single emote messages
+- fix: relative API URL
+- feature: add "copy command" button to avatars list
+- fix: remove unused "restricted" badge from ness avatar
+- style: subtle text shadow
+- fix: properly remove messages
+- build: bump python-dotenv from 0.19.0 to 0.19.1 (#37)
+- Bumps [python-dotenv](https://github.com/theskumar/python-dotenv) from 0.19.0 to 0.19.1.
+- [Release notes](https://github.com/theskumar/python-dotenv/releases)
+- [Changelog](https://github.com/theskumar/python-dotenv/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/theskumar/python-dotenv/compare/v0.19.0...v0.19.1)
+
+---
+updated-dependencies:
+- dependency-name: python-dotenv
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump click from 8.0.1 to 8.0.3 (#38)
+- Bumps [click](https://github.com/pallets/click) from 8.0.1 to 8.0.3.
+- [Release notes](https://github.com/pallets/click/releases)
+- [Changelog](https://github.com/pallets/click/blob/main/CHANGES.rst)
+- [Commits](https://github.com/pallets/click/compare/8.0.1...8.0.3)
+
+---
+updated-dependencies:
+- dependency-name: click
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- feature: highlighted messages
+- Merge branch 'master' of github.com:haliphax/phaxbot
+- fix: update bot name in exclude
+- build: bump commitizen from 2.19.0 to 2.20.0 (#36)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.19.0 to 2.20.0.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.19.0...v2.20.0)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- feature: exclude rewardtts and soundalerts
+- build: bump flask from 2.0.1 to 2.0.2 (#35)
+- Bumps [flask](https://github.com/pallets/flask) from 2.0.1 to 2.0.2.
+- [Release notes](https://github.com/pallets/flask/releases)
+- [Changelog](https://github.com/pallets/flask/blob/main/CHANGES.rst)
+- [Commits](https://github.com/pallets/flask/compare/2.0.1...2.0.2)
+
+---
+updated-dependencies:
+- dependency-name: flask
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- feature: more SR responses
+- build: bump commitizen from 2.18.0 to 2.19.0 (#34)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.18.0 to 2.19.0.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.18.0...v2.19.0)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump simple-websocket from 0.3.0 to 0.4.0 (#33)
+- Bumps [simple-websocket](https://github.com/miguelgrinberg/simple-websocket) from 0.3.0 to 0.4.0.
+- [Release notes](https://github.com/miguelgrinberg/simple-websocket/releases)
+- [Changelog](https://github.com/miguelgrinberg/simple-websocket/blob/main/CHANGES.md)
+- [Commits](https://github.com/miguelgrinberg/simple-websocket/compare/v0.3.0...v0.4.0)
+
+---
+updated-dependencies:
+- dependency-name: simple-websocket
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- feature: Stream Raiders auto-responder
+- refactor: exclude streamelements from avatars
+- style: fix emote/background overlap
+- style: backgrounds for avatar labels
+- fix: wipe chatters file on startup
+- feature: EVEN BIGGER emotes for single-emote messages
+- Merge branch 'master' of github.com:haliphax/phaxbot
+- feature: bigger emotes in emote-only messages
+- build: bump pre-commit from 2.14.1 to 2.15.0 (#31)
+- Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 2.14.1 to 2.15.0.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v2.14.1...v2.15.0)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- build: bump eventlet from 0.31.1 to 0.32.0 (#30)
+- Bumps [eventlet](https://github.com/eventlet/eventlet) from 0.31.1 to 0.32.0.
+- [Release notes](https://github.com/eventlet/eventlet/releases)
+- [Changelog](https://github.com/eventlet/eventlet/blob/master/NEWS)
+- [Commits](https://github.com/eventlet/eventlet/compare/v0.31.1...v0.32.0)
+
+---
+updated-dependencies:
+- dependency-name: eventlet
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- Merge branch 'master' of github.com:haliphax/phaxbot
+- style: bigger emoji with no space between chains
+- build: bump pre-commit from 2.14.0 to 2.14.1 (#29)
+- Bumps [pre-commit](https://github.com/pre-commit/pre-commit) from 2.14.0 to 2.14.1.
+- [Release notes](https://github.com/pre-commit/pre-commit/releases)
+- [Changelog](https://github.com/pre-commit/pre-commit/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/pre-commit/pre-commit/compare/v2.14.0...v2.14.1)
+
+---
+updated-dependencies:
+- dependency-name: pre-commit
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+- fix: actually remember avatar choice
+- style: wrap badges and username into own element, line up font
+- fix: manually remove elements
+- fix: self-destructing text bug
+- build: bump commitizen from 2.17.13 to 2.18.0 (#28)
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 2.17.13 to 2.18.0.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v2.17.13...v2.18.0)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
 ## 0.21.0 (2021-08-13)
 
 
