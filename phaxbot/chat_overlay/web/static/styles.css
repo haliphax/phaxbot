@@ -109,6 +109,18 @@ body {
 	}
 }
 
+@keyframes glow {
+	0% {
+		text-shadow: 0 0 0 #f0f;
+	}
+	50% {
+		text-shadow: 0 0 0.5em #f0f;
+	}
+	100% {
+		text-shadow: 0 0 0 #f0f;
+	}
+}
+
 .text.emote-only.yuge .emote {
 	animation-name: float;
 	animation-duration: 4s;
@@ -116,4 +128,11 @@ body {
 	animation-timing-function: ease-in-out;
 	margin-top: 1em;
 	width: 6em;
+}
+
+.text.broadcaster {
+	animation-name: glow;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
 }

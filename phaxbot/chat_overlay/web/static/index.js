@@ -9,6 +9,7 @@ const DESTRUCT_TIMER = 90 * 1000;
 	/** vue shared store */
 	const store = new Vue({
 		data: {
+			config: config,
 			messages: [],
 		},
 	});
@@ -111,6 +112,9 @@ const DESTRUCT_TIMER = 90 * 1000;
 					if (this.parsedMessage.trim().lastIndexOf('<') === 0)
 						classes.push('yuge');
 				}
+
+				if (this.message.tags.username == config.user.username)
+					classes.push('broadcaster');
 
 				return classes;
 			},
