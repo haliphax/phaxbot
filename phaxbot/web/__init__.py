@@ -17,7 +17,7 @@ app = Flask(__name__)
 #: SocketIO application
 socketio = SocketIO(app)
 
-MODULES = ('avatars', 'chat_overlay',)
+MODULES = ('avatars_new', 'chat_overlay',)
 
 
 for mod in MODULES:
