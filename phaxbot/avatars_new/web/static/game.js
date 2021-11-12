@@ -1,7 +1,8 @@
-import Avatar from './avatar.js';
 import constants from './constants.js';
 import emitter from './emitter.js';
 import WebFontFile from './webfontfile.js';
+
+'use strict';
 
 /** main game scene */
 export default class Game extends Phaser.Scene {
@@ -22,33 +23,41 @@ export default class Game extends Phaser.Scene {
 			for (let avatar of d.avatars) {
 				const stem = `./avatars/${avatar}`
 
-				await import(`${stem}/avatar.js`).then(m => {
-					const module = m.default;
-
-					this.avatarDefs[avatar] = module;
+				await import(`${stem}/avatar.js`).then(async m => {
+					this.avatarDefs[avatar] = {
+						metadata: m.metadata,
+						class: m.ExtendedAvatar,
+					};
 					this.load.spritesheet(avatar, `${stem}/avatar.gif`, {
-						frameHeight: module.frameHeight,
-						frameWidth: module.frameWidth,
+						frameHeight: m.metadata.frameHeight,
+						frameWidth: m.metadata.frameWidth,
 					});
-
-					for (let animKey of Object.keys(module.animations)) {
-						const anim = module.animations[animKey];
-
-						for (let variation of Object.keys(anim))
-							this.anims.create({
-								key: `${avatar}.${animKey}.${variation}`,
-								frames: this.anims.generateFrameNumbers(
-									avatar, { frames: anim[variation] }),
-								frameRate: anim.frameRate,
-								repeat: -1,
-							});
-					}
 				});
 			}
 		});
 	}
 
 	create() {
+		for (let avatar of Object.keys(this.avatarDefs)) {
+			const def = this.avatarDefs[avatar];
+
+			for (let animKey of Object.keys(def.metadata.animations)) {
+				const anim = def.metadata.animations[animKey];
+
+				for (let variation of
+					Object.keys(anim).filter(v => v != 'frameRate'))
+				{
+					this.anims.create({
+						key: `${avatar}.${animKey}.${variation}`,
+						frames: this.anims.generateFrameNumbers(
+							avatar, { frames: anim[variation] }),
+						frameRate: anim.frameRate,
+						repeat: -1,
+					});
+				}
+			}
+		}
+
 		this.physics.world
 			.setBounds(0, 0, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 			.setBoundsCollision(true, true, false, true);
@@ -62,6 +71,10 @@ export default class Game extends Phaser.Scene {
 	// events
 
 	onNew(username, key = 'mario') {
-		this.avatars[username] = new Avatar(this, username, key);
+		if (this.avatars.hasOwnProperty(username))
+			return;
+
+		this.avatars[username] =
+			new this.avatarDefs[key].class(this, username, key);
 	}
 }
