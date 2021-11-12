@@ -5,6 +5,10 @@ html, body {
 	min-height: 100%;
 	overflow: hidden;
 	padding: 0;
-	image-rendering: crisp-edges;
 	width: 100%;
+}
+
+canvas {
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
 }
