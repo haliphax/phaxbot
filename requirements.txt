@@ -1,5 +1,5 @@
 click==8.0.3
-eventlet==0.32.0
+eventlet==0.33.0
 Flask-SocketIO==5.1.1
 Flask==2.0.2
 python-dotenv==0.19.2
