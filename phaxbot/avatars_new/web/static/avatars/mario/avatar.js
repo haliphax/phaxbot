@@ -2,12 +2,12 @@ import Avatar from '../../avatar.js';
 
 const metadata = {
 	animations: {
-		face: {
+		idle: {
 			left: [3],
 			right: [4],
 			frameRate: 1,
 		},
-		walk: {
+		walking: {
 			left: [2, 1, 0],
 			right: [5, 6, 7],
 			frameRate: 6,

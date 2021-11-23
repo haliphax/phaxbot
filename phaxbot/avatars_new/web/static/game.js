@@ -2,7 +2,24 @@ import constants from './constants.js';
 import emitter from './emitter.js';
 import WebFontFile from './webfontfile.js';
 
-'use strict';
+const avatarDefs = {};
+
+await (async () => {
+	await fetch('./config.json').then(r => r.json()).then(async d => {
+
+		for (let avatar of d.avatars) {
+			console.log(`importing ${avatar}`);
+
+			await import(`./avatars/${avatar}/avatar.js`).then(m => {
+				console.log(`defining ${avatar}`);
+				avatarDefs[avatar] = {
+					metadata: m.metadata,
+					class: m.ExtendedAvatar,
+				};
+			});
+		}
+	});
+})();
 
 /** main game scene */
 export default class Game extends Phaser.Scene {
@@ -10,36 +27,34 @@ export default class Game extends Phaser.Scene {
 		super();
 
 		this.avatars = {};
-		this.avatarDefs = {};
 
 		// event handlers
 		emitter.on('new', this.onNew.bind(this));
 	}
 
-	async preload() {
+	preload() {
 		this.load.addFile(new WebFontFile(this.load, constants.FONT_FAMILY));
 
-		await fetch('./config.json').then(r => r.json()).then(async d => {
-			for (let avatar of d.avatars) {
-				const stem = `./avatars/${avatar}`
+		for (let avatar of Object.keys(avatarDefs)) {
+			const def = avatarDefs[avatar];
 
-				await import(`${stem}/avatar.js`).then(async m => {
-					this.avatarDefs[avatar] = {
-						metadata: m.metadata,
-						class: m.ExtendedAvatar,
-					};
-					this.load.spritesheet(avatar, `${stem}/avatar.gif`, {
-						frameHeight: m.metadata.frameHeight,
-						frameWidth: m.metadata.frameWidth,
-					});
-				});
-			}
-		});
+			this.load.spritesheet(avatar, `./avatars/${avatar}/avatar.gif`, {
+				frameHeight: def.metadata.frameHeight,
+				frameWidth: def.metadata.frameWidth,
+			});
+		}
+
+		this.load.on('complete', this.ready.bind(this));
 	}
 
-	create() {
-		for (let avatar of Object.keys(this.avatarDefs)) {
-			const def = this.avatarDefs[avatar];
+	ready() {
+		console.log(this);
+		console.log('ready');
+
+		for (let avatar of Object.keys(avatarDefs)) {
+			console.log(`initializing ${avatar}`);
+
+			const def = avatarDefs[avatar];
 
 			for (let animKey of Object.keys(def.metadata.animations)) {
 				const anim = def.metadata.animations[animKey];
@@ -47,8 +62,11 @@ export default class Game extends Phaser.Scene {
 				for (let variation of
 					Object.keys(anim).filter(v => v != 'frameRate'))
 				{
+					const key = `${avatar}.${animKey}.${variation}`;
+
+					console.log(`creating ${key}`);
 					this.anims.create({
-						key: `${avatar}.${animKey}.${variation}`,
+						key: key,
 						frames: this.anims.generateFrameNumbers(
 							avatar, { frames: anim[variation] }),
 						frameRate: anim.frameRate,
@@ -57,7 +75,9 @@ export default class Game extends Phaser.Scene {
 				}
 			}
 		}
+	}
 
+	create() {
 		this.physics.world
 			.setBounds(0, 0, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 			.setBoundsCollision(true, true, false, true);
@@ -75,6 +95,6 @@ export default class Game extends Phaser.Scene {
 			return;
 
 		this.avatars[username] =
-			new this.avatarDefs[key].class(this, username, key);
+			new avatarDefs[key].class(this, avatarDefs, username, key);
 	}
 }
