@@ -10,7 +10,7 @@ from ... import config
 from ...web import app
 from ...bot import user
 
-my_dir = realpath(join(dirname(__file__)))
+my_dir = realpath(dirname(__file__))
 bp = Blueprint('chat', __name__, join(my_dir, 'static'))
 
 
