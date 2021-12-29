@@ -24,18 +24,18 @@ export default class {
 		/**
 		 * @type {number}
 		 * Half the width of the avatar's sprite; used in calculations */
-		this.halfWidth = this.sprite.width / 2;
+		this.halfWidth = this.sprite.displayWidth / 2;
 		/** @type {Phase.GameObjects.Label} The username label for the avatar */
 		this.label =
 			game.add.text(
-				0, -(this.sprite.height / 2) - constants.LABEL_SIZE, username,
+				0, -this.sprite.displayHeight - (constants.LABEL_SIZE / 2), username,
 				{
 					fontFamily: `"${constants.FONT_FAMILY}"`,
 					fontSize: constants.LABEL_SIZE,
 					stroke: constants.STROKE_COLOR,
 					strokeThickness: constants.STROKE_THICKNESS,
 				})
-			.setOrigin(0.5, 0);
+			.setOrigin(0.5, 1);
 		/** The avatar's container, allowing us to manipulate a single object */
 		this.container = game.add.container();
 		/** The name of the next state to transition to */
@@ -140,8 +140,10 @@ export default class {
 		if (!this.container.body)
 			return setTimeout(this.ready.bind(this), 100);
 
-		this.container.body.setSize(this.sprite.width, this.sprite.height, true);
-		this.container.setSize(this.sprite.width, this.sprite.height, true);
+		this.container.body.setSize(
+			this.sprite.displayWidth, this.sprite.displayHeight, true);
+		this.container.setSize(
+			this.sprite.displayWidth, this.sprite.displayHeight, true);
 		this.container.add(this.sprite);
 		this.container.add(this.label);
 		this.container.setPosition(
