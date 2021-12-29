@@ -25,6 +25,19 @@ export default class {
 		 * @type {number}
 		 * Half the width of the avatar's sprite; used in calculations */
 		this.halfWidth = this.sprite.width / 2;
+		/** @type {Phase.GameObjects.Label} The username label for the avatar */
+		this.label =
+			game.add.text(
+				0, -(this.sprite.height / 2) - constants.LABEL_SIZE, username,
+				{
+					fontFamily: `"${constants.FONT_FAMILY}"`,
+					fontSize: constants.LABEL_SIZE,
+					stroke: constants.STROKE_COLOR,
+					strokeThickness: constants.STROKE_THICKNESS,
+				})
+			.setOrigin(0.5, 0);
+		/** The avatar's container, allowing us to manipulate a single object */
+		this.container = game.add.container();
 		/** The name of the next state to transition to */
 		this.nextState = null;
 		/** The state machine's currently active state */
@@ -75,7 +88,7 @@ export default class {
 					},
 					idle: (context, event) => {
 						console.debug('idling');
-						this.sprite.body.velocity.x = 0;
+						this.container.body.velocity.x = 0;
 						this.sprite.play(`${this.key}.idle.${this.face}`);
 						setTimeout(
 							this.stateService.send.bind(this, 'DECIDE'),
@@ -93,7 +106,7 @@ export default class {
 							this.changeFace();
 
 						if (swap || event.prev != 'walking') {
-							this.sprite.body.velocity.x =
+							this.container.body.velocity.x =
 								(constants.WALK_MIN_VELOCITY + Math.random()
 									* constants.WALK_MAX_VELOCITY)
 								* (this.face == constants.FACE_LEFT ? -1 : 1);
@@ -111,8 +124,9 @@ export default class {
 		 * machine */
 		this.stateService = interpret(this.currentState);
 
-		this.sprite.setPosition(
-			getValidHorizontalCoordinate(this), constants.SCREEN_HEIGHT);
+		// startup
+		this.container.avatar = this;
+		game.physics.world.enableBody(this.container);
 		this.stateService.onTransition(state => {
 			this.previousState = this.currentState.name;
 			this.currentState = state;
@@ -123,23 +137,30 @@ export default class {
 	}
 
 	ready() {
-		if (this.sprite.body == undefined)
+		if (!this.container.body)
 			return setTimeout(this.ready.bind(this), 100);
+
+		this.container.body.setSize(this.sprite.width, this.sprite.height, true);
+		this.container.setSize(this.sprite.width, this.sprite.height, true);
+		this.container.add(this.sprite);
+		this.container.add(this.label);
+		this.container.setPosition(
+			getValidHorizontalCoordinate(this), constants.SCREEN_HEIGHT);
 	}
 
 	update() {
-		if (this.currentState.value != 'walking')
+		if (!this.container.body || this.currentState.value != 'walking')
 			return;
 
 		if (
-			(this.sprite.body.x <= this.halfWidth
-				&& this.sprite.body.velocity.x < 0)
-			|| (this.sprite.body.x >= constants.SCREEN_WIDTH - this.halfWidth
-				&& this.sprite.body.velocity.x > 0))
+			(this.container.body.x <= this.halfWidth
+				&& this.container.body.velocity.x < 0)
+			|| (this.container.body.x >= constants.SCREEN_WIDTH - this.halfWidth
+				&& this.container.body.velocity.x > 0))
 		{
 			this.changeFace();
 			this.sprite.play(`${this.key}.walking.${this.face}`);
-			this.sprite.body.velocity.x *= -1;
+			this.container.body.velocity.x *= -1;
 		}
 	}
 
