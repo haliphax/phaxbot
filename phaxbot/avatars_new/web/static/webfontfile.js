@@ -1,6 +1,6 @@
 // https://blog.ourcade.co/posts/2020/phaser-3-google-fonts-webfontloader/
 
-export default class WebFontFile extends Phaser.Loader.File
+class WebFontFile extends Phaser.Loader.File
 {
 	/**
 	 * @param {Phaser.Loader.LoaderPlugin} loader
@@ -9,10 +9,7 @@ export default class WebFontFile extends Phaser.Loader.File
 	 */
 	constructor(loader, fontNames, service = 'google')
 	{
-		super(loader, {
-			type: 'webfont',
-			key: fontNames.toString(),
-		});
+		super(loader, { type: 'webfont', key: fontNames.toString() });
 
 		this.fontNames = Array.isArray(fontNames) ? fontNames : [fontNames];
 		this.service = service;
@@ -39,3 +36,5 @@ export default class WebFontFile extends Phaser.Loader.File
 		WebFont.load(config);
 	}
 }
+
+export default WebFontFile;

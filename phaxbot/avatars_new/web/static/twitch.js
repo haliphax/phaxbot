@@ -16,4 +16,4 @@ export {
 	isBroadcaster,
 	isModerator,
 	twitch,
-}
+};

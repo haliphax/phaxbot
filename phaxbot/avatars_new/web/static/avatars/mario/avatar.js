@@ -15,11 +15,11 @@ const metadata = {
 	},
 	frameHeight: 32,
 	frameWidth: 18,
-	scale: 4,
+	scale: 3,
 };
 
 class ExtendedAvatar extends Avatar {
 	//
 }
 
-export { metadata, ExtendedAvatar }
+export { metadata, ExtendedAvatar };

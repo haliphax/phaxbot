@@ -17,7 +17,7 @@ window.game = new Phaser.Game({
 	},
 	pixelArt: true,
 	render: {
-		transparent: qs.demo ?? true,
+		transparent: (qs.hasOwnProperty('demo') ? false : true),
 	},
 	scene: [Game],
 	type: Phaser.AUTO,
@@ -50,3 +50,17 @@ twitch.on('message', (channel, tags, message, self) => {
 });
 
 twitch.connect();
+
+/*
+// Stress test
+setTimeout(async () =>
+	{
+		for (let i = 1; i <= 10000; i++) {
+			if (i % 100 === 0)
+				console.log(`Avatar #${i}`);
+
+			emitter.emit('new', `Avatar#${i++}`);
+		}
+	},
+	1000);
+*/

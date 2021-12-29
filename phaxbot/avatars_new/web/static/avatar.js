@@ -1,13 +1,9 @@
-import {
-	createMachine,
-	interpret,
-} from 'https://unpkg.com/xstate@4/dist/xstate.web.js';
+import { createMachine, interpret }
+	from 'https://unpkg.com/xstate@4/dist/xstate.web.js';
 import constants from './constants.js';
-import { getValidHorizontalCoordinate, uuid } from './util.js';
+import { uuid } from './util.js';
 
-'use strict';
-
-export default class {
+class Avatar {
 	constructor(game, avatarDefs, username, key = 'mario') {
 		/** @type {string} The avatar owner's username */
 		this.username = username;
@@ -72,11 +68,11 @@ export default class {
 						let next = null;
 
 						if (rand < constants.CHANCE_TO_WALK) {
-							console.debug('decided to walk');
+							//console.debug('decided to walk');
 							next = 'walking';
 						}
 						else {
-							console.debug('decided to idle');
+							//console.debug('decided to idle');
 							next = 'idling';
 						}
 
@@ -87,7 +83,7 @@ export default class {
 						});
 					},
 					idle: (context, event) => {
-						console.debug('idling');
+						//console.debug('idling');
 						this.container.body.velocity.x = 0;
 						this.sprite.play(`${this.key}.idle.${this.face}`);
 						setTimeout(
@@ -95,7 +91,7 @@ export default class {
 							Math.random() * constants.TIMEOUT_MAX);
 					},
 					walk: (context, event) => {
-						console.debug('walking');
+						//console.debug('walking');
 
 						let swap = Math.random() < (
 							event.prev == 'walking'
@@ -120,8 +116,7 @@ export default class {
 				}
 			},
 		);
-		/** The state service used for communiating with this avatar's state
-		 * machine */
+		/** The service used for communicating with this avatar's state machine */
 		this.stateService = interpret(this.currentState);
 
 		// startup
@@ -147,7 +142,8 @@ export default class {
 		this.container.add(this.sprite);
 		this.container.add(this.label);
 		this.container.setPosition(
-			getValidHorizontalCoordinate(this), constants.SCREEN_HEIGHT);
+			Math.random() * (constants.SCREEN_WIDTH - this.sprite.displayWidth),
+			constants.SCREEN_HEIGHT);
 	}
 
 	update() {
@@ -155,9 +151,10 @@ export default class {
 			return;
 
 		if (
-			(this.container.body.x <= this.halfWidth
+			(this.container.body.x <= 0
 				&& this.container.body.velocity.x < 0)
-			|| (this.container.body.x >= constants.SCREEN_WIDTH - this.halfWidth
+			|| (this.container.body.x >=
+				constants.SCREEN_WIDTH - this.sprite.displayWidth
 				&& this.container.body.velocity.x > 0))
 		{
 			this.changeFace();
@@ -172,6 +169,8 @@ export default class {
 		this.face = this.face == constants.FACE_LEFT
 			? constants.FACE_RIGHT
 			: constants.FACE_LEFT;
-		console.debug(`facing ${this.face}`);
+		//console.debug(`facing ${this.face}`);
 	}
-};
+}
+
+export default Avatar;

@@ -8,7 +8,7 @@ html, body {
 	width: 100%;
 }
 
-canvas {
-	image-rendering: pixelated;
-	image-rendering: crisp-edges;
+* {
+	image-rendering: pixelated !important;
+	image-rendering: crisp-edges !important;
 }
