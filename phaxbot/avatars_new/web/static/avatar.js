@@ -14,7 +14,7 @@ export default class {
 		/** @type {string} The avatar's sprite name */
 		this.key = key;
 		/** @type {string} The direction the avatar's sprite is facing */
-		this.face = Math.random() < 0.5
+		this.face = Math.random() < constants.CHANCE_TO_CHANGE
 			? constants.FACE_LEFT
 			: constants.FACE_RIGHT;
 		/** @type {Phaser.GameObjects.Sprite} The avatar's sprite */
@@ -58,7 +58,7 @@ export default class {
 						const rand = Math.random();
 						let next = null;
 
-						if (rand < 0.5) {
+						if (rand < constants.CHANCE_TO_WALK) {
 							console.debug('decided to walk');
 							next = 'walking';
 						}
@@ -79,25 +79,30 @@ export default class {
 						this.sprite.play(`${this.key}.idle.${this.face}`);
 						setTimeout(
 							this.stateService.send.bind(this, 'DECIDE'),
-							Math.random() * 5000);
+							Math.random() * constants.TIMEOUT_MAX);
 					},
 					walk: (context, event) => {
 						console.debug('walking');
 
-						let swap = Math.random() < (event.prev == 'walking' ? 0.2 : 0.5);
+						let swap = Math.random() < (
+							event.prev == 'walking'
+								? constants.CHANCE_TO_CHANGE_IF_WALKING
+								: constants.CHANCE_TO_CHANGE);
 
 						if (swap)
 							this.changeFace();
 
 						if (swap || event.prev != 'walking') {
-							this.sprite.body.velocity.x = (20 + Math.random() * 40)
+							this.sprite.body.velocity.x =
+								(constants.WALK_MIN_VELOCITY + Math.random()
+									* constants.WALK_MAX_VELOCITY)
 								* (this.face == constants.FACE_LEFT ? -1 : 1);
 							this.sprite.play(`${this.key}.walking.${this.face}`);
 						}
 
 						setTimeout(
 							this.stateService.send.bind(this, 'DECIDE'),
-							Math.random() * 5000);
+							Math.random() * constants.TIMEOUT_MAX);
 					},
 				}
 			},
