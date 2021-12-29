@@ -128,7 +128,19 @@ export default class {
 	}
 
 	update() {
-		//
+		if (this.currentState.value != 'walking')
+			return;
+
+		if (
+			(this.sprite.body.x <= this.halfWidth
+				&& this.sprite.body.velocity.x < 0)
+			|| (this.sprite.body.x >= constants.SCREEN_WIDTH - this.halfWidth
+				&& this.sprite.body.velocity.x > 0))
+		{
+			this.changeFace();
+			this.sprite.play(`${this.key}.walking.${this.face}`);
+			this.sprite.body.velocity.x *= -1;
+		}
 	}
 
 	// extensions
