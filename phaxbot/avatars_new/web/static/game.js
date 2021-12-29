@@ -8,10 +8,10 @@ await (async () => {
 	await fetch('./config.json').then(r => r.json()).then(async d => {
 
 		for (let avatar of d.avatars) {
-			console.log(`importing ${avatar}`);
+			console.debug(`importing ${avatar}`);
 
 			await import(`./avatars/${avatar}/avatar.js`).then(m => {
-				console.log(`defining ${avatar}`);
+				console.debug(`defining ${avatar}`);
 				avatarDefs[avatar] = {
 					metadata: m.metadata,
 					class: m.ExtendedAvatar,
@@ -48,11 +48,10 @@ export default class Game extends Phaser.Scene {
 	}
 
 	ready() {
-		console.log(this);
 		console.log('ready');
 
 		for (let avatar of Object.keys(avatarDefs)) {
-			console.log(`initializing ${avatar}`);
+			console.debug(`initializing ${avatar}`);
 
 			const def = avatarDefs[avatar];
 
@@ -64,7 +63,7 @@ export default class Game extends Phaser.Scene {
 				{
 					const key = `${avatar}.${animKey}.${variation}`;
 
-					console.log(`creating ${key}`);
+					console.debug(`creating ${key}`);
 					this.anims.create({
 						key: key,
 						frames: this.anims.generateFrameNumbers(
