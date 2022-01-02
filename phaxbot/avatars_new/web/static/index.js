@@ -30,7 +30,7 @@ const avatars = {};
 const commandRgx = /^(\![-_.a-z0-9]+)(?:\s+(.+))?$/i;
 
 twitch.on('message', (channel, tags, message, self) => {
-	if (!Object.hasOwnProperty(tags['display-name'])) {
+	if (!avatars.hasOwnProperty(tags['display-name'])) {
 		avatars[tags['display-name']] = true;
 		// TODO: remember selection from before
 		emitter.emit('new', tags['display-name']);
@@ -51,15 +51,15 @@ twitch.on('message', (channel, tags, message, self) => {
 
 twitch.connect();
 
+// Debugging
 /*
-// Stress test
 setTimeout(async () =>
 	{
-		for (let i = 1; i <= 10000; i++) {
+		for (let i = 1; i <= 20; i++) {
 			if (i % 100 === 0)
 				console.log(`Avatar #${i}`);
 
-			emitter.emit('new', `Avatar#${i++}`);
+			emitter.emit('new', `Avatar#${i}`);
 		}
 	},
 	1000);

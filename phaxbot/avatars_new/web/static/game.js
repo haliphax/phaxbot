@@ -27,6 +27,7 @@ class Game extends Phaser.Scene {
 		super();
 
 		this.avatars = {};
+		this.labelGroup = this.labelCollider = null;
 
 		// event handlers
 		emitter.on('new', this.onNew.bind(this));
@@ -77,6 +78,9 @@ class Game extends Phaser.Scene {
 	}
 
 	create() {
+		this.labelGroup = this.physics.add.group();
+		this.labelCollider = this.physics.add.collider(
+			this.labelGroup, this.labelGroup, this.onLabelOverlap.bind(this));
 		this.physics.world
 			.setBounds(0, 0, constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 			.setBoundsCollision(true, true, false, true);
@@ -89,12 +93,23 @@ class Game extends Phaser.Scene {
 
 	// events
 
+	onLabelOverlap(a, b) {
+		a.overlapping = (a.container.x < b.container.x || a.y < b.y);
+		/**
+		 * TODO: This prevents them from floating forever, but results in some
+		 * unresolved overlaps. Would be better to check and see if there is
+		 * empty space below the label first.
+		 */
+		b.overlapping = !a.overlapping;
+	}
+
 	onNew(username, key = 'mario') {
 		if (this.avatars.hasOwnProperty(username))
 			return;
 
 		this.avatars[username] =
 			new avatarDefs[key].class(this, avatarDefs, username, key);
+		this.labelGroup.add(this.avatars[username].label);
 	}
 }
 

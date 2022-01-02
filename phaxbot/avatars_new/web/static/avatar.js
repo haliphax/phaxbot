@@ -21,10 +21,13 @@ class Avatar {
 		 * @type {number}
 		 * Half the width of the avatar's sprite; used in calculations */
 		this.halfWidth = this.sprite.displayWidth / 2;
+		/** @type {number} The original label Y position */
+		this.labelYPosition =
+			-this.sprite.displayHeight - (constants.LABEL_SIZE / 2);
 		/** @type {Phase.GameObjects.Label} The username label for the avatar */
 		this.label =
 			game.add.text(
-				0, -this.sprite.displayHeight - (constants.LABEL_SIZE / 2), username,
+				0, this.labelYPosition, username,
 				{
 					fontFamily: `"${constants.FONT_FAMILY}"`,
 					fontSize: constants.LABEL_SIZE,
@@ -103,8 +106,10 @@ class Avatar {
 
 						if (swap || event.prev != 'walking') {
 							this.container.body.velocity.x =
-								(constants.WALK_MIN_VELOCITY + Math.random()
-									* constants.WALK_MAX_VELOCITY)
+								(constants.WALK_MIN_VELOCITY
+									+ Math.random()
+									* (constants.WALK_MAX_VELOCITY
+										- constants.WALK_MIN_VELOCITY))
 								* (this.face == constants.FACE_LEFT ? -1 : 1);
 							this.sprite.play(`${this.key}.walking.${this.face}`);
 						}
@@ -120,6 +125,10 @@ class Avatar {
 		this.stateService = interpret(this.currentState);
 
 		// startup
+		this.label.avatar = this;
+		this.label.container = this.container;
+		this.label.overlapping = false;
+		game.physics.world.enableBody(this.label);
 		this.container.avatar = this;
 		game.physics.world.enableBody(this.container);
 		this.stateService.onTransition(state => {
@@ -147,15 +156,35 @@ class Avatar {
 	}
 
 	update() {
-		if (!this.container.body || this.currentState.value != 'walking')
+		if (!this.container.body)
 			return;
 
-		if (
-			(this.container.body.x <= 0
-				&& this.container.body.velocity.x < 0)
-			|| (this.container.body.x >=
-				constants.SCREEN_WIDTH - this.sprite.displayWidth
-				&& this.container.body.velocity.x > 0))
+		// "float" labels to avoid overlaps (needs work; they "bounce" a lot)
+
+		if (this.label.overlapping || this.label.y > this.labelYPosition)
+			this.label.body.velocity.y = -constants.LABEL_FLOAT_VELOCITY;
+		else if (this.label.y < this.labelYPosition)
+			this.label.body.velocity.y = constants.LABEL_FLOAT_VELOCITY;
+
+		const diff = this.labelYPosition - this.label.y;
+
+		if ((this.label.body.velocity.y > 0 && diff < 1)
+			|| (this.label.body.velocity.y < 0 && diff < -1))
+		{
+			this.label.body.velocity.y = 0;
+			this.label.y = this.labelYPosition;
+		}
+
+		this.label.overlapping = false;
+
+		// turn around if avatar hits the edge of the screen
+		if (this.currentState.value == 'walking'
+			&& (
+				(this.container.body.x <= 0
+					&& this.container.body.velocity.x < 0)
+				|| (this.container.body.x >=
+					constants.SCREEN_WIDTH - this.sprite.displayWidth
+					&& this.container.body.velocity.x > 0)))
 		{
 			this.changeFace();
 			this.sprite.play(`${this.key}.walking.${this.face}`);
