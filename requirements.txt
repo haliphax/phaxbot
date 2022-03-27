@@ -2,7 +2,7 @@ click==8.0.4
 eventlet==0.33.0
 Flask-SocketIO==5.1.1
 Flask==2.0.3
-python-dotenv==0.19.2
+python-dotenv==0.20.0
 redis==4.2.0
 simple-websocket==0.5.1
 twitch-python==0.0.19
