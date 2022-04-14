@@ -3,6 +3,6 @@ eventlet==0.33.0
 Flask-SocketIO==5.1.1
 Flask==2.1.1
 python-dotenv==0.20.0
-redis==4.2.0
+redis==4.2.2
 simple-websocket==0.5.1
 twitch-python==0.0.19
