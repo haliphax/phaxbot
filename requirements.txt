@@ -5,4 +5,4 @@ Flask==2.1.2
 python-dotenv==0.20.0
 redis==4.2.2
 simple-websocket==0.5.2
-twitch-python==0.0.19
+twitch-python==0.0.20
