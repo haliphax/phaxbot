@@ -1,2 +1,2 @@
-commitizen==2.28.0
+commitizen==2.32.7
 pre-commit==2.20.0
